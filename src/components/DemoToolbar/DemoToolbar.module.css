@@ -1,0 +1,176 @@
+.toolbarWrapper {
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  z-index: 2000;
+  max-width: 440px;
+  width: calc(100% - 32px);
+  background: rgba(22, 24, 39, 0.95);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: all var(--transition-normal);
+}
+
+@media (max-width: 600px) {
+  .toolbarWrapper {
+    top: auto;
+    bottom: 74px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+  }
+}
+
+.toggleBar {
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggleInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sliderIcon {
+  color: var(--gold-400);
+}
+
+.toggleTitle {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.stateIndicator {
+  font-size: 0.65rem;
+  color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.chevronWrap {
+  color: var(--text-muted);
+}
+
+.panelContent {
+  padding: 12px 14px 14px 14px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.blockLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.buttonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.navChip {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.navChip:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.chipActive {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+}
+
+.stateBtn {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.stateBtn:hover {
+  color: var(--text-primary);
+}
+
+.stateBtnActive {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: var(--purple-400);
+  color: var(--purple-400);
+}
+
+.actionsRow {
+  display: flex;
+  gap: 8px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.levelUpTriggerBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.levelUpTriggerBtn:hover {
+  transform: translateY(-1px);
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+}
+
+.resetBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}

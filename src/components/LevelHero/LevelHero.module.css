@@ -1,0 +1,266 @@
+.heroSection {
+  margin-bottom: 24px;
+}
+
+.greetingHeader {
+  margin-bottom: 16px;
+}
+
+.greetingBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold-400);
+  margin-bottom: 8px;
+}
+
+.sparkleIcon {
+  color: var(--gold-400);
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .heroTitle {
+    font-size: 1.9rem;
+  }
+}
+
+.goldText {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Card Styling */
+.levelCard {
+  position: relative;
+  background: linear-gradient(135deg, rgba(31, 35, 58, 0.95) 0%, rgba(22, 24, 39, 0.95) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: border-color var(--transition-normal);
+}
+
+.levelCard:hover {
+  border-color: rgba(245, 158, 11, 0.55);
+}
+
+.cardGlow {
+  position: absolute;
+  top: -40px;
+  left: 20px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+.cardContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .cardContent {
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+  }
+}
+
+.badgeCol {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.metricsCol {
+  flex: 1;
+  width: 100%;
+}
+
+.levelStatusRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.levelTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.currentLevelTag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.infoBtn {
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+  padding: 2px;
+}
+
+.infoBtn:hover {
+  color: var(--gold-400);
+}
+
+.targetXPBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.zapIcon {
+  color: var(--gold-400);
+}
+
+.targetXPBadge strong {
+  color: var(--gold-300);
+}
+
+/* Progress Bar Track */
+.progressBarSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.progressLabels {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.88rem;
+}
+
+.xpFraction {
+  color: var(--text-secondary);
+}
+
+.xpFraction strong {
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.percentageText {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gold-400);
+}
+
+.progressTrack {
+  position: relative;
+  width: 100%;
+  height: 12px;
+  background: rgba(15, 17, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.progressFill {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 50%, #FDE68A 100%);
+  border-radius: var(--radius-full);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+}
+
+.progressGlowHead {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: #FFFFFF;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px #FFFFFF, 0 0 18px var(--gold-400);
+}
+
+.progressShimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2.5s infinite;
+}
+
+.progressFootnote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+.xpRemainingText {
+  color: var(--text-muted);
+}
+
+.xpRemainingText strong {
+  color: var(--gold-400);
+}
+
+.quickEarnLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--gold-400);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+.quickEarnLink:hover {
+  color: var(--gold-300);
+}

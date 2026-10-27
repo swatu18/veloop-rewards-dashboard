@@ -1,0 +1,617 @@
+.startContainer,
+.gamePlayContainer,
+.resultContainer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  max-width: 520px;
+  margin: 0 auto 24px auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Header */
+.gameTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.backBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.titleWithInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gameTitle {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.infoIconBtn {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast);
+}
+
+.infoIconBtn:hover {
+  color: var(--gold-400);
+}
+
+.subInfoBadge {
+  color: var(--text-muted);
+}
+
+.timerPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timerAlert {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #EF4444;
+  color: #F87171;
+  animation: pulseGlow 1s infinite;
+}
+
+.gameSubtitle {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+/* Start Hero Card */
+.heroCard {
+  position: relative;
+  background: rgba(15, 17, 30, 0.7);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.heroGlow {
+  position: absolute;
+  top: -40px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+.previewStage {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.previewItem {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.previewXP {
+  top: 10px;
+  left: 28%;
+  width: 34px;
+  height: 34px;
+  background: #8B5CF6;
+  border: 2px solid #C4B5FD;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+}
+
+.previewCoin {
+  top: 25px;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  background: #F59E0B;
+  border: 2px solid #FDE68A;
+  color: #161827;
+  font-size: 0.95rem;
+}
+
+.previewGem {
+  top: 15px;
+  right: 25%;
+  width: 32px;
+  height: 32px;
+  background: #0284C7;
+  border: 2px solid #7DD3FC;
+  font-size: 0.9rem;
+}
+
+.previewBasket {
+  width: 90px;
+  height: 32px;
+  background: rgba(245, 158, 11, 0.2);
+  border: 2px solid var(--gold-400);
+  border-radius: 4px 4px 16px 16px;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+}
+
+.rulesList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.ruleItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ruleItem strong {
+  color: var(--text-primary);
+}
+
+.ruleDot {
+  font-size: 1rem;
+}
+
+.controlsBadge {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.controlsBadge strong {
+  color: var(--gold-400);
+}
+
+.startChallengeBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
+  transition: all var(--transition-normal);
+}
+
+.startChallengeBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(245, 158, 11, 0.55);
+}
+
+/* Reward Tiers */
+.rewardTiersCard {
+  background: rgba(15, 17, 30, 0.5);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.rewardTiersTitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.tiersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.tierPill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.tierPill span {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+.tierPill strong {
+  font-size: 0.72rem;
+  color: var(--text-primary);
+}
+
+.tierPillGold {
+  border-color: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.08);
+}
+.tierPillGold strong {
+  color: var(--gold-400);
+}
+
+/* Canvas Gameplay */
+.canvasWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 380 / 460;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #161827;
+  border: 1px solid var(--border-light);
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.6);
+  cursor: grab;
+  touch-action: none;
+}
+
+.gameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.touchControlNotice {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 17, 30, 0.7);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Bottom Gameplay Stats */
+.bottomStatsCard {
+  margin-top: 12px;
+  background: rgba(15, 17, 30, 0.8);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scoreGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.scoreLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.scoreVal {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  line-height: 1;
+}
+
+.pillsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rewardIndicatorPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--gold-300);
+}
+
+.multiplierActivePill {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38BDF8;
+  color: #38BDF8;
+  animation: pulseGlow 1s infinite;
+}
+
+/* Result Screen */
+.resultTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.resultHeaderTitle {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.resultHeroArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.completionHeading {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.completionSub {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gold-400);
+  margin-bottom: 16px;
+}
+
+.trophyWrapper {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.trophyGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 70%);
+  filter: blur(16px);
+  animation: pulseGlow 2.5s infinite;
+}
+
+.trophySvg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+.scoreBanner {
+  background: rgba(15, 17, 30, 0.8);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 10px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.scoreTitle {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bigScore {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  line-height: 1;
+}
+
+.newBestPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.earnedRewardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.earnedCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.earnedAmount {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--gold-300);
+}
+
+.earnedLabel {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+.resultProgressSection {
+  width: 100%;
+  background: rgba(15, 17, 30, 0.6);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.progressTierLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.resultProgressTrack {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.resultProgressFill {
+  height: 100%;
+  background: var(--gold-gradient);
+  border-radius: var(--radius-full);
+}
+
+.progressDetail {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.resultBtnGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.playAgainBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.playAgainBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+}
+
+.backDashboardBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.backDashboardBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}

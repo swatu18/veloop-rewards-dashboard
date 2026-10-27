@@ -1,0 +1,48 @@
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: rgba(22, 24, 39, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+  padding: 0 10px;
+}
+
+@media (min-width: 900px) {
+  .bottomBar {
+    display: none;
+  }
+}
+
+.navBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.navBtn:hover {
+  color: var(--text-primary);
+}
+
+.active {
+  color: var(--gold-400);
+}
+
+.arcadeIconWrap {
+  position: relative;
+}

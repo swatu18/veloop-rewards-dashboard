@@ -1,0 +1,215 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 17, 30, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.starburst {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%);
+  filter: blur(40px);
+  animation: pulseGlow 3s infinite;
+  pointer-events: none;
+}
+
+.modalCard {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(145deg, rgba(31, 35, 58, 0.98), rgba(22, 24, 39, 0.98));
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.25);
+  animation: floatAnim 0.35s ease-out;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.celebrateBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-400);
+  margin-bottom: 6px;
+}
+
+.sparkleIcon {
+  color: var(--gold-400);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 4px 0;
+}
+
+.sub {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.badgeSection {
+  margin: 14px 0 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.rewardsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rewardCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.gemCard {
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.coinStackGraphic,
+.gemGraphic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.gemGraphic {
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.largeEmoji {
+  font-size: 1.4rem;
+}
+
+.rewardInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.rewardVal {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gold-300);
+}
+
+.rewardValGem {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--purple-400);
+}
+
+.rewardLabel {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.perksBox {
+  background: rgba(15, 17, 30, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.perksHeading {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.perksList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.perkItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.checkIconWrap {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--green-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.claimBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
+  transition: all var(--transition-fast);
+}
+
+.claimBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
+}

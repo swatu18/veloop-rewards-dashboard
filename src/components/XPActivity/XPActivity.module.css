@@ -1,0 +1,330 @@
+.activityWrapper {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+/* Full Page Header */
+.fullHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.backBtn,
+.filterBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.backBtn:hover,
+.filterBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.titleArea {
+  text-align: center;
+}
+
+.fullTitle {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.fullSub {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+}
+
+/* Embedded Widget Header */
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.widgetTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.widgetIcon {
+  color: var(--gold-400);
+}
+
+.widgetTitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  transition: color var(--transition-fast);
+}
+
+.viewAllBtn:hover {
+  color: var(--gold-300);
+}
+
+/* Filter Tabs */
+.filterTabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.tabBtn {
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.tabBtn:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--border-gold);
+  color: var(--gold-300);
+}
+
+/* Timeline List */
+.timelineList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.emptyNotice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 30px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.emptyIcon {
+  color: var(--gold-400);
+}
+
+.historyRow {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+}
+
+.historyRow:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-light);
+  transform: translateX(2px);
+}
+
+.indicatorCol {
+  flex-shrink: 0;
+}
+
+.typeBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.xpBadge {
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: var(--purple-400);
+}
+
+.veBadge {
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--gold-400);
+}
+
+.infoCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activityTitle {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.rewardValue {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.goldReward {
+  color: var(--gold-400);
+}
+
+.purpleReward {
+  color: var(--purple-400);
+}
+
+.subRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.chevron {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+}
+
+/* Today's Summary Card matching Screen 6 */
+.summaryCard {
+  background: rgba(15, 17, 30, 0.7);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.summaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.summaryTitle {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.summaryDate {
+  font-size: 0.68rem;
+  color: var(--green-400);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.summaryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.summaryMetric {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.metricIconBox {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--purple-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metricGoldBox {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-400);
+}
+
+.metricData {
+  display: flex;
+  flex-direction: column;
+}
+
+.metricNumber {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--purple-400);
+  line-height: 1.1;
+}
+
+.metricNumberGold {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  line-height: 1.1;
+}
+
+.metricLabel {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}

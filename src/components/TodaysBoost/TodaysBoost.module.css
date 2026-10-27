@@ -1,0 +1,114 @@
+.boostSection {
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.boostIcon {
+  color: var(--gold-400);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.resetTimer {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .grid {
+    gap: 8px;
+  }
+}
+
+.boostCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  transition: all var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.boostCard:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+}
+
+.iconWrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.starWrap {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-400);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.taskWrap {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--green-400);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.streakWrap {
+  background: rgba(249, 115, 22, 0.15);
+  color: #FB923C;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.value {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}

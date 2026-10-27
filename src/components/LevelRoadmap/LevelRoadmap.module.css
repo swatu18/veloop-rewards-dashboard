@@ -1,0 +1,323 @@
+.roadmapSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--gold-400);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.helperText {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Horizontal Track */
+.scrollContainer {
+  overflow-x: auto;
+  padding: 10px 4px 16px 4px;
+  margin-bottom: 16px;
+}
+
+.roadmapTrack {
+  display: flex;
+  align-items: flex-start;
+  min-width: 720px;
+  position: relative;
+}
+
+.nodeWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.connector {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+}
+
+.connectorCompleted {
+  background: var(--green-500);
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);
+}
+
+.nodeCircle {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--bg-card-elevated);
+  border: 2px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: all var(--transition-normal);
+  margin-bottom: 8px;
+}
+
+/* Completed State */
+.completed .nodeCircle {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--green-500);
+  color: var(--green-400);
+}
+.checkIcon {
+  color: var(--green-400);
+}
+
+/* Current State */
+.current .nodeCircle {
+  background: var(--gold-gradient);
+  border-color: #FFFFFF;
+  color: #161827;
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.7);
+}
+
+.currentPulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-400);
+  animation: pulseGlow 2s infinite;
+}
+
+/* Next State */
+.next .nodeCircle {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  border-style: dashed;
+}
+
+/* Locked State */
+.locked .nodeCircle {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+}
+.lockIcon {
+  color: var(--text-muted);
+}
+
+.selected .nodeCircle {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+.nodeInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+}
+
+.nodeLevelName {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.youAreHereTag {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid var(--gold-400);
+  color: var(--gold-300);
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.nextGoalTag {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid var(--purple-400);
+  color: var(--purple-400);
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.rewardSnippet {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Detail Card */
+.detailCard {
+  background: rgba(15, 17, 30, 0.7);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  animation: fadeIn 0.2s ease-in;
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.detailLevelNum {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--gold-400);
+}
+
+.detailLevelName {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.badgeSuccess {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: var(--green-400);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badgeCurrent {
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid var(--gold-400);
+  color: var(--gold-300);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badgeNext {
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid var(--purple-400);
+  color: var(--purple-400);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.badgeLocked {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+}
+
+.detailBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.statBox {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.statVal {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.statValGold {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gold-400);
+}
+
+.perksList {
+  font-size: 0.78rem;
+}
+
+.perksTitle {
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.perksList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.perksList li {
+  color: var(--text-secondary);
+  position: relative;
+  padding-left: 14px;
+}
+
+.perksList li::before {
+  content: "•";
+  color: var(--gold-400);
+  position: absolute;
+  left: 0;
+  top: 0;
+}

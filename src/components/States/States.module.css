@@ -1,0 +1,164 @@
+.skeletonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px 0;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+}
+
+.skeletonGreeting {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonLine {
+  height: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+}
+
+.w40 { width: 40%; }
+.w50 { width: 50%; }
+.w70 { width: 70%; }
+.w90 { width: 90%; }
+
+.skeletonCard {
+  height: 140px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.skeletonBadge {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.skeletonCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeletonBar {
+  height: 12px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+}
+
+.skeletonGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.skeletonCardSmall {
+  height: 90px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.skeletonRewardCard {
+  height: 160px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.skeletonRoadmap {
+  height: 120px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+/* Empty & Error Cards */
+.stateCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px auto;
+  max-width: 480px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.iconCircle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.errorIconCircle {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #F87171;
+}
+
+.stateTitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.stateSubtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin: 0 0 10px 0;
+}
+
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-gradient);
+  color: #161827;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+}

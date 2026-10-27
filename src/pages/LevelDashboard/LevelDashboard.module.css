@@ -1,0 +1,103 @@
+.mainContainer {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 24px 16px 90px 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 1024px) {
+  .mainContainer {
+    padding: 32px 24px 60px 24px;
+  }
+}
+
+/* Row 1: Top Grid */
+.topGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .topGrid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+.heroCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.rewardCol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row 2: Roadmap */
+.roadmapRow {
+  width: 100%;
+}
+
+/* Row 3: Middle Grid */
+.middleGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 1024px) {
+  .middleGrid {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+.colHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.colBadge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--gold-400);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.colTitle {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.gameCol,
+.activityCol {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row 4: Bottom Section */
+.bottomSection {
+  width: 100%;
+}
