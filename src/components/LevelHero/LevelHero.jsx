@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Info, Sparkles, TrendingUp, ChevronRight, Zap } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
+import { useAuth } from '../../context/AuthContext';
 import { LevelBadge } from '../Badges/LevelBadge';
 import styles from './LevelHero.module.css';
 
@@ -14,10 +15,12 @@ export const LevelHero = () => {
     setActiveInfoModal,
     setActiveScreen
   } = useDashboard();
+  const { currentUser } = useAuth();
 
   const [showTooltip, setShowTooltip] = useState(false);
   const nextLevel = user.currentLevel + 1;
   const formattedNextLevel = nextLevel < 10 ? `0${nextLevel}` : `${nextLevel}`;
+  const greetingName = currentUser ? (currentUser.name.split(' ')[0] || currentUser.name) : user.greetingName;
 
   return (
     <section className={styles.heroSection}>
@@ -29,7 +32,7 @@ export const LevelHero = () => {
             <span>PROGRESSION HUB</span>
           </div>
           <h1 className={styles.heroTitle}>
-            Good Morning, <span className={styles.goldText}>{user.greetingName}!</span>
+            Good Morning, <span className={styles.goldText}>{greetingName}!</span>
           </h1>
           <p className={styles.heroSubtitle}>
             Level up your journey and unlock epic rewards every day.

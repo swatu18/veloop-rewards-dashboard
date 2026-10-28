@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, Bell, Volume2, VolumeX, X, User, Award, Settings, LogOut, Gift, CheckCircle } from 'lucide-react';
+import { Menu, Bell, Volume2, VolumeX, X, User, Award, Settings, LogOut, Gift, CheckCircle, LogIn, Sparkles } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
+import { useAuth } from '../../context/AuthContext';
 import styles from './Navbar.module.css';
 
 const NOTIFICATIONS = [
@@ -12,6 +13,7 @@ const NOTIFICATIONS = [
 
 export const Navbar = ({ onOpenMenu }) => {
   const { user, soundEnabled, toggleSound, setActiveScreen } = useDashboard();
+  const { currentUser, isAuthenticated, signOut, openAuthModal } = useAuth();
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -39,6 +41,15 @@ export const Navbar = ({ onOpenMenu }) => {
   const markAllRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
   };
+
+  const handleSignOut = () => {
+    signOut();
+    setShowProfile(false);
+  };
+
+  const displayName = currentUser?.name || user.userName;
+  const displayEmail = currentUser?.email || 'yadavswathi89@gmail.com';
+  const displayAvatar = currentUser?.avatar || 'SG';
 
   return (
     <header className={styles.header}>
@@ -77,7 +88,7 @@ export const Navbar = ({ onOpenMenu }) => {
           <button className={styles.navItem} onClick={() => setActiveScreen('activity')}>Activity</button>
         </nav>
 
-        {/* Right: Balances, Audio Toggle & Profile */}
+        {/* Right: Balances, Audio Toggle & Profile / Auth */}
         <div className={styles.userControls}>
           {/* Audio toggle */}
           <button
@@ -89,126 +100,149 @@ export const Navbar = ({ onOpenMenu }) => {
             {soundEnabled ? <Volume2 size={18} className={styles.activeIcon} /> : <VolumeX size={18} />}
           </button>
 
-          {/* VE Balance Chip */}
-          <div className={styles.balanceChip} title="Your VEs Rewards Balance">
-            <span className={styles.coinIcon}>🪙</span>
-            <span className={styles.balanceText}>{user.veBalance.toLocaleString()}</span>
-            <span className={styles.currencyTag}>VEs</span>
-          </div>
+          {isAuthenticated ? (
+            <>
+              {/* VE Balance Chip */}
+              <div className={styles.balanceChip} title="Your VEs Rewards Balance">
+                <span className={styles.coinIcon}>🪙</span>
+                <span className={styles.balanceText}>{user.veBalance.toLocaleString()}</span>
+                <span className={styles.currencyTag}>VEs</span>
+              </div>
 
-          {/* Notification Bell with Dropdown */}
-          <div className={styles.notificationWrapper} ref={notifRef}>
-            <button
-              className={styles.iconBtn}
-              aria-label="Notifications"
-              onClick={() => { setShowNotifications(prev => !prev); setShowProfile(false); }}
-            >
-              <Bell size={20} />
-              {unreadCount > 0 && (
-                <span className={styles.notificationDot}>{unreadCount}</span>
-              )}
-            </button>
-
-            {showNotifications && (
-              <div className={styles.notifDropdown}>
-                <div className={styles.notifHeader}>
-                  <span className={styles.notifTitle}>Notifications</span>
+              {/* Notification Bell with Dropdown */}
+              <div className={styles.notificationWrapper} ref={notifRef}>
+                <button
+                  className={styles.iconBtn}
+                  aria-label="Notifications"
+                  onClick={() => { setShowNotifications(prev => !prev); setShowProfile(false); }}
+                >
+                  <Bell size={20} />
                   {unreadCount > 0 && (
-                    <button className={styles.markReadBtn} onClick={markAllRead}>
-                      <CheckCircle size={13} />
-                      <span>Mark all read</span>
-                    </button>
+                    <span className={styles.notificationDot}>{unreadCount}</span>
                   )}
-                </div>
+                </button>
 
-                <div className={styles.notifList}>
-                  {notifications.map(notif => (
-                    <div
-                      key={notif.id}
-                      className={`${styles.notifItem} ${!notif.read ? styles.notifUnread : ''}`}
-                      onClick={() => setNotifications(prev =>
-                        prev.map(n => n.id === notif.id ? { ...n, read: true } : n)
+                {showNotifications && (
+                  <div className={styles.notifDropdown}>
+                    <div className={styles.notifHeader}>
+                      <span className={styles.notifTitle}>Notifications</span>
+                      {unreadCount > 0 && (
+                        <button className={styles.markReadBtn} onClick={markAllRead}>
+                          <CheckCircle size={13} />
+                          <span>Mark all read</span>
+                        </button>
                       )}
-                    >
-                      <span className={styles.notifIcon}>{notif.icon}</span>
-                      <div className={styles.notifContent}>
-                        <span className={styles.notifItemTitle}>{notif.title}</span>
-                        <span className={styles.notifDesc}>{notif.desc}</span>
-                        <span className={styles.notifTime}>{notif.time}</span>
-                      </div>
-                      {!notif.read && <div className={styles.unreadDot}></div>}
                     </div>
-                  ))}
-                </div>
+
+                    <div className={styles.notifList}>
+                      {notifications.map(notif => (
+                        <div
+                          key={notif.id}
+                          className={`${styles.notifItem} ${!notif.read ? styles.notifUnread : ''}`}
+                          onClick={() => setNotifications(prev =>
+                            prev.map(n => n.id === notif.id ? { ...n, read: true } : n)
+                          )}
+                        >
+                          <span className={styles.notifIcon}>{notif.icon}</span>
+                          <div className={styles.notifContent}>
+                            <span className={styles.notifItemTitle}>{notif.title}</span>
+                            <span className={styles.notifDesc}>{notif.desc}</span>
+                            <span className={styles.notifTime}>{notif.time}</span>
+                          </div>
+                          {!notif.read && <div className={styles.unreadDot}></div>}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Profile Avatar with Dropdown */}
-          <div className={styles.avatarWrapper} ref={profileRef}>
-            <button
-              className={styles.avatarBtn}
-              onClick={() => { setShowProfile(prev => !prev); setShowNotifications(false); }}
-              title="View Profile"
-              aria-label="Profile menu"
-            >
-              <div className={styles.avatar}>
-                <span>SG</span>
+              {/* Profile Avatar with Dropdown */}
+              <div className={styles.avatarWrapper} ref={profileRef}>
+                <button
+                  className={styles.avatarBtn}
+                  onClick={() => { setShowProfile(prev => !prev); setShowNotifications(false); }}
+                  title="View Profile"
+                  aria-label="Profile menu"
+                >
+                  <div className={styles.avatar}>
+                    <span>{displayAvatar}</span>
+                  </div>
+                  <div className={styles.avatarLevelBadge}>{user.currentLevel}</div>
+                </button>
+
+                {showProfile && (
+                  <div className={styles.profileDropdown}>
+                    {/* Profile Header */}
+                    <div className={styles.profileHeader}>
+                      <div className={styles.profileAvatar}>{displayAvatar}</div>
+                      <div className={styles.profileInfo}>
+                        <span className={styles.profileName}>{displayName}</span>
+                        <span className={styles.profileEmail}>{displayEmail}</span>
+                        <span className={styles.profileTier}>💎 Diamond Champion – Level {user.currentLevel}</span>
+                      </div>
+                    </div>
+
+                    {/* Stats Row */}
+                    <div className={styles.profileStats}>
+                      <div className={styles.profileStat}>
+                        <span className={styles.statVal}>🪙 {user.veBalance.toLocaleString()}</span>
+                        <span className={styles.statLabel}>VEs Balance</span>
+                      </div>
+                      <div className={styles.profileStat}>
+                        <span className={styles.statVal}>💎 {user.gemBalance}</span>
+                        <span className={styles.statLabel}>Gems</span>
+                      </div>
+                      <div className={styles.profileStat}>
+                        <span className={styles.statVal}>🔥 {user.streakDays}</span>
+                        <span className={styles.statLabel}>Day Streak</span>
+                      </div>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className={styles.profileMenu}>
+                      <button className={styles.profileMenuItem} onClick={() => { setActiveScreen('activity'); setShowProfile(false); }}>
+                        <Award size={16} />
+                        <span>My Activity & Rewards</span>
+                      </button>
+                      <button className={styles.profileMenuItem} onClick={() => { setActiveScreen('earn'); setShowProfile(false); }}>
+                        <Gift size={16} />
+                        <span>Earn More XP</span>
+                      </button>
+                      <button className={styles.profileMenuItem} onClick={() => { setShowProfile(false); openAuthModal('smart'); }}>
+                        <Settings size={16} />
+                        <span>Switch Account / Manage</span>
+                      </button>
+                      <div className={styles.profileDivider}></div>
+                      <button className={`${styles.profileMenuItem} ${styles.logoutItem}`} onClick={handleSignOut}>
+                        <LogOut size={16} />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className={styles.avatarLevelBadge}>{user.currentLevel}</div>
-            </button>
+            </>
+          ) : (
+            /* Logged Out State: Sign In and Sign Up buttons */
+            <div className={styles.authButtons}>
+              <button
+                className={styles.signInBtn}
+                onClick={() => openAuthModal('signin')}
+              >
+                <LogIn size={15} />
+                <span>Sign In</span>
+              </button>
 
-            {showProfile && (
-              <div className={styles.profileDropdown}>
-                {/* Profile Header */}
-                <div className={styles.profileHeader}>
-                  <div className={styles.profileAvatar}>SG</div>
-                  <div className={styles.profileInfo}>
-                    <span className={styles.profileName}>{user.userName}</span>
-                    <span className={styles.profileEmail}>yadavswathi89@gmail.com</span>
-                    <span className={styles.profileTier}>💎 Diamond Champion – Level {user.currentLevel}</span>
-                  </div>
-                </div>
-
-                {/* Stats Row */}
-                <div className={styles.profileStats}>
-                  <div className={styles.profileStat}>
-                    <span className={styles.statVal}>🪙 {user.veBalance.toLocaleString()}</span>
-                    <span className={styles.statLabel}>VEs Balance</span>
-                  </div>
-                  <div className={styles.profileStat}>
-                    <span className={styles.statVal}>💎 {user.gemBalance}</span>
-                    <span className={styles.statLabel}>Gems</span>
-                  </div>
-                  <div className={styles.profileStat}>
-                    <span className={styles.statVal}>🔥 {user.streakDays}</span>
-                    <span className={styles.statLabel}>Day Streak</span>
-                  </div>
-                </div>
-
-                {/* Menu Items */}
-                <div className={styles.profileMenu}>
-                  <button className={styles.profileMenuItem} onClick={() => { setActiveScreen('activity'); setShowProfile(false); }}>
-                    <Award size={16} />
-                    <span>My Activity & Rewards</span>
-                  </button>
-                  <button className={styles.profileMenuItem} onClick={() => { setActiveScreen('earn'); setShowProfile(false); }}>
-                    <Gift size={16} />
-                    <span>Earn More XP</span>
-                  </button>
-                  <button className={styles.profileMenuItem}>
-                    <Settings size={16} />
-                    <span>Account Settings</span>
-                  </button>
-                  <div className={styles.profileDivider}></div>
-                  <button className={`${styles.profileMenuItem} ${styles.logoutItem}`}>
-                    <LogOut size={16} />
-                    <span>Sign Out</span>
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+              <button
+                className={styles.signUpBtn}
+                onClick={() => openAuthModal('signup')}
+              >
+                <Sparkles size={14} />
+                <span>Sign Up</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
