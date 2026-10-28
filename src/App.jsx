@@ -8,6 +8,7 @@ import { DemoToolbar } from './components/DemoToolbar/DemoToolbar';
 import { LevelUpModal } from './components/LevelUpModal/LevelUpModal';
 import { LevelInfoModal } from './components/LevelInfo/LevelInfoModal';
 import { AuthModal } from './components/Auth/AuthModal';
+import { LandingPage } from './pages/LandingPage/LandingPage';
 import { LevelDashboard } from './pages/LevelDashboard/LevelDashboard';
 import './styles/globals.css';
 
@@ -25,9 +26,9 @@ export function App() {
             {/* Evaluator Demo Switcher & UX State Verifier */}
             <DemoToolbar />
 
-            {/* Core Routes - Supporting /Lvl-Dashboard and / */}
+            {/* Core Routes: / for Landing Page, /Lvl-Dashboard for Progression Dashboard */}
             <Routes>
-              <Route path="/" element={<LevelDashboard />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/Lvl-Dashboard" element={<LevelDashboard />} />
               <Route path="*" element={<Navigate to="/Lvl-Dashboard" replace />} />
             </Routes>

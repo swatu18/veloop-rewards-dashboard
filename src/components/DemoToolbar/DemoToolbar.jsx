@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   Sliders, 
   Sparkles, 
@@ -29,6 +30,17 @@ export const DemoToolbar = () => {
   } = useDashboard();
 
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isLanding = !location.pathname.toLowerCase().includes('lvl-dashboard');
+
+  const goToDashboardScreen = (screen) => {
+    setActiveScreen(screen);
+    setDemoState('normal');
+    if (isLanding) {
+      navigate('/Lvl-Dashboard');
+    }
+  };
 
   return (
     <div className={`${styles.toolbarWrapper} ${isExpanded ? styles.expanded : ''}`}>
@@ -54,31 +66,37 @@ export const DemoToolbar = () => {
       {/* Expanded Panel */}
       {isExpanded && (
         <div className={styles.panelContent}>
-          {/* Row 1: Direct Screen Switchers (6 screens matching Page 33) */}
+          {/* Row 1: Direct Screen Switchers (Landing + 6 screens matching Page 33) */}
           <div className={styles.sectionBlock}>
-            <span className={styles.blockLabel}>Navigate 6 Attached Designs (Page 33):</span>
+            <span className={styles.blockLabel}>Navigate Screens:</span>
             <div className={styles.buttonRow}>
               <button 
-                className={`${styles.navChip} ${activeScreen === 'dashboard' ? styles.chipActive : ''}`}
-                onClick={() => { setActiveScreen('dashboard'); setDemoState('normal'); }}
+                className={`${styles.navChip} ${isLanding ? styles.chipActive : ''}`}
+                onClick={() => navigate('/')}
+              >
+                🏠 Landing Page
+              </button>
+              <button 
+                className={`${styles.navChip} ${!isLanding && activeScreen === 'dashboard' ? styles.chipActive : ''}`}
+                onClick={() => goToDashboardScreen('dashboard')}
               >
                 1. Dashboard
               </button>
               <button 
-                className={`${styles.navChip} ${activeScreen === 'game' ? styles.chipActive : ''}`}
-                onClick={() => { setActiveScreen('game'); setDemoState('normal'); }}
+                className={`${styles.navChip} ${!isLanding && activeScreen === 'game' ? styles.chipActive : ''}`}
+                onClick={() => goToDashboardScreen('game')}
               >
                 2. XP Catcher
               </button>
               <button 
-                className={`${styles.navChip} ${activeScreen === 'result' ? styles.chipActive : ''}`}
-                onClick={() => { setActiveScreen('result'); setDemoState('normal'); }}
+                className={`${styles.navChip} ${!isLanding && activeScreen === 'result' ? styles.chipActive : ''}`}
+                onClick={() => goToDashboardScreen('result')}
               >
                 3. Game Result
               </button>
               <button 
-                className={`${styles.navChip} ${activeScreen === 'earn' ? styles.chipActive : ''}`}
-                onClick={() => { setActiveScreen('earn'); setDemoState('normal'); }}
+                className={`${styles.navChip} ${!isLanding && activeScreen === 'earn' ? styles.chipActive : ''}`}
+                onClick={() => goToDashboardScreen('earn')}
               >
                 4. Earn Hub
               </button>
@@ -89,8 +107,8 @@ export const DemoToolbar = () => {
                 5. Level Up Modal
               </button>
               <button 
-                className={`${styles.navChip} ${activeScreen === 'activity' ? styles.chipActive : ''}`}
-                onClick={() => { setActiveScreen('activity'); setDemoState('normal'); }}
+                className={`${styles.navChip} ${!isLanding && activeScreen === 'activity' ? styles.chipActive : ''}`}
+                onClick={() => goToDashboardScreen('activity')}
               >
                 6. XP Activity
               </button>

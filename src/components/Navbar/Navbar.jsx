@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Bell, Volume2, VolumeX, X, User, Award, Settings, LogOut, Gift, CheckCircle, LogIn, Sparkles } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { useAuth } from '../../context/AuthContext';
@@ -51,6 +52,10 @@ export const Navbar = ({ onOpenMenu }) => {
   const displayEmail = currentUser?.email || 'yadavswathi89@gmail.com';
   const displayAvatar = currentUser?.avatar || 'SG';
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isDashboardRoute = location.pathname.toLowerCase().includes('lvl-dashboard');
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -66,7 +71,7 @@ export const Navbar = ({ onOpenMenu }) => {
 
           <div
             className={styles.brandLogo}
-            onClick={() => setActiveScreen('dashboard')}
+            onClick={() => navigate('/')}
             role="button"
             tabIndex={0}
           >
@@ -82,10 +87,36 @@ export const Navbar = ({ onOpenMenu }) => {
 
         {/* Center: Desktop Quick Links */}
         <nav className={styles.desktopNav}>
-          <button className={`${styles.navItem} ${styles.active}`} onClick={() => setActiveScreen('dashboard')}>Dashboard</button>
-          <button className={styles.navItem} onClick={() => setActiveScreen('earn')}>Earn XP</button>
-          <button className={styles.navItem} onClick={() => setActiveScreen('game')}>XP Catcher</button>
-          <button className={styles.navItem} onClick={() => setActiveScreen('activity')}>Activity</button>
+          <button 
+            className={`${styles.navItem} ${!isDashboardRoute ? styles.active : ''}`} 
+            onClick={() => navigate('/')}
+          >
+            Overview
+          </button>
+          <button 
+            className={`${styles.navItem} ${isDashboardRoute && activeScreen === 'dashboard' ? styles.active : ''}`} 
+            onClick={() => { setActiveScreen('dashboard'); navigate('/Lvl-Dashboard'); }}
+          >
+            Dashboard
+          </button>
+          <button 
+            className={`${styles.navItem} ${isDashboardRoute && activeScreen === 'earn' ? styles.active : ''}`} 
+            onClick={() => { setActiveScreen('earn'); navigate('/Lvl-Dashboard'); }}
+          >
+            Earn XP
+          </button>
+          <button 
+            className={`${styles.navItem} ${isDashboardRoute && activeScreen === 'game' ? styles.active : ''}`} 
+            onClick={() => { setActiveScreen('game'); navigate('/Lvl-Dashboard'); }}
+          >
+            XP Catcher
+          </button>
+          <button 
+            className={`${styles.navItem} ${isDashboardRoute && activeScreen === 'activity' ? styles.active : ''}`} 
+            onClick={() => { setActiveScreen('activity'); navigate('/Lvl-Dashboard'); }}
+          >
+            Activity
+          </button>
         </nav>
 
         {/* Right: Balances, Audio Toggle & Profile / Auth */}
