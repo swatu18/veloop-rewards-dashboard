@@ -235,8 +235,8 @@ The dashboard is structured into modular, self-contained components using CSS Mo
 
 ## 16. Live Demo
 
-- **Live URL:** [https://veloop-rewards-dashboard.vercel.app/Lvl-Dashboard](https://vercel.com)
-- **Deployment Platform:** Vercel (Configured with `vercel.json` SPA rewrites)
+- **Live URL:** [https://veloop-level-up-dashboard.netlify.app/Lvl-Dashboard](https://veloop-level-up-dashboard.netlify.app/Lvl-Dashboard)
+- **Deployment Platform:** Netlify (Configured with `netlify.toml` SPA redirects)
 
 ---
 
