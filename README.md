@@ -120,7 +120,7 @@ Users can click any milestone on the **Progression Roadmap** to inspect unlock c
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/your-username/veloop-rewards-dashboard.git
+git clone https://github.com/swatu18/veloop-rewards-dashboard.git
 cd veloop-rewards-dashboard
 npm install
 ```
@@ -242,7 +242,7 @@ The dashboard is structured into modular, self-contained components using CSS Mo
 
 ## 17. GitHub Repository
 
-- **Repository Link:** `https://github.com/your-username/veloop-rewards-dashboard`
+- **Repository Link:** `https://github.com/swatu18/veloop-rewards-dashboard`
 - **Git Ignore:** Configured to exclude `node_modules`, `.env`, build artifacts, and sensitive keys.
 
 ---
