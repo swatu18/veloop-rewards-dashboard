@@ -13,7 +13,7 @@ const NOTIFICATIONS = [
 ];
 
 export const Navbar = ({ onOpenMenu }) => {
-  const { user, soundEnabled, toggleSound, setActiveScreen } = useDashboard();
+  const { user, soundEnabled, toggleSound, activeScreen, setActiveScreen } = useDashboard();
   const { currentUser, isAuthenticated, signOut, openAuthModal } = useAuth();
 
   const [showNotifications, setShowNotifications] = useState(false);

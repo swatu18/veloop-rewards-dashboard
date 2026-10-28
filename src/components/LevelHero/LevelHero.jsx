@@ -20,7 +20,7 @@ export const LevelHero = () => {
   const [showTooltip, setShowTooltip] = useState(false);
   const nextLevel = user.currentLevel + 1;
   const formattedNextLevel = nextLevel < 10 ? `0${nextLevel}` : `${nextLevel}`;
-  const greetingName = currentUser ? (currentUser.name.split(' ')[0] || currentUser.name) : user.greetingName;
+  const greetingName = currentUser?.name ? (currentUser.name.split(' ')[0] || currentUser.name) : user.greetingName;
 
   return (
     <section className={styles.heroSection}>
