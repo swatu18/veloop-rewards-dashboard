@@ -184,7 +184,7 @@ export const DashboardProvider = ({ children }) => {
     setIsLevelUpModalOpen(false);
   };
 
-  // Handle Game Completion
+  // Handle Game Completion — keep activeScreen='game' so GameContainer manages stages
   const completeGame = (score, xpEarned, vesEarned) => {
     setLastGameResult({
       score,
@@ -195,7 +195,7 @@ export const DashboardProvider = ({ children }) => {
 
     addXP(xpEarned, 'XP Catcher Game Challenge', 'Game');
     addVEs(vesEarned, 'XP Catcher Arcade Bonus');
-    setActiveScreen('result');
+    // Do NOT setActiveScreen here — GameContainer handles stage internally
   };
 
   // Reset Demo State

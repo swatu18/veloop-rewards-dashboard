@@ -5,7 +5,6 @@ import { TodaysBoost } from '../../components/TodaysBoost/TodaysBoost';
 import { NextLevelReward } from '../../components/NextLevelReward/NextLevelReward';
 import { LevelRoadmap } from '../../components/LevelRoadmap/LevelRoadmap';
 import { GameContainer } from '../../components/PlayAndEarn/GameContainer';
-import { GameResult } from '../../components/PlayAndEarn/GameResult';
 import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { XPActivity } from '../../components/XPActivity/XPActivity';
 import { LoadingSkeleton } from '../../components/States/LoadingSkeleton';
@@ -41,19 +40,11 @@ export const LevelDashboard = () => {
     );
   }
 
-  // Handle isolated mobile screen views (Screens 2, 3, 4, 6 from Page 33)
+  // Handle isolated mobile screen views — 'game' covers start, playing AND result via GameContainer
   if (activeScreen === 'game') {
     return (
       <main className={styles.mainContainer}>
         <GameContainer />
-      </main>
-    );
-  }
-
-  if (activeScreen === 'result') {
-    return (
-      <main className={styles.mainContainer}>
-        <GameResult />
       </main>
     );
   }

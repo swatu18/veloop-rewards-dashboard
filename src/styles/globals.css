@@ -23,6 +23,18 @@ body {
   background-attachment: fixed;
 }
 
+/* Hide Netlify free-tier badge */
+a[href*="netlify.com"][data-badge],
+a[href*="netlify.com"] > img[src*="netlify"],
+.netlify-badge,
+[data-netlify-badge],
+a[href="https://www.netlify.com"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
