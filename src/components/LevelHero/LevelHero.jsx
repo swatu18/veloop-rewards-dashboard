@@ -46,9 +46,9 @@ export const LevelHero = () => {
         <div className={styles.cardGlow}></div>
 
         <div className={styles.cardContent}>
-          {/* Left: Prominent Golden Badge */}
+          {/* Left: Prominent Premium Tier Badge */}
           <div className={styles.badgeCol}>
-            <LevelBadge level={user.currentLevel} size="normal" />
+            <LevelBadge level={user.currentLevel} size="large" animated={true} showStars={true} />
           </div>
 
           {/* Right: Progression Metrics & Bar */}

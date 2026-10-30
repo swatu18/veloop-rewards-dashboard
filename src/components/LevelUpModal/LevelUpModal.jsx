@@ -30,9 +30,9 @@ export const LevelUpModal = () => {
           <p className={styles.sub}>You've reached a new echelon of rewards</p>
         </div>
 
-        {/* Grand Golden Badge */}
+        {/* Grand Tier Badge */}
         <div className={styles.badgeSection}>
-          <LevelBadge level={levelUpData.level} size="large" showStars={true} />
+          <LevelBadge level={levelUpData.level} size="huge" showStars={true} animated={true} />
         </div>
 
         {/* Unlocked Milestone Rewards Cards */}
