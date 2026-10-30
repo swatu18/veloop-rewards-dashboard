@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Sparkles, Check, ArrowRight, Shield, Award, Zap } from 'lucide-react';
+import React from 'react';
+import { Sparkles, Check, ArrowRight } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { LevelBadge } from '../Badges/LevelBadge';
 import styles from './LevelUpModal.module.css';
@@ -9,7 +9,6 @@ export const LevelUpModal = () => {
     isLevelUpModalOpen, 
     levelUpData, 
     claimLevelUpRewards, 
-    user 
   } = useDashboard();
 
   if (!isLevelUpModalOpen || !levelUpData) return null;
@@ -20,24 +19,30 @@ export const LevelUpModal = () => {
       <div className={styles.starburst}></div>
 
       <div className={styles.modalCard}>
-        {/* Celebration Header */}
+        {/* Celebration Header – Screen 5 */}
         <div className={styles.header}>
           <div className={styles.celebrateBadge}>
             <Sparkles size={14} className={styles.sparkleIcon} />
             <span>TIER ADVANCEMENT</span>
           </div>
           <h2 className={styles.title}>LEVEL UP!</h2>
-          <p className={styles.sub}>You've reached a new echelon of rewards</p>
+          <p className={styles.sub}>You've reached</p>
         </div>
 
-        {/* Grand Tier Badge */}
+        {/* Grand Laurel Crest Badge – Exactly matching Screen 5 */}
         <div className={styles.badgeSection}>
-          <LevelBadge level={levelUpData.level} size="huge" showStars={true} animated={true} />
+          <LevelBadge 
+            level={levelUpData.level} 
+            size="large" 
+            withLaurel={true} 
+            animated={true} 
+            showStars={true} 
+          />
         </div>
 
-        {/* Unlocked Milestone Rewards Cards */}
+        {/* Unlocked Milestone Rewards Cards – Screen 5 */}
         <div className={styles.rewardsGrid}>
-          {/* Card 1: VEs */}
+          {/* Card 1: 500 VEs Tokens */}
           <div className={styles.rewardCard}>
             <div className={styles.coinStackGraphic}>
               <span className={styles.largeEmoji}>🪙</span>
@@ -48,7 +53,7 @@ export const LevelUpModal = () => {
             </div>
           </div>
 
-          {/* Card 2: Gems */}
+          {/* Card 2: 25 Gems */}
           <div className={`${styles.rewardCard} ${styles.gemCard}`}>
             <div className={styles.gemGraphic}>
               <span className={styles.largeEmoji}>💎</span>
@@ -62,32 +67,32 @@ export const LevelUpModal = () => {
 
         {/* Perks List matching Screen 5 */}
         <div className={styles.perksBox}>
-          <span className={styles.perksHeading}>Unlocked Privileges:</span>
+          <span className={styles.perksHeading}>Tier Privileges:</span>
           <div className={styles.perksList}>
             <div className={styles.perkItem}>
               <div className={styles.checkIconWrap}>
-                <Check size={14} />
+                <Check size={13} />
               </div>
               <span>Higher daily XP limit (up to 2,000 XP/day)</span>
             </div>
 
             <div className={styles.perkItem}>
               <div className={styles.checkIconWrap}>
-                <Check size={14} />
+                <Check size={13} />
               </div>
               <span>Access to exclusive High Roller challenges</span>
             </div>
 
             <div className={styles.perkItem}>
               <div className={styles.checkIconWrap}>
-                <Check size={14} />
+                <Check size={13} />
               </div>
-              <span>Better redemption rates across all reward partners</span>
+              <span>Better reward conversion rates & priority redemption</span>
             </div>
           </div>
         </div>
 
-        {/* Claim Rewards Button */}
+        {/* Claim Rewards Button – Screen 5 */}
         <button 
           className={styles.claimBtn}
           onClick={claimLevelUpRewards}

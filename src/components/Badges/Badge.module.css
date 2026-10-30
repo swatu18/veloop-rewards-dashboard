@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
-   Badge.module.css  –  Premium Level Badge System
-   VELOOP Rewards  |  Dark gaming theme
+   Badge.module.css  –  VELOOP Level Badge System
+   Matches PDF Screen 1 (Plaque) & Screen 5 (Laurel Crest)
 ═══════════════════════════════════════════════════════════ */
 
-/* ─── Wrapper ─────────────────────────────────────────────── */
-.badgeWrapper {
+/* ─── Standard Plaque Badge (Screen 1) ────────────────────── */
+.plaqueWrapper {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -12,38 +12,47 @@
   user-select: none;
   cursor: default;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 4px 18px var(--tier-glow, rgba(245,158,11,0.4)));
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
 }
 
-.badgeWrapper:hover {
-  transform: scale(1.07) translateY(-2px);
-  filter: drop-shadow(0 8px 28px var(--tier-glow, rgba(245,158,11,0.55)));
+.plaqueWrapper:hover {
+  transform: scale(1.06) translateY(-2px);
 }
 
-/* ─── Size Variants ───────────────────────────────────────── */
-.small  { width: 52px;  height: 52px;  }
-.normal { width: 88px;  height: 88px;  }
-.large  { width: 130px; height: 130px; }
-.huge   { width: 180px; height: 180px; }
+/* Sizing */
+.small {
+  width: 58px;
+  height: 68px;
+}
+.normal {
+  width: 86px;
+  height: 102px;
+}
+.large {
+  width: 120px;
+  height: 142px;
+}
+.huge {
+  width: 160px;
+  height: 188px;
+}
 
-/* ─── Glow Aura ───────────────────────────────────────────── */
 .glowAura {
   position: absolute;
-  inset: -8%;
+  inset: -10%;
   border-radius: 50%;
-  filter: blur(14px);
+  filter: blur(16px);
   pointer-events: none;
-  animation: pulseGlow 3.5s ease-in-out infinite;
+  animation: pulseGlow 3.2s ease-in-out infinite;
   z-index: 0;
 }
 
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.6; transform: scale(0.95); }
-  50%       { opacity: 1;   transform: scale(1.08); }
+  0%, 100% { opacity: 0.55; transform: scale(0.95); }
+  50%       { opacity: 0.95; transform: scale(1.08); }
 }
 
-/* ─── SVG ─────────────────────────────────────────────────── */
-.badgeSvg {
+.plaqueSvg {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -51,8 +60,7 @@
   display: block;
 }
 
-/* ─── Content Overlay ─────────────────────────────────────── */
-.contentOverlay {
+.plaqueContent {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -64,82 +72,117 @@
   pointer-events: none;
 }
 
-/* ─── Level Label ─────────────────────────────────────────── */
-.levelLabel {
+.plaqueLevelLabel {
   font-family: var(--font-heading);
-  font-size: 0.48rem;
+  font-size: 0.56rem;
   font-weight: 800;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.22em;
+  color: var(--gold-300);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
   margin-bottom: -2px;
   text-transform: uppercase;
 }
-.normal .levelLabel { font-size: 0.58rem; }
-.large  .levelLabel { font-size: 0.8rem;  }
-.huge   .levelLabel { font-size: 1.05rem; }
+.normal .plaqueLevelLabel { font-size: 0.65rem; }
+.large  .plaqueLevelLabel { font-size: 0.88rem; margin-bottom: -4px; }
+.huge   .plaqueLevelLabel { font-size: 1.15rem; margin-bottom: -6px; }
 
-/* ─── Level Number ────────────────────────────────────────── */
-.levelNumber {
+.plaqueLevelNum {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.45rem;
   font-weight: 900;
   line-height: 1;
-  text-shadow:
-    0 0 8px var(--tier-glow, rgba(245,158,11,0.8)),
-    0 2px 6px rgba(0, 0, 0, 0.9);
-  letter-spacing: -0.01em;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+  letter-spacing: -0.02em;
 }
-.normal .levelNumber { font-size: 1.4rem; }
-.large  .levelNumber { font-size: 2.2rem; }
-.huge   .levelNumber { font-size: 3.2rem; }
+.normal .plaqueLevelNum { font-size: 1.85rem; }
+.large  .plaqueLevelNum { font-size: 2.65rem; }
+.huge   .plaqueLevelNum { font-size: 3.8rem; }
 
-/* ─── Stars Row ───────────────────────────────────────────── */
-.starsRow {
+.plaqueStars {
   display: flex;
   align-items: center;
-  gap: 1px;
+  gap: 3px;
   margin-top: 2px;
-  font-size: 0.4rem;
-  color: rgba(255, 255, 255, 0.75);
-  text-shadow: 0 0 4px var(--tier-glow, rgba(245,158,11,0.6));
+  color: var(--gold-400);
+  font-size: 0.48rem;
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.7);
 }
-.centerStar { font-size: 0.5rem; transform: translateY(-1px); }
-
-.normal .starsRow   { font-size: 0.48rem; }
-.normal .centerStar { font-size: 0.58rem; }
-.large  .starsRow   { font-size: 0.72rem; }
-.large  .centerStar { font-size: 0.88rem; }
-.huge   .starsRow   { font-size: 1rem; }
-.huge   .centerStar { font-size: 1.2rem; }
-
-/* ─── Animated variant ────────────────────────────────────── */
-.animated .glowAura {
-  animation: pulseGlow 2s ease-in-out infinite;
+.centerStar {
+  font-size: 0.62rem;
+  transform: translateY(-1px);
 }
-.animated .badgeSvg {
+.normal .plaqueStars   { font-size: 0.55rem; gap: 4px; margin-top: 3px; }
+.normal .centerStar    { font-size: 0.72rem; }
+.large  .plaqueStars   { font-size: 0.78rem; gap: 5px; margin-top: 4px; }
+.large  .centerStar    { font-size: 0.98rem; }
+.huge   .plaqueStars   { font-size: 1.1rem;  gap: 7px; margin-top: 6px; }
+.huge   .centerStar    { font-size: 1.4rem; }
+
+/* ─── Laurel Crest Badge (Screen 5) ───────────────────────── */
+.laurelWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: default;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+}
+
+.laurelWrapper.normal {
+  width: 140px;
+  height: 120px;
+}
+.laurelWrapper.large {
+  width: 190px;
+  height: 160px;
+}
+.laurelWrapper.huge {
+  width: 250px;
+  height: 210px;
+}
+
+.laurelGlowAura {
+  position: absolute;
+  inset: -5%;
+  border-radius: 50%;
+  filter: blur(20px);
+  pointer-events: none;
+  animation: pulseGlow 3s ease-in-out infinite;
+  z-index: 0;
+}
+
+.laurelSvg {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.laurelContent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+  transform: translateY(-6px);
+}
+
+/* Float Animation */
+.animated {
   animation: floatBadge 4s ease-in-out infinite;
 }
 
 @keyframes floatBadge {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-4px); }
-}
-
-/* ─── Legendary (Level 10) rainbow shimmer ────────────────── */
-.legendaryBadge .glowAura {
-  animation: rainbowGlow 4s linear infinite;
-}
-
-@keyframes rainbowGlow {
-  0%   { filter: blur(14px) hue-rotate(0deg); }
-  100% { filter: blur(14px) hue-rotate(360deg); }
-}
-
-/* ─── Mini Badge for Roadmap ──────────────────────────────── */
-.miniBadgeWrap {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  50%       { transform: translateY(-5px); }
 }

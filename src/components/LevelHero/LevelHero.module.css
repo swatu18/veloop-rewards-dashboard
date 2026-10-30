@@ -1,9 +1,14 @@
+/* ═══════════════════════════════════════════════════════════
+   LevelHero.module.css  –  Level Progression Hero Card
+   Matches PDF Screen 1 strictly
+═══════════════════════════════════════════════════════════ */
+
 .heroSection {
   margin-bottom: 24px;
 }
 
 .greetingHeader {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .greetingBadge {
@@ -15,7 +20,7 @@
   padding: 3px 10px;
   border-radius: var(--radius-full);
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.1em;
   color: var(--gold-400);
   margin-bottom: 8px;
@@ -27,7 +32,7 @@
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: 1.55rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text-primary);
   margin-bottom: 4px;
@@ -36,7 +41,7 @@
 
 @media (min-width: 768px) {
   .heroTitle {
-    font-size: 1.9rem;
+    font-size: 2rem;
   }
 }
 
@@ -52,15 +57,15 @@
   margin: 0;
 }
 
-/* Card Styling */
+/* ─── Progression Card ────────────────────────────────────── */
 .levelCard {
   position: relative;
   background: linear-gradient(135deg, rgba(31, 35, 58, 0.95) 0%, rgba(22, 24, 39, 0.95) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 22px 24px;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: border-color var(--transition-normal);
 }
 
@@ -70,12 +75,12 @@
 
 .cardGlow {
   position: absolute;
-  top: -40px;
-  left: 20px;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
-  filter: blur(25px);
+  top: -50px;
+  left: 30px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+  filter: blur(30px);
   pointer-events: none;
 }
 
@@ -83,14 +88,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   align-items: center;
 }
 
 @media (min-width: 640px) {
   .cardContent {
     flex-direction: row;
-    gap: 24px;
+    gap: 28px;
     align-items: center;
   }
 }
@@ -104,18 +109,19 @@
 .metricsCol {
   flex: 1;
   width: 100%;
-}
-
-.levelStatusRow {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.levelTitleGroup {
+.metricsHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.levelTagGroup {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -134,68 +140,49 @@
   align-items: center;
   transition: color var(--transition-fast);
   padding: 2px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .infoBtn:hover {
   color: var(--gold-400);
 }
 
-.targetXPBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.78rem;
-  color: var(--text-secondary);
+/* Callout on right matching Screen 1: "6,420 XP / to reach Level 06" */
+.targetCallout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
 }
 
-.zapIcon {
+.targetBigXP {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.targetLevelSub {
+  font-size: 0.74rem;
   color: var(--gold-400);
+  font-weight: 600;
 }
 
-.targetXPBadge strong {
-  color: var(--gold-300);
-}
-
-/* Progress Bar Track */
+/* ─── Progress Bar ────────────────────────────────────────── */
 .progressBarSection {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.progressLabels {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  font-size: 0.88rem;
-}
-
-.xpFraction {
-  color: var(--text-secondary);
-}
-
-.xpFraction strong {
-  color: var(--text-primary);
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.percentageText {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--gold-400);
+  gap: 6px;
 }
 
 .progressTrack {
   position: relative;
   width: 100%;
-  height: 12px;
-  background: rgba(15, 17, 30, 0.8);
+  height: 10px;
+  background: rgba(15, 17, 30, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -205,10 +192,10 @@
 .progressFill {
   position: relative;
   height: 100%;
-  background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 50%, #FDE68A 100%);
+  background: var(--gold-gradient);
   border-radius: var(--radius-full);
-  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.7);
 }
 
 .progressGlowHead {
@@ -219,7 +206,7 @@
   width: 8px;
   background: #FFFFFF;
   border-radius: var(--radius-full);
-  box-shadow: 0 0 10px #FFFFFF, 0 0 18px var(--gold-400);
+  box-shadow: 0 0 10px #FFFFFF, 0 0 16px var(--gold-400);
 }
 
 .progressShimmer {
@@ -228,20 +215,48 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.4) 50%,
     transparent 100%
   );
   animation: shimmer 2.5s infinite;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .progressFootnote {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px;
+  font-size: 0.82rem;
+}
+
+.xpFractionText {
+  color: var(--text-secondary);
+}
+
+.xpFractionText strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.percentageText {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--gold-400);
+}
+
+/* Quick Earn Row */
+.quickEarnRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
   font-size: 0.78rem;
-  margin-top: 2px;
 }
 
 .xpRemainingText {
@@ -255,9 +270,13 @@
 .quickEarnLink {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   color: var(--gold-400);
-  font-weight: 600;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
   transition: color var(--transition-fast);
 }
 

@@ -1,439 +1,234 @@
 import React from 'react';
 import styles from './Badge.module.css';
 
-/* ─── Per-tier design tokens ─────────────────────────────────────────────── */
-const TIER_CONFIG = {
-  1: {
-    name: 'Bronze Scout',
-    primary: '#CD7F32', secondary: '#8B4513', highlight: '#E8A87C',
-    glow: 'rgba(205,127,50,0.55)', shape: 'shield',
-    innerBg: ['#2A1A0A', '#1A1008'], symbol: '⚔',
-  },
-  2: {
-    name: 'Silver Pioneer',
-    primary: '#D4D4D4', secondary: '#9CA3AF', highlight: '#F5F5F5',
-    glow: 'rgba(212,212,212,0.5)', shape: 'shield',
-    innerBg: ['#1F2030', '#14161F'], symbol: '🛡',
-  },
-  3: {
-    name: 'Gold Vanguard',
-    primary: '#FBBF24', secondary: '#D97706', highlight: '#FDE68A',
-    glow: 'rgba(251,191,36,0.65)', shape: 'hexagon',
-    innerBg: ['#2A1F05', '#1A1303'], symbol: '★',
-  },
-  4: {
-    name: 'Platinum Elite',
-    primary: '#E8F4F8', secondary: '#94C8D8', highlight: '#FFFFFF',
-    glow: 'rgba(148,200,216,0.6)', shape: 'hexagon',
-    innerBg: ['#0E2030', '#081520'], symbol: '💠',
-  },
-  5: {
-    name: 'Diamond Champion',
-    primary: '#67E8F9', secondary: '#0EA5E9', highlight: '#BFEFFF',
-    glow: 'rgba(103,232,249,0.7)', shape: 'diamond',
-    innerBg: ['#061E30', '#02111E'], symbol: '◆',
-  },
-  6: {
-    name: 'Master Sovereign',
-    primary: '#C084FC', secondary: '#7C3AED', highlight: '#EDE9FE',
-    glow: 'rgba(192,132,252,0.65)', shape: 'crown',
-    innerBg: ['#180A2E', '#0D0518'], symbol: '♛',
-  },
-  7: {
-    name: 'Grand Ascendant',
-    primary: '#60A5FA', secondary: '#1D4ED8', highlight: '#BFDBFE',
-    glow: 'rgba(96,165,250,0.6)', shape: 'crown',
-    innerBg: ['#071430', '#03091E'], symbol: '🌟',
-  },
-  8: {
-    name: 'Mythic Vanguard',
-    primary: '#34D399', secondary: '#065F46', highlight: '#A7F3D0',
-    glow: 'rgba(52,211,153,0.65)', shape: 'crest',
-    innerBg: ['#021A10', '#010D09'], symbol: '⚡',
-  },
-  9: {
-    name: 'Cosmic Overlord',
-    primary: '#F472B6', secondary: '#9333EA', highlight: '#FDE8FF',
-    glow: 'rgba(244,114,182,0.7)', shape: 'crest',
-    innerBg: ['#1A0528', '#0D0218'], symbol: '🌌',
-  },
-  10: {
-    name: 'Immortal Legend',
-    primary: '#FDE68A', secondary: '#B45309', highlight: '#FFFBEB',
-    glow: 'rgba(253,230,138,0.9)', shape: 'legend',
-    innerBg: ['#2A1A00', '#180F00'], symbol: '♾',
-  },
+/* ─── Per-tier accent config (matching VELoop theme) ─────────────────────── */
+const TIER_THEMES = {
+  1: { name: 'Bronze Scout', primary: '#CD7F32', highlight: '#F5D0A9', shadow: '#78350F', glow: 'rgba(205,127,50,0.5)' },
+  2: { name: 'Silver Pioneer', primary: '#D4D4D8', highlight: '#FFFFFF', shadow: '#52525B', glow: 'rgba(212,212,216,0.45)' },
+  3: { name: 'Gold Vanguard', primary: '#F59E0B', highlight: '#FDE68A', shadow: '#92400E', glow: 'rgba(245,158,11,0.6)' },
+  4: { name: 'Platinum Elite', primary: '#38BDF8', highlight: '#E0F2FE', shadow: '#0369A1', glow: 'rgba(56,189,248,0.55)' },
+  5: { name: 'Diamond Champion', primary: '#FBBF24', highlight: '#FFFBEB', shadow: '#B45309', glow: 'rgba(251,191,36,0.7)' },
+  6: { name: 'Master Sovereign', primary: '#A855F7', highlight: '#F3E8FF', shadow: '#6B21A8', glow: 'rgba(168,85,247,0.6)' },
+  7: { name: 'Grand Ascendant', primary: '#3B82F6', highlight: '#DBEAFE', shadow: '#1D4ED8', glow: 'rgba(59,130,246,0.6)' },
+  8: { name: 'Mythic Vanguard', primary: '#10B981', highlight: '#D1FAE5', shadow: '#065F46', glow: 'rgba(16,185,129,0.6)' },
+  9: { name: 'Cosmic Overlord', primary: '#EC4899', highlight: '#FCE7F3', shadow: '#9D174D', glow: 'rgba(236,72,153,0.65)' },
+  10: { name: 'Immortal Legend', primary: '#F59E0B', highlight: '#FFFBEB', shadow: '#78350F', glow: 'rgba(245,158,11,0.85)' },
 };
 
-/* ─── Shape SVG builders ─────────────────────────────────────────────────── */
-function ShieldPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.highlight} />
-          <stop offset="40%" stopColor={cfg.primary} />
-          <stop offset="100%" stopColor={cfg.secondary} />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-        <filter id={`innerGlow-${uid}`} x="-15%" y="-15%" width="130%" height="130%">
-          <feGaussianBlur stdDeviation="2" result="b" />
-          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-      </defs>
-
-      {/* Outer halo ring */}
-      <circle cx="60" cy="60" r="56" fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.35" />
-      <circle cx="60" cy="60" r="52" fill="none" stroke={cfg.primary} strokeWidth="0.5" opacity="0.2" />
-
-      {/* Shield outline (filled) */}
-      <path
-        d="M60 8 L96 22 L96 62 Q96 88 60 112 Q24 88 24 62 L24 22 Z"
-        fill={`url(#border-${uid})`}
-        filter={`url(#glow-${uid})`}
-      />
-      {/* Inner shield fill */}
-      <path
-        d="M60 16 L90 28 L90 62 Q90 84 60 104 Q30 84 30 62 L30 28 Z"
-        fill={`url(#inner-${uid})`}
-      />
-      {/* Shield inner accent line */}
-      <path
-        d="M60 20 L88 31 L88 62 Q88 82 60 100 Q32 82 32 62 L32 31 Z"
-        fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.3"
-        strokeDasharray="3 3"
-      />
-      {/* Top center emblem dot */}
-      <circle cx="60" cy="30" r="3" fill={cfg.highlight} opacity="0.8" filter={`url(#innerGlow-${uid})`} />
-    </>
-  );
-}
-
-function HexagonPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.highlight} />
-          <stop offset="50%" stopColor={cfg.primary} />
-          <stop offset="100%" stopColor={cfg.secondary} />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-25%" y="-25%" width="150%" height="150%">
-          <feGaussianBlur stdDeviation="5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Outer spinning ring accent */}
-      <polygon points="60,5 105,30 105,90 60,115 15,90 15,30"
-        fill="none" stroke={cfg.primary} strokeWidth="1.5" opacity="0.4" />
-      <polygon points="60,2 108,28 108,92 60,118 12,92 12,28"
-        fill="none" stroke={cfg.primary} strokeWidth="0.5" opacity="0.2" />
-
-      {/* Main hexagon */}
-      <polygon points="60,10 100,33 100,87 60,110 20,87 20,33"
-        fill={`url(#border-${uid})`} filter={`url(#glow-${uid})`} />
-      {/* Inner hexagon fill */}
-      <polygon points="60,18 93,37 93,83 60,102 27,83 27,37"
-        fill={`url(#inner-${uid})`} />
-      {/* Inner accent dash ring */}
-      <polygon points="60,22 90,40 90,80 60,98 30,80 30,40"
-        fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.3" strokeDasharray="4 2" />
-
-      {/* Corner sparkle dots */}
-      {[[60,12],[100,35],[100,85],[60,108],[20,85],[20,35]].map(([x,y],i) => (
-        <circle key={i} cx={x} cy={y} r="2.5" fill={cfg.highlight} opacity="0.7" />
-      ))}
-    </>
-  );
-}
-
-function DiamondPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.highlight} />
-          <stop offset="50%" stopColor={cfg.primary} />
-          <stop offset="100%" stopColor={cfg.secondary} />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Outer ring */}
-      <circle cx="60" cy="60" r="55" fill="none" stroke={cfg.primary} strokeWidth="2" opacity="0.4" />
-      <circle cx="60" cy="60" r="51" fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.2" />
-
-      {/* Diamond shape */}
-      <polygon points="60,8 112,60 60,112 8,60"
-        fill={`url(#border-${uid})`} filter={`url(#glow-${uid})`} />
-      <polygon points="60,18 102,60 60,102 18,60"
-        fill={`url(#inner-${uid})`} />
-      {/* Inner diamond lines */}
-      <polygon points="60,22 98,60 60,98 22,60"
-        fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.35" strokeDasharray="3 3" />
-
-      {/* Crystal facet lines */}
-      <line x1="60" y1="18" x2="60" y2="102" stroke={cfg.highlight} strokeWidth="0.7" opacity="0.2" />
-      <line x1="18" y1="60" x2="102" y2="60" stroke={cfg.highlight} strokeWidth="0.7" opacity="0.2" />
-      <line x1="27" y1="27" x2="93" y2="93" stroke={cfg.highlight} strokeWidth="0.5" opacity="0.15" />
-      <line x1="93" y1="27" x2="27" y2="93" stroke={cfg.highlight} strokeWidth="0.5" opacity="0.15" />
-
-      {/* Corner gems */}
-      {[[60,8],[112,60],[60,112],[8,60]].map(([x,y],i) => (
-        <circle key={i} cx={x} cy={y} r="3" fill={cfg.highlight} opacity="0.9" />
-      ))}
-    </>
-  );
-}
-
-function CrownPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.highlight} />
-          <stop offset="50%" stopColor={cfg.primary} />
-          <stop offset="100%" stopColor={cfg.secondary} />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-25%" y="-25%" width="150%" height="150%">
-          <feGaussianBlur stdDeviation="5" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Outer circle rings */}
-      <circle cx="60" cy="60" r="56" fill="none" stroke={cfg.primary} strokeWidth="2" opacity="0.45" />
-      <circle cx="60" cy="60" r="52" fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.2" />
-
-      {/* Main circular body */}
-      <circle cx="60" cy="60" r="48" fill={`url(#border-${uid})`} filter={`url(#glow-${uid})`} />
-      <circle cx="60" cy="60" r="43" fill={`url(#inner-${uid})`} />
-      <circle cx="60" cy="60" r="40" fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.3" strokeDasharray="5 3" />
-
-      {/* Crown shape on top */}
-      <path
-        d="M36 50 L36 38 L48 46 L60 30 L72 46 L84 38 L84 50 Z"
-        fill={`url(#border-${uid})`}
-        filter={`url(#glow-${uid})`}
-      />
-      {/* Crown gems */}
-      <circle cx="60" cy="30" r="4" fill={cfg.highlight} opacity="0.95" />
-      <circle cx="36" cy="38" r="3" fill={cfg.primary} opacity="0.85" />
-      <circle cx="84" cy="38" r="3" fill={cfg.primary} opacity="0.85" />
-    </>
-  );
-}
-
-function CrestPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.highlight} />
-          <stop offset="50%" stopColor={cfg.primary} />
-          <stop offset="100%" stopColor={cfg.secondary} />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Star / crest outer ring */}
-      <polygon points="60,4 72,46 116,46 82,72 94,114 60,88 26,114 38,72 4,46 48,46"
-        fill={`url(#border-${uid})`} filter={`url(#glow-${uid})`} />
-      <polygon points="60,16 69,47 102,47 76,66 85,97 60,78 35,97 44,66 18,47 51,47"
-        fill={`url(#inner-${uid})`} />
-      <polygon points="60,20 68,47 99,47 75,65 83,94 60,76 37,94 45,65 21,47 52,47"
-        fill="none" stroke={cfg.primary} strokeWidth="1" opacity="0.35" strokeDasharray="3 2" />
-
-      {/* Center accent gem */}
-      <polygon points="60,35 65,52 82,52 69,62 74,79 60,69 46,79 51,62 38,52 55,52"
-        fill={cfg.primary} opacity="0.5" />
-    </>
-  );
-}
-
-function LegendPath({ cfg, uid }) {
-  return (
-    <>
-      <defs>
-        <linearGradient id={`border-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFFBEB" />
-          <stop offset="25%" stopColor="#FBBF24" />
-          <stop offset="50%" stopColor="#F59E0B" />
-          <stop offset="75%" stopColor="#D97706" />
-          <stop offset="100%" stopColor="#92400E" />
-        </linearGradient>
-        <linearGradient id={`rainbow-${uid}`} x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#F472B6" />
-          <stop offset="25%" stopColor="#818CF8" />
-          <stop offset="50%" stopColor="#34D399" />
-          <stop offset="75%" stopColor="#FBBF24" />
-          <stop offset="100%" stopColor="#F472B6" />
-        </linearGradient>
-        <linearGradient id={`inner-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor={cfg.innerBg[0]} />
-          <stop offset="100%" stopColor={cfg.innerBg[1]} />
-        </linearGradient>
-        <filter id={`glow-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="7" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-      </defs>
-
-      {/* Rainbow outer aura ring */}
-      <circle cx="60" cy="60" r="56" fill="none" stroke={`url(#rainbow-${uid})`} strokeWidth="3" opacity="0.8" />
-      <circle cx="60" cy="60" r="51" fill="none" stroke={`url(#border-${uid})`} strokeWidth="1.5" opacity="0.5" />
-
-      {/* 12-pointed star burst */}
-      <polygon points="60,6 64,46 100,30 80,64 116,72 80,80 100,114 64,96 60,116 56,96 20,114 40,80 4,72 40,64 20,30 56,46"
-        fill={`url(#border-${uid})`} filter={`url(#glow-${uid})`} />
-      <polygon points="60,18 63,48 90,35 76,62 104,68 76,74 90,101 63,88 60,106 57,88 30,101 44,74 16,68 44,62 30,35 57,48"
-        fill={`url(#inner-${uid})`} />
-
-      {/* Rainbow ring inset */}
-      <circle cx="60" cy="60" r="26" fill="none" stroke={`url(#rainbow-${uid})`} strokeWidth="2" opacity="0.6" />
-
-      {/* Corner star gems */}
-      {[[60,8],[112,60],[60,112],[8,60],[95,20],[95,100],[25,20],[25,100]].map(([x,y],i) => (
-        <circle key={i} cx={x} cy={y} r={i < 4 ? 3 : 2} fill={cfg.highlight} opacity={i < 4 ? 0.9 : 0.6} />
-      ))}
-    </>
-  );
-}
-
-/* ─── Main LevelBadge Component ──────────────────────────────────────────── */
-export const LevelBadge = ({ level = 5, size = 'normal', showStars = true, animated = false }) => {
-  const cfg = TIER_CONFIG[level] || TIER_CONFIG[5];
-  const uid = `lvl${level}`;
+export const LevelBadge = ({
+  level = 5,
+  size = 'normal',
+  showStars = true,
+  withLaurel = false,
+  animated = false,
+}) => {
+  const theme = TIER_THEMES[level] || TIER_THEMES[5];
   const formattedLevel = level < 10 ? `0${level}` : `${level}`;
+  const uid = `badge-${level}-${size}-${withLaurel ? 'l' : 'b'}`;
 
-  const getShape = () => {
-    switch (cfg.shape) {
-      case 'shield':   return <ShieldPath cfg={cfg} uid={uid} />;
-      case 'hexagon':  return <HexagonPath cfg={cfg} uid={uid} />;
-      case 'diamond':  return <DiamondPath cfg={cfg} uid={uid} />;
-      case 'crown':    return <CrownPath cfg={cfg} uid={uid} />;
-      case 'crest':    return <CrestPath cfg={cfg} uid={uid} />;
-      case 'legend':   return <LegendPath cfg={cfg} uid={uid} />;
-      default:         return <HexagonPath cfg={cfg} uid={uid} />;
-    }
-  };
+  // If withLaurel is true (used in Level Up modal and Challenge Complete), render the grand laurel crest
+  if (withLaurel) {
+    return (
+      <div className={`${styles.laurelWrapper} ${styles[size]} ${animated ? styles.animated : ''}`}>
+        <div className={styles.laurelGlowAura} style={{ background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)` }} />
+        
+        <svg viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.laurelSvg}>
+          <defs>
+            <linearGradient id={`goldGrad-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFFBEB" />
+              <stop offset="25%" stopColor="#FDE68A" />
+              <stop offset="55%" stopColor="#F59E0B" />
+              <stop offset="85%" stopColor="#D97706" />
+              <stop offset="100%" stopColor="#78350F" />
+            </linearGradient>
 
-  // Star count by tier
-  const starCount = level <= 3 ? 1 : level <= 6 ? 2 : level <= 8 ? 3 : 4;
+            <linearGradient id={`metalBevel-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FFFBEB" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#F59E0B" />
+              <stop offset="100%" stopColor="#451A03" />
+            </linearGradient>
 
+            <radialGradient id={`darkInner-${uid}`} cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stopColor="#1E2338" />
+              <stop offset="60%" stopColor="#121526" />
+              <stop offset="100%" stopColor="#0A0B14" />
+            </radialGradient>
+
+            <filter id={`bloom-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+
+          {/* ── Outer Golden Rays / Wings ── */}
+          {/* Left Wing Leaves */}
+          <g filter={`url(#bloom-${uid})`}>
+            {/* Left Laurel Leaves */}
+            <path d="M 52 110 C 25 88 28 50 56 36" stroke={`url(#goldGrad-${uid})`} strokeWidth="3" fill="none" strokeLinecap="round" />
+            <path d="M 40 76 Q 26 78 35 88" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <path d="M 45 60 Q 30 60 40 70" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <path d="M 52 46 Q 38 42 48 54" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <circle cx="34" cy="84" r="3" fill="#FFFBEB" />
+            <circle cx="38" cy="66" r="3" fill="#FFFBEB" />
+            <circle cx="47" cy="49" r="3" fill="#FFFBEB" />
+
+            {/* Right Laurel Leaves */}
+            <path d="M 148 110 C 175 88 172 50 144 36" stroke={`url(#goldGrad-${uid})`} strokeWidth="3" fill="none" strokeLinecap="round" />
+            <path d="M 160 76 Q 174 78 165 88" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <path d="M 155 60 Q 170 60 160 70" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <path d="M 148 46 Q 162 42 152 54" stroke={`url(#goldGrad-${uid})`} strokeWidth="3.5" fill="none" strokeLinecap="round" />
+            <circle cx="166" cy="84" r="3" fill="#FFFBEB" />
+            <circle cx="162" cy="66" r="3" fill="#FFFBEB" />
+            <circle cx="153" cy="49" r="3" fill="#FFFBEB" />
+          </g>
+
+          {/* ── Base Golden Pedestal & Ribbon (from Screen 5) ── */}
+          <path
+            d="M 68 132 L 60 144 L 80 140 L 100 144 L 120 140 L 140 144 L 132 132 Z"
+            fill={`url(#goldGrad-${uid})`}
+            filter={`url(#bloom-${uid})`}
+          />
+          <path d="M 72 134 L 100 138 L 128 134" stroke="#FFFBEB" strokeWidth="1.5" fill="none" />
+
+          {/* ── Central Shield Plaque (Screen 1 & 5) ── */}
+          {/* Beveled Plaque Outer Gold Rim */}
+          <polygon
+            points="70,22 130,22 144,38 144,114 130,128 70,128 56,114 56,38"
+            fill={`url(#goldGrad-${uid})`}
+            filter={`url(#bloom-${uid})`}
+          />
+
+          {/* Beveled Plaque Inner Dark Background */}
+          <polygon
+            points="72,25 128,25 140,39 140,112 128,125 72,125 60,112 60,39"
+            fill={`url(#darkInner-${uid})`}
+          />
+
+          {/* Thin Gold Inset Bevel Line */}
+          <polygon
+            points="74,29 126,29 136,41 136,109 126,121 74,121 64,109 64,41"
+            stroke={`url(#goldGrad-${uid})`}
+            strokeWidth="1"
+            fill="none"
+            opacity="0.45"
+            strokeDasharray="4 2"
+          />
+
+          {/* Top Gold Corner Studs */}
+          <circle cx="72" cy="27" r="1.5" fill="#FFFBEB" />
+          <circle cx="128" cy="27" r="1.5" fill="#FFFBEB" />
+          <circle cx="72" cy="123" r="1.5" fill="#FFFBEB" />
+          <circle cx="128" cy="123" r="1.5" fill="#FFFBEB" />
+        </svg>
+
+        {/* Text Content Overlay */}
+        <div className={styles.laurelContent}>
+          <span className={styles.plaqueLevelLabel}>LEVEL</span>
+          <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+          {showStars && (
+            <div className={styles.plaqueStars}>
+              <span>★</span>
+              <span className={styles.centerStar}>★</span>
+              <span>★</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Standard Beveled Plaque Badge (Exactly like Screen 1)
   return (
     <div
       className={[
-        styles.badgeWrapper,
+        styles.plaqueWrapper,
         styles[size],
         animated ? styles.animated : '',
-        level === 10 ? styles.legendaryBadge : '',
       ].join(' ')}
-      style={{ '--tier-glow': cfg.glow, '--tier-primary': cfg.primary }}
+      style={{ '--tier-glow': theme.glow, '--tier-primary': theme.primary }}
     >
-      {/* Outer ambient glow halo */}
-      <div className={styles.glowAura} style={{ background: `radial-gradient(circle, ${cfg.glow} 0%, transparent 70%)` }} />
+      {/* Ambient Glow */}
+      <div className={styles.glowAura} style={{ background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)` }} />
 
-      {/* Tier-specific SVG shape */}
+      {/* SVG Plaque Shape */}
       <svg
-        className={styles.badgeSvg}
-        viewBox="0 0 120 120"
+        viewBox="0 0 110 130"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        aria-label={`Level ${formattedLevel} - ${cfg.name}`}
+        className={styles.plaqueSvg}
       >
-        {getShape()}
-      </svg>
-
-      {/* Overlay text */}
-      <div className={styles.contentOverlay}>
-        <span className={styles.levelLabel}>LVL</span>
-        <span className={styles.levelNumber} style={{ color: cfg.primary, WebkitTextFillColor: 'initial', background: 'none' }}>
-          {formattedLevel}
-        </span>
-        {showStars && (
-          <div className={styles.starsRow}>
-            {Array.from({ length: starCount }).map((_, i) => (
-              <span key={i} className={i === Math.floor(starCount / 2) ? styles.centerStar : ''}>★</span>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-/* ─── Mini Badge for Roadmap nodes ───────────────────────────────────────── */
-export const MiniBadge = ({ level, status }) => {
-  const cfg = TIER_CONFIG[level] || TIER_CONFIG[5];
-  const uid = `mini${level}`;
-
-  const colorMap = {
-    completed: cfg.primary,
-    current:   cfg.primary,
-    next:      cfg.primary,
-    locked:    '#3A3F5E',
-  };
-  const borderColor = colorMap[status] || colorMap.locked;
-  const opacity = status === 'locked' ? 0.4 : 1;
-
-  return (
-    <div className={styles.miniBadgeWrap} style={{ opacity }}>
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
         <defs>
-          <linearGradient id={`mBorder-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={cfg.highlight || cfg.primary} />
-            <stop offset="100%" stopColor={cfg.secondary || cfg.primary} />
+          <linearGradient id={`goldBorder-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFBEB" />
+            <stop offset="20%" stopColor="#FDE68A" />
+            <stop offset="50%" stopColor="#F59E0B" />
+            <stop offset="80%" stopColor="#D97706" />
+            <stop offset="100%" stopColor="#78350F" />
           </linearGradient>
-          <filter id={`mGlow-${uid}`} x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation={status === 'current' ? '3' : '1.5'} result="blur" />
+
+          <linearGradient id={`goldBevel-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FFFBEB" stopOpacity="0.8" />
+            <stop offset="50%" stopColor="#F59E0B" />
+            <stop offset="100%" stopColor="#451A03" />
+          </linearGradient>
+
+          <radialGradient id={`innerDarkBg-${uid}`} cx="50%" cy="40%" r="65%">
+            <stop offset="0%" stopColor="#1E2338" />
+            <stop offset="55%" stopColor="#121526" />
+            <stop offset="100%" stopColor="#090A12" />
+          </radialGradient>
+
+          <filter id={`plaqueGlow-${uid}`} x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
-        {/* Outer ring */}
-        <circle cx="20" cy="20" r="18"
+
+        {/* ── Outer Golden Beveled Frame (Screen 1 exact shape) ── */}
+        <polygon
+          points="20,6 90,6 104,22 104,106 90,122 20,122 6,106 6,22"
+          fill={`url(#goldBorder-${uid})`}
+          filter={`url(#plaqueGlow-${uid})`}
+        />
+
+        {/* ── Inner Deep Obsidian Plate ── */}
+        <polygon
+          points="22,9 88,9 99,22 99,104 88,118 22,118 11,104 11,22"
+          fill={`url(#innerDarkBg-${uid})`}
+        />
+
+        {/* ── Delicate Gold Accent Inset Line ── */}
+        <polygon
+          points="24,14 86,14 94,24 94,101 86,113 24,113 16,101 16,24"
+          stroke={`url(#goldBorder-${uid})`}
+          strokeWidth="1"
           fill="none"
-          stroke={`url(#mBorder-${uid})`}
-          strokeWidth={status === 'current' ? '2.5' : '1.5'}
-          filter={`url(#mGlow-${uid})`}
-          strokeDasharray={status === 'next' ? '4 2' : 'none'}
+          opacity="0.35"
+          strokeDasharray="4 2"
         />
-        {/* Inner fill */}
-        <circle cx="20" cy="20" r="14"
-          fill={status === 'locked' ? 'rgba(22,24,39,0.8)' : status === 'current' ? cfg.primary : 'rgba(22,24,39,0.9)'}
-          opacity={status === 'current' ? 1 : 0.9}
-        />
+
+        {/* Top Gold Bar Highlight */}
+        <line x1="26" y1="12" x2="84" y2="12" stroke="#FFFBEB" strokeWidth="1.2" opacity="0.6" />
+
+        {/* Corner Metallic Rivets */}
+        <circle cx="21" cy="11" r="1.5" fill="#FFFBEB" />
+        <circle cx="89" cy="11" r="1.5" fill="#FFFBEB" />
+        <circle cx="21" cy="117" r="1.5" fill="#FFFBEB" />
+        <circle cx="89" cy="117" r="1.5" fill="#FFFBEB" />
       </svg>
+
+      {/* Typography Overlay */}
+      <div className={styles.plaqueContent}>
+        <span className={styles.plaqueLevelLabel}>LEVEL</span>
+        <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+        {showStars && (
+          <div className={styles.plaqueStars}>
+            <span>★</span>
+            <span className={styles.centerStar}>★</span>
+            <span>★</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
