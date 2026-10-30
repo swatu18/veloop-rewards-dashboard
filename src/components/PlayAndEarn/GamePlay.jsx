@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ArrowLeft, Clock, Zap, Info, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Clock, Zap, Info } from 'lucide-react';
 import { sounds } from '../../utils/soundEffects';
 import styles from './Game.module.css';
 
@@ -11,24 +11,25 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
   const [multiplierTimer, setMultiplierTimer] = useState(0);
   const [bonusVEs, setBonusVEs] = useState(0);
 
-  // References for game loop state (avoids stale closures)
+  // References for game loop state
   const gameStateRef = useRef({
     basketX: 180,
-    basketWidth: 84,
-    basketHeight: 28,
+    basketWidth: 104,
+    basketHeight: 52,
     items: [],
     popups: [],
+    ripples: [],
     score: 0,
     multiplier: 1,
     multiplierEndTime: 0,
     bonusVEs: 0,
     isRunning: true,
     lastSpawnTime: 0,
-    spawnInterval: 750, // ms
+    spawnInterval: 650, // ms
     keys: { left: false, right: false }
   });
 
-  // Countdown Timer
+  // Countdown Timer – 20s challenge (Screen 2: 00:18...)
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(prev => {
@@ -60,12 +61,12 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
     }
   }, [multiplier]);
 
-  // When time runs out, trigger game over
+  // When time runs out, trigger game over (Screen 3)
   useEffect(() => {
     if (timeLeft === 0) {
       const finalScore = gameStateRef.current.score;
-      let xpEarned = 20;
-      let vesEarned = 5;
+      let xpEarned = 30;
+      let vesEarned = 12;
 
       if (finalScore >= 120) {
         xpEarned = 50;
@@ -74,11 +75,10 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
         xpEarned = 30;
         vesEarned = 12;
       } else if (finalScore >= 40) {
-        xpEarned = 25;
+        xpEarned = 20;
         vesEarned = 8;
       }
 
-      // Small delay for natural transition
       setTimeout(() => {
         onGameOver(finalScore, xpEarned, vesEarned);
       }, 600);
@@ -144,32 +144,32 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
-    // Set fixed virtual dimensions
     canvas.width = 380;
     canvas.height = 460;
     gameStateRef.current.basketX = (canvas.width - gameStateRef.current.basketWidth) / 2;
 
     const spawnItem = (timestamp) => {
       const types = [
-        { type: 'coin', radius: 14, speed: 3.2, score: 10, label: '+10 Pts', color: '#F59E0B' },
-        { type: 'xp', radius: 15, speed: 2.8, score: 15, label: '+15 XP', color: '#8B5CF6' },
-        { type: 'gem', radius: 12, speed: 3.6, score: 25, label: '+25 💎 2X!', color: '#38BDF8' }
+        { type: 'coin', radius: 15, speed: 3.2, score: 10, label: '+10 VEs', color: '#FBBF24' },
+        { type: 'xp', radius: 16, speed: 3.0, score: 15, label: '+15 XP', color: '#C084FC' },
+        { type: 'gem', radius: 14, speed: 3.6, score: 25, label: '+25 💎 (2X!)', color: '#34D399' }
       ];
 
-      // Random weight
       const rand = Math.random();
-      let chosen = types[0]; // 50% coin
-      if (rand > 0.5 && rand <= 0.85) chosen = types[1]; // 35% xp
-      if (rand > 0.85) chosen = types[2]; // 15% gem
+      let chosen = types[0]; // 45% gold coin
+      if (rand > 0.45 && rand <= 0.8) chosen = types[1]; // 35% purple XP orb
+      if (rand > 0.8) chosen = types[2]; // 20% emerald gem
 
-      const margin = 30;
+      const margin = 35;
       const x = margin + Math.random() * (canvas.width - margin * 2);
 
       gameStateRef.current.items.push({
         ...chosen,
         x,
-        y: -20,
-        vy: chosen.speed + Math.random() * 0.8
+        y: -24,
+        vy: chosen.speed + Math.random() * 0.7,
+        rotation: 0,
+        vr: (Math.random() - 0.5) * 0.05
       });
       gameStateRef.current.lastSpawnTime = timestamp;
     };
@@ -180,10 +180,10 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
 
       // Handle keyboard movement
       if (state.keys.left) {
-        state.basketX = Math.max(0, state.basketX - 7);
+        state.basketX = Math.max(0, state.basketX - 8);
       }
       if (state.keys.right) {
-        state.basketX = Math.min(canvas.width - state.basketWidth, state.basketX + 7);
+        state.basketX = Math.min(canvas.width - state.basketWidth, state.basketX + 8);
       }
 
       // Spawn items
@@ -194,38 +194,40 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw subtle background grid & star particles
+      // Draw dark background (#161827)
       ctx.fillStyle = '#161827';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw light vertical guide tracks
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+      // Light background vertical grid tracks (Screen 2)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
       ctx.lineWidth = 1;
-      for (let x = 60; x < canvas.width; x += 65) {
+      for (let x = 45; x < canvas.width; x += 55) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, canvas.height);
         ctx.stroke();
       }
 
-      // Basket position
-      const basketY = canvas.height - 52;
-      const basketX = state.basketX;
+      // Basket position & dimensions (Screen 2: deep glowing wireframe basket)
+      const basketY = canvas.height - 76;
       const bWidth = state.basketWidth;
       const bHeight = state.basketHeight;
+      const basketX = state.basketX;
+      const centerX = basketX + bWidth / 2;
 
       // Update & Draw falling items
       for (let i = state.items.length - 1; i >= 0; i--) {
         const item = state.items[i];
         item.y += item.vy;
+        item.rotation += item.vr;
 
         // Collision check with basket rim
         const itemBottom = item.y + item.radius;
-        const inXRange = item.x >= basketX - 10 && item.x <= basketX + bWidth + 10;
-        const inYRange = itemBottom >= basketY && item.y <= basketY + 14;
+        const inXRange = item.x >= basketX - 12 && item.x <= basketX + bWidth + 12;
+        const inYRange = itemBottom >= basketY && item.y <= basketY + 22;
 
         if (inXRange && inYRange) {
-          // Caught item!
+          // Catch event!
           const earned = item.score * state.multiplier;
           state.score += earned;
           setScore(state.score);
@@ -243,91 +245,164 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
             sounds.playCoinSound();
           }
 
-          // Add floating text popup
-          state.popups.push({
-            text: state.multiplier > 1 ? `${item.label} (2X)` : item.label,
+          // Trigger ripple effect on basket rim
+          state.ripples.push({
             x: item.x,
-            y: basketY - 10,
-            color: item.color,
+            y: basketY + 6,
+            r: 8,
             alpha: 1,
-            vy: -1.6
+            color: item.color
           });
 
-          // Remove item
+          // Floating score popup
+          state.popups.push({
+            text: state.multiplier > 1 ? `${item.label} (2X!)` : item.label,
+            x: item.x,
+            y: basketY - 12,
+            color: item.color,
+            alpha: 1,
+            vy: -1.8
+          });
+
           state.items.splice(i, 1);
           continue;
         }
 
-        // Missed item (fell past bottom)
+        // Remove item if fallen past bottom
         if (item.y - item.radius > canvas.height) {
           state.items.splice(i, 1);
           continue;
         }
 
-        // Draw item
+        // Draw Item – Exactly as in Screen 2:
         ctx.save();
         ctx.translate(item.x, item.y);
+        ctx.rotate(item.rotation);
 
         if (item.type === 'coin') {
-          // Golden V Coin
+          // ── Gold Coin with "V" (Screen 2) ──
+          // Ambient Glow
+          ctx.beginPath();
+          ctx.arc(0, 0, item.radius + 6, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(245, 158, 11, 0.25)';
+          ctx.fill();
+
+          // Coin Outer Rim
           ctx.beginPath();
           ctx.arc(0, 0, item.radius, 0, Math.PI * 2);
-          ctx.fillStyle = '#F59E0B';
+          const goldGrad = ctx.createLinearGradient(-item.radius, -item.radius, item.radius, item.radius);
+          goldGrad.addColorStop(0, '#FFFBEB');
+          goldGrad.addColorStop(0.3, '#FDE68A');
+          goldGrad.addColorStop(0.7, '#F59E0B');
+          goldGrad.addColorStop(1, '#92400E');
+          ctx.fillStyle = goldGrad;
           ctx.shadowColor = '#FBBF24';
           ctx.shadowBlur = 10;
           ctx.fill();
 
+          // Inner Bevel Ring
           ctx.beginPath();
-          ctx.arc(0, 0, item.radius - 2.5, 0, Math.PI * 2);
-          ctx.strokeStyle = '#FDE68A';
-          ctx.lineWidth = 1.5;
+          ctx.arc(0, 0, item.radius - 2.8, 0, Math.PI * 2);
+          ctx.strokeStyle = '#78350F';
+          ctx.lineWidth = 1.2;
           ctx.stroke();
 
-          ctx.fillStyle = '#161827';
-          ctx.font = 'bold 12px "Space Grotesk", sans-serif';
+          // Bold "V" Letter in center
+          ctx.fillStyle = '#2A1800';
+          ctx.font = '900 13px "Space Grotesk", sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('V', 0, 1);
+
         } else if (item.type === 'xp') {
-          // Purple XP Orb
+          // ── Purple XP Orb with "XP" (Screen 2) ──
+          // Radiant Purple Halo
           ctx.beginPath();
-          ctx.arc(0, 0, item.radius, 0, Math.PI * 2);
-          ctx.fillStyle = '#8B5CF6';
-          ctx.shadowColor = '#C4B5FD';
-          ctx.shadowBlur = 12;
+          ctx.arc(0, 0, item.radius + 8, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(168, 85, 247, 0.3)';
           ctx.fill();
 
+          // Outer Sphere
+          ctx.beginPath();
+          ctx.arc(0, 0, item.radius, 0, Math.PI * 2);
+          const purpleGrad = ctx.createRadialGradient(-4, -4, 2, 0, 0, item.radius);
+          purpleGrad.addColorStop(0, '#F3E8FF');
+          purpleGrad.addColorStop(0.35, '#C084FC');
+          purpleGrad.addColorStop(0.75, '#7E22CE');
+          purpleGrad.addColorStop(1, '#3B0764');
+          ctx.fillStyle = purpleGrad;
+          ctx.shadowColor = '#C084FC';
+          ctx.shadowBlur = 14;
+          ctx.fill();
+
+          // Inner White Ring
           ctx.beginPath();
           ctx.arc(0, 0, item.radius - 2.5, 0, Math.PI * 2);
-          ctx.strokeStyle = '#DDD6FE';
-          ctx.lineWidth = 1.5;
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+          ctx.lineWidth = 1;
           ctx.stroke();
 
+          // Bold "XP" Text in center
           ctx.fillStyle = '#FFFFFF';
-          ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
+          ctx.font = '900 10px "Space Grotesk", sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.fillText('XP', 0, 0);
+
         } else if (item.type === 'gem') {
-          // Diamond Cosmic Gem
+          // ── Green Emerald Gem (Screen 2) ──
+          // Halo
+          ctx.beginPath();
+          ctx.arc(0, 0, item.radius + 6, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(52, 211, 153, 0.3)';
+          ctx.fill();
+
+          // Faceted Diamond
           ctx.beginPath();
           ctx.moveTo(0, -item.radius);
           ctx.lineTo(item.radius, 0);
           ctx.lineTo(0, item.radius);
           ctx.lineTo(-item.radius, 0);
           ctx.closePath();
-          ctx.fillStyle = '#38BDF8';
-          ctx.shadowColor = '#7DD3FC';
-          ctx.shadowBlur = 14;
+          const emeraldGrad = ctx.createLinearGradient(0, -item.radius, 0, item.radius);
+          emeraldGrad.addColorStop(0, '#ECFDF5');
+          emeraldGrad.addColorStop(0.4, '#34D399');
+          emeraldGrad.addColorStop(1, '#065F46');
+          ctx.fillStyle = emeraldGrad;
+          ctx.shadowColor = '#34D399';
+          ctx.shadowBlur = 12;
           ctx.fill();
 
-          ctx.fillStyle = '#FFFFFF';
-          ctx.font = '10px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('⚡', 0, 0);
+          // Facet Highlight Lines
+          ctx.beginPath();
+          ctx.moveTo(0, -item.radius);
+          ctx.lineTo(0, item.radius);
+          ctx.moveTo(-item.radius, 0);
+          ctx.lineTo(item.radius, 0);
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
 
+        ctx.restore();
+      }
+
+      // Draw catch ripples
+      for (let r = state.ripples.length - 1; r >= 0; r--) {
+        const rip = state.ripples[r];
+        rip.r += 1.8;
+        rip.alpha -= 0.05;
+        if (rip.alpha <= 0) {
+          state.ripples.splice(r, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(rip.x, rip.y, rip.r, 0, Math.PI * 2);
+        ctx.strokeStyle = rip.color;
+        ctx.globalAlpha = rip.alpha;
+        ctx.lineWidth = 2;
+        ctx.stroke();
         ctx.restore();
       }
 
@@ -335,62 +410,103 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
       for (let p = state.popups.length - 1; p >= 0; p--) {
         const pop = state.popups[p];
         pop.y += pop.vy;
-        pop.alpha -= 0.025;
-
+        pop.alpha -= 0.024;
         if (pop.alpha <= 0) {
           state.popups.splice(p, 1);
           continue;
         }
-
         ctx.save();
         ctx.globalAlpha = pop.alpha;
         ctx.fillStyle = pop.color;
-        ctx.font = 'bold 13px "Space Grotesk", sans-serif';
+        ctx.font = '800 14px "Space Grotesk", sans-serif';
         ctx.textAlign = 'center';
         ctx.shadowColor = '#000000';
-        ctx.shadowBlur = 4;
+        ctx.shadowBlur = 6;
         ctx.fillText(pop.text, pop.x, pop.y);
         ctx.restore();
       }
 
-      // Draw Player Collector Basket
+      // ─── DRAW GOLDEN WIREFRAME BASKET / BOWL (Screen 2 exact design) ───
       ctx.save();
-      ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
-      ctx.shadowBlur = 18;
+      const bottomY = basketY + bHeight;
+      const bottomWidth = bWidth * 0.45;
+      const bottomX = centerX - bottomWidth / 2;
 
-      // Basket Rim (Top oval / bar)
+      // Glow Aura under basket
+      const auraGrad = ctx.createRadialGradient(centerX, basketY + bHeight / 2, 10, centerX, basketY + bHeight / 2, bWidth);
+      auraGrad.addColorStop(0, 'rgba(245, 158, 11, 0.35)');
+      auraGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = auraGrad;
+      ctx.fillRect(basketX - 20, basketY - 10, bWidth + 40, bHeight + 40);
+
+      // 1. Semi-translucent gold mesh funnel fill
       ctx.beginPath();
-      ctx.roundRect(basketX, basketY, bWidth, 8, 4);
-      ctx.fillStyle = 'linear-gradient(90deg, #FDE68A, #F59E0B)';
-      ctx.fillStyle = '#FBBF24';
+      ctx.moveTo(basketX, basketY);
+      ctx.bezierCurveTo(basketX + 4, basketY + bHeight * 0.6, bottomX, bottomY, bottomX, bottomY);
+      ctx.lineTo(bottomX + bottomWidth, bottomY);
+      ctx.bezierCurveTo(bottomX + bottomWidth, bottomY, basketX + bWidth - 4, basketY + bHeight * 0.6, basketX + bWidth, basketY);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
       ctx.fill();
-      ctx.strokeStyle = '#FFFFFF';
+
+      // 2. Vertical Curved Golden Ribs (8 ribs forming the bowl shape)
+      ctx.strokeStyle = '#FBBF24';
+      ctx.lineWidth = 1.4;
+      ctx.shadowColor = '#F59E0B';
+      ctx.shadowBlur = 8;
+
+      const numRibs = 8;
+      for (let i = 0; i <= numRibs; i++) {
+        const t = i / numRibs;
+        const topRibX = basketX + t * bWidth;
+        const btmRibX = bottomX + t * bottomWidth;
+        ctx.beginPath();
+        ctx.moveTo(topRibX, basketY);
+        ctx.quadraticCurveTo(
+          centerX + (topRibX - centerX) * 0.8,
+          basketY + bHeight * 0.65,
+          btmRibX,
+          bottomY
+        );
+        ctx.stroke();
+      }
+
+      // 3. Horizontal Concentric Golden Hoops (creating the diamond mesh)
+      ctx.strokeStyle = 'rgba(253, 230, 138, 0.7)';
+      ctx.lineWidth = 1.2;
+      for (let j = 1; j <= 3; j++) {
+        const ratio = j / 4;
+        const curY = basketY + ratio * bHeight;
+        const curW = bWidth - (bWidth - bottomWidth) * ratio;
+        const curX = centerX - curW / 2;
+        ctx.beginPath();
+        ctx.ellipse(centerX, curY, curW / 2, 4 + ratio * 2, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 4. Rounded Bottom Base Plate
+      ctx.beginPath();
+      ctx.ellipse(centerX, bottomY, bottomWidth / 2, 5, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#F59E0B';
+      ctx.fill();
+      ctx.strokeStyle = '#FFFBEB';
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      // Basket Net (Mesh Trapeze)
+      // 5. Top Oval Golden Rim (Bright Glowing Ring)
       ctx.beginPath();
-      ctx.moveTo(basketX + 6, basketY + 8);
-      ctx.lineTo(basketX + 16, basketY + bHeight);
-      ctx.lineTo(basketX + bWidth - 16, basketY + bHeight);
-      ctx.lineTo(basketX + bWidth - 6, basketY + 8);
-      ctx.closePath();
-      ctx.fillStyle = 'rgba(245, 158, 11, 0.18)';
+      ctx.ellipse(centerX, basketY, bWidth / 2, 7, 0, 0, Math.PI * 2);
+      const rimGrad = ctx.createLinearGradient(basketX, basketY, basketX + bWidth, basketY);
+      rimGrad.addColorStop(0, '#FFFBEB');
+      rimGrad.addColorStop(0.5, '#FDE68A');
+      rimGrad.addColorStop(1, '#D97706');
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.2)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.8)';
-      ctx.lineWidth = 2;
+      ctx.strokeStyle = rimGrad;
+      ctx.lineWidth = 3;
+      ctx.shadowColor = '#FFFFFF';
+      ctx.shadowBlur = 12;
       ctx.stroke();
-
-      // Net cross grid pattern
-      ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
-      ctx.lineWidth = 1;
-      for (let i = 1; i <= 3; i++) {
-        const yOff = basketY + 8 + (bHeight - 8) * (i / 4);
-        ctx.beginPath();
-        ctx.moveTo(basketX + 6 + i * 2, yOff);
-        ctx.lineTo(basketX + bWidth - 6 - i * 2, yOff);
-        ctx.stroke();
-      }
 
       ctx.restore();
 
@@ -425,6 +541,7 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
           </span>
         </div>
 
+        {/* Timer Pill matching Screen 2 (00:18) */}
         <div className={`${styles.timerPill} ${timeLeft <= 5 ? styles.timerAlert : ''}`}>
           <Clock size={14} />
           <span>{formattedTime}</span>
@@ -432,7 +549,7 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
       </div>
 
       <p className={styles.gameSubtitle}>
-        Catch XP orbs & coins. Score high for better rewards!
+        Catch XP orbs &amp; coins. Score high for better rewards!
       </p>
 
       {/* Interactive HTML5 Canvas */}
@@ -445,7 +562,7 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
         
         {/* Mobile touch hint overlay */}
         <div className={styles.touchControlNotice}>
-          Drag basket to catch falling orbs
+          Drag glowing basket to catch falling orbs
         </div>
       </div>
 

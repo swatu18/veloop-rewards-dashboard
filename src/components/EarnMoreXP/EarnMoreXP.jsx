@@ -14,27 +14,53 @@ import {
   ArrowLeft,
   Share2,
   Copy,
-  Sparkles
+  Sparkles,
+  Award,
+  Zap,
+  Coins,
+  X
 } from 'lucide-react';
 import { EARN_ACTIVITIES, COMING_SOON_CONCEPTS } from '../../data/earnActivities';
 import { useDashboard } from '../../context/DashboardContext';
 import styles from './EarnMoreXP.module.css';
 
 export const EarnMoreXP = ({ isFullPage = false }) => {
-  const { addXP, addVEs, setActiveScreen, currentXP, totalRequiredXP, progressPercentage } = useDashboard();
-  const [activeModal, setActiveModal] = useState(null); // 'watch' | 'refer' | 'daily' | 'toast'
+  const { 
+    addXP, 
+    addVEs, 
+    setActiveScreen, 
+    currentXP, 
+    totalRequiredXP, 
+    progressPercentage,
+    user
+  } = useDashboard();
+
+  // Modals state: 'watch' | 'tasks' | 'refer' | 'streak'
+  const [activeModal, setActiveModal] = useState(null);
   const [toastMessage, setToastMessage] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Watch and earn video simulation state
   const [watchingAd, setWatchingAd] = useState(false);
   const [adProgress, setAdProgress] = useState(0);
+  const [adCompleted, setAdCompleted] = useState(false);
+
+  // Daily Tasks state
+  const [tasksState, setTasksState] = useState([
+    { id: 1, title: 'Daily Login Check-in', rewardXP: 25, rewardVEs: 5, claimed: true },
+    { id: 2, title: 'Play 1 XP Catcher Arcade Round', rewardXP: 35, rewardVEs: 10, claimed: false },
+    { id: 3, title: 'Watch 1 Partner Ad Video', rewardXP: 50, rewardVEs: 15, claimed: false },
+    { id: 4, title: 'Invite 1 Friend to VELOOP', rewardXP: 100, rewardVEs: 25, claimed: false },
+  ]);
 
   const showToast = (msg) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(''), 3000);
+    setTimeout(() => setToastMessage(''), 3500);
   };
 
+  // Activity click handler
   const handleActivityClick = (activity) => {
-    if (activity.id === 'xp-catcher') {
+    if (activity.id === 'xp-catcher' || activity.id === 'mini-games') {
       setActiveScreen('game');
       return;
     }
@@ -42,20 +68,27 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
     if (activity.id === 'watch-earn') {
       setActiveModal('watch');
       setWatchingAd(true);
+      setAdCompleted(false);
       setAdProgress(0);
+
       let p = 0;
       const interval = setInterval(() => {
-        p += 25;
+        p += 20;
         setAdProgress(p);
         if (p >= 100) {
           clearInterval(interval);
           setWatchingAd(false);
+          setAdCompleted(true);
           addXP(50, 'Watch & Earn Video Reward', 'Media');
-          addVEs(10, 'Video Ad Bonus');
-          showToast('🎉 Video watched! +50 XP and +10 VEs awarded!');
-          setTimeout(() => setActiveModal(null), 800);
+          addVEs(15, 'Video Ad Token Bonus');
+          showToast('🎉 +50 XP and +15 VEs credited to your balance!');
         }
-      }, 500);
+      }, 600);
+      return;
+    }
+
+    if (activity.id === 'daily-missions') {
+      setActiveModal('tasks');
       return;
     }
 
@@ -65,24 +98,24 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
     }
 
     if (activity.id === 'streak-bonus') {
+      setActiveModal('streak');
       addXP(25, 'Daily Login Streak Claimed', 'Loyalty');
       addVEs(15, 'Streak Coin Bonus');
-      showToast('🔥 Streak maintained! +25 XP and +15 VEs awarded!');
-      return;
-    }
-
-    if (activity.id === 'daily-missions') {
-      addXP(30, 'Daily Mission Complete', 'Tasks');
-      showToast('✅ Daily mission milestone reached! +30 XP awarded!');
-      return;
-    }
-
-    if (activity.id === 'mini-games') {
-      setActiveScreen('game');
+      showToast('🔥 Streak maintained! +25 XP and +15 VEs credited!');
       return;
     }
   };
 
+  // Claim specific daily task
+  const claimTask = (task) => {
+    if (task.claimed) return;
+    addXP(task.rewardXP, task.title, 'Tasks');
+    addVEs(task.rewardVEs, `${task.title} Bonus`);
+    setTasksState(prev => prev.map(t => t.id === task.id ? { ...t, claimed: true } : t));
+    showToast(`✅ Claimed +${task.rewardXP} XP and +${task.rewardVEs} VEs!`);
+  };
+
+  // Copy referral link
   const copyReferralLink = () => {
     navigator.clipboard?.writeText('https://veloop.app/ref/swathi-g-77');
     setCopied(true);
@@ -108,14 +141,14 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
 
   return (
     <div className={styles.earnWrapper}>
-      {/* Toast Notification */}
+      {/* Live Toast Notification */}
       {toastMessage && (
         <div className={styles.toast}>
           {toastMessage}
         </div>
       )}
 
-      {/* Header */}
+      {/* Header – Screen 1 & Screen 4 */}
       {isFullPage ? (
         <div className={styles.fullPageHeader}>
           <button 
@@ -147,7 +180,7 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
         </div>
       )}
 
-      {/* Activities List / Grid */}
+      {/* Activities Grid – Screen 1 (2x3) & Screen 4 (Full List) */}
       <div className={isFullPage ? styles.fullList : styles.cardsGrid}>
         {EARN_ACTIVITIES.map((activity) => (
           <div 
@@ -176,36 +209,15 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
         ))}
       </div>
 
-      {/* Coming Soon Concepts Section */}
-      <div className={styles.comingSoonArea}>
-        <div className={styles.comingSoonHeader}>
-          <span className={styles.comingSoonTitle}>UPCOMING EARNING OPPORTUNITIES</span>
-          <span className={styles.conceptBadge}>Concepts / Under Testing</span>
-        </div>
-
-        <div className={styles.comingSoonGrid}>
-          {COMING_SOON_CONCEPTS.map((concept) => (
-            <div key={concept.id} className={styles.conceptCard}>
-              <div className={styles.conceptIconWrap}>
-                {renderIcon(concept.icon)}
-              </div>
-              <div className={styles.conceptInfo}>
-                <span className={styles.conceptName}>{concept.title}</span>
-                <span className={styles.conceptDesc}>{concept.subtitle}</span>
-              </div>
-              <span className={styles.comingSoonTag}>Coming Soon</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Motivational Footer Banner */}
+      {/* Motivational Footer Banner – Screen 4 */}
       <div className={styles.motivationalBanner}>
         <div className={styles.bannerText}>
           <span className={styles.bannerEmoji}>🏆</span>
           <div>
             <span className={styles.bannerTitle}>Keep going! You're doing great!</span>
-            <span className={styles.bannerSub}>{currentXP.toLocaleString()} / {totalRequiredXP.toLocaleString()} XP to Level 06</span>
+            <span className={styles.bannerSub}>
+              {currentXP.toLocaleString()} / {totalRequiredXP.toLocaleString()} XP to Level 06
+            </span>
           </div>
         </div>
         <div className={styles.bannerBar}>
@@ -213,30 +225,120 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
         </div>
       </div>
 
-      {/* Watch Video Simulation Modal */}
+      {/* ─── MODAL 1: Watch & Earn Interactive Simulation ─── */}
       {activeModal === 'watch' && (
         <div className={styles.modalBackdrop}>
           <div className={styles.modalBox}>
-            <h4 className={styles.modalTitle}>Watching Partner Showcase...</h4>
-            <p className={styles.modalSub}>VELOOP Rewards Partner Spotlight (5 seconds)</p>
-            <div className={styles.adVideoPlaceholder}>
-              <PlayCircle size={48} className="float-effect" />
-              <span>Simulating Video Stream... {adProgress}%</span>
-              <div className={styles.adProgressBar}>
-                <div className={styles.adProgressFill} style={{ width: `${adProgress}%` }}></div>
-              </div>
+            <div className={styles.modalTopRow}>
+              <h4 className={styles.modalTitle}>Watch &amp; Earn Video Hub</h4>
+              <button className={styles.modalCloseIcon} onClick={() => setActiveModal(null)}>
+                <X size={18} />
+              </button>
             </div>
-            <span className={styles.adFooterNote}>Reward of +50 XP and +10 VEs will automatically credit upon finish.</span>
+            
+            <p className={styles.modalSub}>
+              Watch our 5-second sponsor spotlight to unlock <strong style={{ color: '#FBBF24' }}>+50 XP</strong> and <strong style={{ color: '#FBBF24' }}>+15 VEs</strong>!
+            </p>
+
+            <div className={styles.adVideoPlaceholder}>
+              {watchingAd ? (
+                <>
+                  <div className={styles.videoPlayingGraphic}>
+                    <PlayCircle size={44} className="float-effect" />
+                    <span>Streaming Sponsor Clip... {adProgress}%</span>
+                  </div>
+                  <div className={styles.adProgressBar}>
+                    <div className={styles.adProgressFill} style={{ width: `${adProgress}%` }}></div>
+                  </div>
+                </>
+              ) : (
+                <div className={styles.videoFinishedGraphic}>
+                  <div className={styles.bigCheckGlow}>✓</div>
+                  <span className={styles.rewardGrantText}>🎉 Video Finished! +50 XP &amp; +15 VEs Added!</span>
+                  <span className={styles.liveBalanceNotice}>Live XP: {currentXP.toLocaleString()} XP</span>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.modalActionGroup}>
+              {adCompleted ? (
+                <button 
+                  className={styles.modalPrimaryBtn}
+                  onClick={() => { setActiveModal(null); setActiveScreen('dashboard'); }}
+                >
+                  <ArrowLeft size={16} />
+                  <span>Back to Dashboard</span>
+                </button>
+              ) : (
+                <span className={styles.adFooterNote}>Reward automatically credits to your account upon completion.</span>
+              )}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Referral Link Modal */}
+      {/* ─── MODAL 2: Daily Tasks Interactive Checklist ─── */}
+      {activeModal === 'tasks' && (
+        <div className={styles.modalBackdrop} onClick={() => setActiveModal(null)}>
+          <div className={styles.modalBox} onClick={e => e.stopPropagation()}>
+            <div className={styles.modalTopRow}>
+              <div className={styles.modalTitleGroup}>
+                <CheckCircle2 size={20} className={styles.iconDaily} />
+                <h4 className={styles.modalTitle}>Daily Task Rewards</h4>
+              </div>
+              <button className={styles.modalCloseIcon} onClick={() => setActiveModal(null)}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <p className={styles.modalSub}>Complete today's missions to earn XP and boost your progression level!</p>
+
+            <div className={styles.tasksList}>
+              {tasksState.map(task => (
+                <div key={task.id} className={styles.taskItem}>
+                  <div className={styles.taskInfoCol}>
+                    <span className={styles.taskItemTitle}>{task.title}</span>
+                    <span className={styles.taskRewardBadges}>
+                      <span className={styles.xpPill}>+{task.rewardXP} XP</span>
+                      <span className={styles.vePill}>+{task.rewardVEs} VEs</span>
+                    </span>
+                  </div>
+
+                  <button 
+                    className={task.claimed ? styles.claimedBtn : styles.claimTaskBtn}
+                    onClick={() => claimTask(task)}
+                    disabled={task.claimed}
+                  >
+                    {task.claimed ? '✓ Claimed' : 'Claim'}
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <button 
+              className={styles.modalPrimaryBtn}
+              onClick={() => { setActiveModal(null); setActiveScreen('dashboard'); }}
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Dashboard</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MODAL 3: Refer & Earn ─── */}
       {activeModal === 'refer' && (
         <div className={styles.modalBackdrop} onClick={() => setActiveModal(null)}>
           <div className={styles.modalBox} onClick={e => e.stopPropagation()}>
-            <h4 className={styles.modalTitle}>Invite Friends & Earn</h4>
-            <p className={styles.modalSub}>Earn +100 XP and +25 VEs for each friend who joins!</p>
+            <div className={styles.modalTopRow}>
+              <h4 className={styles.modalTitle}>Invite Friends &amp; Earn</h4>
+              <button className={styles.modalCloseIcon} onClick={() => setActiveModal(null)}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <p className={styles.modalSub}>Share your exclusive link! Earn +100 XP and +25 VEs for every friend who joins.</p>
+
             <div className={styles.copyBox}>
               <input 
                 type="text" 
@@ -252,11 +354,34 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
                 <span>{copied ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
+
             <button 
-              className={styles.modalCloseBtn}
-              onClick={() => setActiveModal(null)}
+              className={styles.modalPrimaryBtn}
+              onClick={() => { setActiveModal(null); setActiveScreen('dashboard'); }}
             >
-              Done
+              <ArrowLeft size={16} />
+              <span>Back to Dashboard</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MODAL 4: Streak Bonus Celebration ─── */}
+      {activeModal === 'streak' && (
+        <div className={styles.modalBackdrop} onClick={() => setActiveModal(null)}>
+          <div className={styles.modalBox} onClick={e => e.stopPropagation()}>
+            <div className={styles.streakCelebrateGraphic}>
+              <Flame size={48} className={styles.streakFlameAnimated} />
+              <h4 className={styles.modalTitle}>7 Days Streak Unlocked!</h4>
+              <p className={styles.modalSub}>You've maintained your daily check-in streak. +25 XP and +15 VEs have been added to your profile.</p>
+            </div>
+
+            <button 
+              className={styles.modalPrimaryBtn}
+              onClick={() => { setActiveModal(null); setActiveScreen('dashboard'); }}
+            >
+              <ArrowLeft size={16} />
+              <span>Back to Dashboard</span>
             </button>
           </div>
         </div>

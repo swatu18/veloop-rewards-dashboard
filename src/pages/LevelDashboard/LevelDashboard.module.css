@@ -1,53 +1,32 @@
+/* ═══════════════════════════════════════════════════════════
+   LevelDashboard.module.css  –  Dashboard Grid & Page
+   Follows Page 33 Screen 1 Layout Strictly
+═══════════════════════════════════════════════════════════ */
+
 .mainContainer {
-  max-width: 1360px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 24px 16px 90px 16px;
+  padding: 20px 16px 90px 16px;
   animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (min-width: 1024px) {
   .mainContainer {
-    padding: 32px 24px 60px 24px;
+    padding: 28px 24px 60px 24px;
   }
 }
 
-/* Row 1: Top Grid */
-.topGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-@media (min-width: 1024px) {
-  .topGrid {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 24px;
-    align-items: start;
-  }
-}
-
-.heroCol {
-  display: flex;
-  flex-direction: column;
-}
-
-.rewardCol {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Row 2: Roadmap */
-.roadmapRow {
+.sectionRow {
   width: 100%;
+  margin-bottom: 20px;
 }
 
-/* Row 3: Middle Grid */
+/* Row 6: Middle Grid (Play & Earn + Recent Activity Ledger) */
 .middleGrid {
   display: flex;
   flex-direction: column;
@@ -95,9 +74,4 @@
 .activityCol {
   display: flex;
   flex-direction: column;
-}
-
-/* Row 4: Bottom Section */
-.bottomSection {
-  width: 100%;
 }

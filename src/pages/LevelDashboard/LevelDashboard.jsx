@@ -2,10 +2,10 @@ import React from 'react';
 import { useDashboard } from '../../context/DashboardContext';
 import { LevelHero } from '../../components/LevelHero/LevelHero';
 import { TodaysBoost } from '../../components/TodaysBoost/TodaysBoost';
+import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { NextLevelReward } from '../../components/NextLevelReward/NextLevelReward';
 import { LevelRoadmap } from '../../components/LevelRoadmap/LevelRoadmap';
 import { GameContainer } from '../../components/PlayAndEarn/GameContainer';
-import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { XPActivity } from '../../components/XPActivity/XPActivity';
 import { LoadingSkeleton } from '../../components/States/LoadingSkeleton';
 import { EmptyState } from '../../components/States/EmptyState';
@@ -65,31 +65,41 @@ export const LevelDashboard = () => {
     );
   }
 
-  // Primary Responsive Dashboard Layout (Matching Page 18 Desktop Layout & Page 33 Mobile Layout)
+  // Primary Responsive Dashboard Layout – Matches Page 33 Screen 1 Ordering:
+  // Level Hero → Today's Boost → Earn More (6 Cards) → Level Rewards (Treasure Chest) → Roadmap → Game & Activity
   return (
     <main className={styles.mainContainer}>
-      {/* Row 1: Top Hero & Next Reward (2 Columns on Desktop) */}
-      <div className={styles.topGrid}>
-        <div className={styles.heroCol}>
-          <LevelHero />
-          <TodaysBoost />
-        </div>
-        <div className={styles.rewardCol}>
-          <NextLevelReward />
-        </div>
-      </div>
+      {/* 1. Main Level Progression Hero */}
+      <section className={styles.sectionRow}>
+        <LevelHero />
+      </section>
 
-      {/* Row 2: Full Width Level Progression Roadmap */}
-      <section className={styles.roadmapRow}>
+      {/* 2. Today's Boost Metrics (XP Earned, Tasks Done, Streak) */}
+      <section className={styles.sectionRow}>
+        <TodaysBoost />
+      </section>
+
+      {/* 3. Earn More Section (Watch & Earn, Daily Tasks, Refer, Catcher, Mini Games, Streak) */}
+      <section className={styles.sectionRow}>
+        <EarnMoreXP isFullPage={false} />
+      </section>
+
+      {/* 4. Level Rewards Milestone Vault (Treasure Chest with Overflowing Coins & Gems) */}
+      <section className={styles.sectionRow}>
+        <NextLevelReward />
+      </section>
+
+      {/* 5. Progression Roadmap with 10 Tier Badges */}
+      <section className={styles.sectionRow}>
         <LevelRoadmap />
       </section>
 
-      {/* Row 3: Play & Earn Mini-Game Hub + Live XP Activity Ledger (Side-by-side on Desktop) */}
+      {/* 6. Play & Earn Mini-Game Hub + Live XP Activity Ledger */}
       <div className={styles.middleGrid}>
         <div className={styles.gameCol}>
           <div className={styles.colHeader}>
             <span className={styles.colBadge}>FEATURED ARCADE</span>
-            <h3 className={styles.colTitle}>PLAY & EARN MINI-GAME</h3>
+            <h3 className={styles.colTitle}>XP CATCHER MINI-GAME</h3>
           </div>
           <GameContainer />
         </div>
@@ -98,11 +108,6 @@ export const LevelDashboard = () => {
           <XPActivity isFullPage={false} />
         </div>
       </div>
-
-      {/* Row 4: Full Width Earn More XP & Rewards Section */}
-      <section className={styles.bottomSection}>
-        <EarnMoreXP isFullPage={false} />
-      </section>
     </main>
   );
 };
