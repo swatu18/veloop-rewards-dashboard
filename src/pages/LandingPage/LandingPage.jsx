@@ -57,7 +57,7 @@ export const LandingPage = () => {
 
           <h1 className={styles.heroTitle}>
             Level Up Your Journey. <br />
-            <span className={styles.goldGradientText}>Play, Earn & Unlock Real Rewards.</span>
+            <span className={styles.goldGradientText}>Play, Earn &amp; Unlock Real Rewards.</span>
           </h1>
 
           <p className={styles.heroSubtitle}>
@@ -74,7 +74,7 @@ export const LandingPage = () => {
             ) : (
               <>
                 <button className={styles.primaryCta} onClick={handleGetStarted}>
-                  <span>Get Started Free</span>
+                  <span>Create Account</span>
                   <ArrowRight size={18} />
                 </button>
 
@@ -86,7 +86,7 @@ export const LandingPage = () => {
 
             <button className={styles.demoCta} onClick={handleTryDemo}>
               <Zap size={16} className={styles.zapIcon} />
-              <span>One-Click Demo (Swathi G)</span>
+              <span>Instant Demo Access</span>
             </button>
           </div>
 
@@ -124,7 +124,7 @@ export const LandingPage = () => {
 
               <div className={styles.previewDetails}>
                 <span className={styles.tierName}>DIAMOND CHAMPION</span>
-                <h3 className={styles.userName}>Swathi G</h3>
+                <h3 className={styles.userName}>VELOOP Member</h3>
                 <span className={styles.xpLabel}>6,420 / 8,000 XP (80%)</span>
 
                 <div className={styles.progressTrack}>
@@ -186,7 +186,7 @@ export const LandingPage = () => {
             <div className={styles.stepIconWrap}>
               <Users size={24} />
             </div>
-            <h3 className={styles.stepTitle}>Sign Up & Check In</h3>
+            <h3 className={styles.stepTitle}>Sign Up &amp; Check In</h3>
             <p className={styles.stepDesc}>
               Create your account in seconds. Maintain your daily consecutive login streak to claim multiplier boosts.
             </p>
@@ -231,7 +231,7 @@ export const LandingPage = () => {
       <section className={styles.featuresSection}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>PREMIUM ARCHITECTURE</span>
-          <h2 className={styles.sectionHeading}>Engineered for Trust & Engagement</h2>
+          <h2 className={styles.sectionHeading}>Engineered for Trust &amp; Engagement</h2>
           <p className={styles.sectionSub}>A seamless fintech experience designed strictly without casino styling.</p>
         </div>
 
@@ -262,7 +262,7 @@ export const LandingPage = () => {
             </div>
             <h3 className={styles.featureTitle}>Actionable Earning Features</h3>
             <p className={styles.featureText}>
-              Watch & Earn video simulator, daily platform missions, friend referrals with clipboard links, and upcoming concept showcases.
+              Watch &amp; Earn video simulator, daily platform missions, friend referrals with clipboard links, and upcoming concept showcases.
             </p>
           </div>
 
@@ -317,7 +317,7 @@ export const LandingPage = () => {
 
             <button className={styles.demoCtaLarge} onClick={handleTryDemo}>
               <Zap size={18} className={styles.zapIcon} />
-              <span>Launch Swathi G Demo Dashboard</span>
+              <span>Launch Demo Dashboard</span>
             </button>
           </div>
         </div>
@@ -331,7 +331,7 @@ export const LandingPage = () => {
             <span className={styles.footerTitle}>VELOOP REWARDS</span>
           </div>
           <span className={styles.footerText}>
-            Frontend Engineering Internship • Task 16 Level-Up Dashboard Redesign • Built by Swathi G
+            VELOOP Rewards Progression Hub • Gamified Level-Up Center
           </span>
         </div>
       </footer>

@@ -6,11 +6,11 @@ const MOCK_USERS_KEY = 'veloop_users';
 const MOCK_SESSION_KEY = 'veloop_session';
 
 const DEFAULT_USER = {
-  id: 'user_swathi_1',
-  name: 'Swathi G',
-  email: 'yadavswathi89@gmail.com',
+  id: 'user_veloop_demo',
+  name: 'VELOOP Member',
+  email: 'member@veloop.rewards',
   password: 'password123',
-  avatar: 'SG',
+  avatar: 'VL',
   joinedAt: '2026-10-01T00:00:00.000Z',
   isNewUser: false
 };
@@ -20,19 +20,19 @@ const getStoredUsers = () => {
     const data = JSON.parse(localStorage.getItem(MOCK_USERS_KEY));
     if (Array.isArray(data) && data.length > 0) return data;
   } catch {}
-  // Pre-seed default user
+  // Pre-seed default demo account
   const initial = [DEFAULT_USER];
   localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(initial));
   return initial;
 };
 
+// Returns null if no active session in localStorage (requires sign in / sign up)
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));
     if (session && session.expiresAt > Date.now()) return session.user;
   } catch {}
-  // Default logged in session for seamless first-time experience
-  return DEFAULT_USER;
+  return null;
 };
 
 export const AuthProvider = ({ children }) => {
@@ -63,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     return users.find(u => u.email.toLowerCase().trim() === email.toLowerCase().trim()) || null;
   };
 
-  // Sign Up
+  // Sign Up with Credentials
   const signUp = async (name, email, password) => {
     setAuthError('');
     setIsLoading(true);
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     const cleanName = name.trim();
 
     if (isEmailRegistered(cleanEmail)) {
-      setAuthError('An account with this email already exists. Please log in.');
+      setAuthError('An account with this email already exists. Please sign in.');
       setIsLoading(false);
       return false;
     }
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
     return true;
   };
 
-  // Sign In
+  // Sign In with Credentials
   const signIn = async (email, password) => {
     setAuthError('');
     setIsLoading(true);
@@ -127,7 +127,7 @@ export const AuthProvider = ({ children }) => {
     );
 
     if (!user) {
-      setAuthError('Incorrect password. Please verify your credentials.');
+      setAuthError('Incorrect email or password. Please verify your credentials.');
       setIsLoading(false);
       return false;
     }
@@ -144,7 +144,7 @@ export const AuthProvider = ({ children }) => {
     return true;
   };
 
-  // Quick Demo Login (switches instantly to Swathi G)
+  // One-Click Demo Mode (VELOOP Member)
   const quickDemoLogin = () => {
     const session = {
       user: DEFAULT_USER,

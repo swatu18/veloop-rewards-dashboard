@@ -96,8 +96,8 @@ export const LEVEL_ROADMAP = [
 ];
 
 export const INITIAL_USER_STATE = {
-  userName: "Swathi G",
-  greetingName: "VeLooper",
+  userName: "VeLooper",
+  greetingName: "VELOOP",
   currentLevel: 5,
   currentXP: 6420,
   levelBaseXP: 6000,

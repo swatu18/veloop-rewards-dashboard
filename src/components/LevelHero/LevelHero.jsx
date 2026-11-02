@@ -19,21 +19,22 @@ export const LevelHero = () => {
 
   const nextLevel = user.currentLevel + 1;
   const formattedNextLevel = nextLevel < 10 ? `0${nextLevel}` : `${nextLevel}`;
-  const greetingName = currentUser?.name ? (currentUser.name.split(' ')[0] || currentUser.name) : user.greetingName;
 
   return (
     <section className={styles.heroSection}>
-      {/* Top Greeting Message – Exactly matching Screen 1 */}
+      {/* Top Greeting Message – Displays "Good Morning, VELOOP!" as the company name */}
       <div className={styles.greetingHeader}>
         <div className={styles.greetingBadge}>
           <Sparkles size={13} className={styles.sparkleIcon} />
           <span>PROGRESSION HUB</span>
         </div>
         <h1 className={styles.heroTitle}>
-          Good Morning, <span className={styles.goldText}>{greetingName}!</span>
+          Good Morning, <span className={styles.goldText}>VELOOP!</span>
         </h1>
         <p className={styles.heroSubtitle}>
-          Level up your journey and unlock epic rewards every day.
+          {currentUser?.name 
+            ? `Welcome back, ${currentUser.name}! Level up your journey and unlock epic rewards every day.` 
+            : 'Level up your journey and unlock epic rewards every day.'}
         </p>
       </div>
 

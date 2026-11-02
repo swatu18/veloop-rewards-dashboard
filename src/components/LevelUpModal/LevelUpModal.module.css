@@ -124,6 +124,14 @@
   font-size: 1.4rem;
 }
 
+.coinStackSvg,
+.gemClusterSvg {
+  width: 44px;
+  height: 44px;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+
 .rewardInfo {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useDashboard } from '../../context/DashboardContext';
+import { useAuth } from '../../context/AuthContext';
+import { AuthGate } from '../../components/Auth/AuthGate';
 import { LevelHero } from '../../components/LevelHero/LevelHero';
 import { TodaysBoost } from '../../components/TodaysBoost/TodaysBoost';
 import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
@@ -14,6 +16,16 @@ import styles from './LevelDashboard.module.css';
 
 export const LevelDashboard = () => {
   const { demoState, activeScreen } = useDashboard();
+  const { isAuthenticated } = useAuth();
+
+  // If user is not authenticated, show the Sign In / Create Account Gate
+  if (!isAuthenticated) {
+    return (
+      <main className={styles.mainContainer}>
+        <AuthGate />
+      </main>
+    );
+  }
 
   // Handle Demo UX States (Sections 40, 41, 42)
   if (demoState === 'loading') {
