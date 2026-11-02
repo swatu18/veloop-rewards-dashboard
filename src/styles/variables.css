@@ -66,3 +66,32 @@
   --radius-lg: 22px;
   --radius-full: 9999px;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Light Theme Override (Executive Clean Modern Gaming UI)
+═══════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg-primary: #F1F5F9;
+  --bg-secondary: #E2E8F0;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-card-elevated: #FFFFFF;
+  --bg-glass: rgba(255, 255, 255, 0.85);
+  --bg-glass-heavy: rgba(255, 255, 255, 0.96);
+
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(0, 0, 0, 0.14);
+  --border-gold: rgba(217, 119, 6, 0.45);
+  --border-gold-glow: rgba(217, 119, 6, 0.8);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-gold: #B45309;
+  --text-inverse: #F8FAFC;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.12);
+  --shadow-gold: 0 8px 25px rgba(245, 158, 11, 0.2);
+}

@@ -34,6 +34,20 @@ export const DashboardProvider = ({ children }) => {
   // Sound settings
   const [soundEnabled, setSoundEnabled] = useState(true);
 
+  // Theme settings (Dark / Light Theme Toggle)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('veloop_theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('veloop_theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
   const toggleSound = () => {
     const next = sounds.toggleSound();
     setSoundEnabled(next);
@@ -230,6 +244,8 @@ export const DashboardProvider = ({ children }) => {
         completeGame,
         soundEnabled,
         toggleSound,
+        theme,
+        toggleTheme,
         resetDemo,
         totalRequiredXP,
         currentXP,

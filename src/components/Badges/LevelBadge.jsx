@@ -230,8 +230,6 @@ export const MiniTierBadge = ({ level, status, onClick }) => {
             <circle cx="100" cy="68" r="2.2" fill="#FFFBEB" />
             <circle cx="96" cy="52" r="2.2" fill="#FFFBEB" />
             <circle cx="90" cy="38" r="2.2" fill="#FFFBEB" />
-
-            <polygon points="60,8 63,15 70,16 65,21 66.5,28 60,24 53.5,28 55,21 50,16 57,15" fill="#FFFBEB" filter="drop-shadow(0 0 5px #F59E0B)" />
           </g>
         )}
 

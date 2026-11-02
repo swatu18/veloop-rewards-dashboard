@@ -556,6 +556,7 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
       <div 
         className={styles.canvasWrapper}
         onMouseMove={onMouseMove}
+        onTouchStart={onTouchMove}
         onTouchMove={onTouchMove}
       >
         <canvas ref={canvasRef} className={styles.gameCanvas} />

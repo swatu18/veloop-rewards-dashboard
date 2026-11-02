@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, Bell, Volume2, VolumeX, X, User, Award, Settings, LogOut, Gift, CheckCircle, LogIn, Sparkles } from 'lucide-react';
+import { Menu, Bell, Volume2, VolumeX, Sun, Moon, X, User, Award, Settings, LogOut, Gift, CheckCircle, LogIn, Sparkles } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import { useAuth } from '../../context/AuthContext';
+import { VeloopLogo } from '../common/VeloopLogo';
 import styles from './Navbar.module.css';
 
 const NOTIFICATIONS = [
@@ -13,7 +14,7 @@ const NOTIFICATIONS = [
 ];
 
 export const Navbar = ({ onOpenMenu }) => {
-  const { user, soundEnabled, toggleSound, activeScreen, setActiveScreen } = useDashboard();
+  const { user, soundEnabled, toggleSound, theme, toggleTheme, activeScreen, setActiveScreen } = useDashboard();
   const { currentUser, isAuthenticated, signOut, openAuthModal } = useAuth();
 
   const [showNotifications, setShowNotifications] = useState(false);
@@ -75,13 +76,7 @@ export const Navbar = ({ onOpenMenu }) => {
             role="button"
             tabIndex={0}
           >
-            <div className={styles.logoMark}>
-              <span>V</span>
-            </div>
-            <div className={styles.logoText}>
-              <span className={styles.brandTitle}>VELOOP</span>
-              <span className={styles.brandSubtitle}>REWARDS</span>
-            </div>
+            <VeloopLogo size="normal" />
           </div>
         </div>
 
@@ -119,8 +114,18 @@ export const Navbar = ({ onOpenMenu }) => {
           </button>
         </nav>
 
-        {/* Right: Balances, Audio Toggle & Profile / Auth */}
+        {/* Right: Balances, Audio & Theme Toggle & Profile / Auth */}
         <div className={styles.userControls}>
+          {/* Theme Toggle (Dark / Light) */}
+          <button
+            className={styles.iconBtn}
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? <Sun size={18} className={styles.activeIcon} /> : <Moon size={18} />}
+          </button>
+
           {/* Audio toggle */}
           <button
             className={styles.iconBtn}

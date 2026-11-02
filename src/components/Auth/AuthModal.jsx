@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Lock, Mail, User, Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { VeloopLogo } from '../common/VeloopLogo';
 import styles from './AuthModal.module.css';
 
 export const AuthModal = () => {
@@ -85,9 +86,8 @@ export const AuthModal = () => {
 
         {/* Brand Header */}
         <div className={styles.header}>
-          <div className={styles.logoBadge}>
-            <Sparkles size={16} className={styles.sparkleIcon} />
-            <span>VELOOP REWARDS AUTH</span>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '12px' }}>
+            <VeloopLogo size="normal" />
           </div>
 
           <h3 className={styles.title}>

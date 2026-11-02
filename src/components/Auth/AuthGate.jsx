@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, Sparkles, ShieldCheck, Zap, AlertCircle } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { VeloopLogo } from '../common/VeloopLogo';
 import styles from './AuthGate.module.css';
 
 export const AuthGate = () => {
@@ -38,9 +39,8 @@ export const AuthGate = () => {
 
         {/* Brand Logo & Heading */}
         <div className={styles.header}>
-          <div className={styles.logoBadge}>
-            <span className={styles.logoIcon}>V</span>
-            <span>VELOOP REWARDS</span>
+          <div className={styles.logoBadgeWrap}>
+            <VeloopLogo size="large" />
           </div>
 
           <h2 className={styles.title}>

@@ -1,0 +1,85 @@
+.logoContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  text-decoration: none;
+}
+
+.emblemBadge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.logoContainer:hover .emblemBadge {
+  transform: scale(1.08) translateY(-1px);
+}
+
+.emblemSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45));
+}
+
+.brandTextCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.brandMain {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.brandSub {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: var(--gold-400);
+  margin-top: 2px;
+}
+
+/* Size Variants */
+.small .emblemBadge {
+  width: 32px;
+  height: 32px;
+}
+.small .brandMain {
+  font-size: 1rem;
+}
+.small .brandSub {
+  font-size: 0.52rem;
+}
+
+.normal .emblemBadge {
+  width: 40px;
+  height: 40px;
+}
+.normal .brandMain {
+  font-size: 1.25rem;
+}
+.normal .brandSub {
+  font-size: 0.62rem;
+}
+
+.large .emblemBadge {
+  width: 54px;
+  height: 54px;
+}
+.large .brandMain {
+  font-size: 1.7rem;
+}
+.large .brandSub {
+  font-size: 0.78rem;
+  letter-spacing: 0.25em;
+}

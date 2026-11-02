@@ -18,6 +18,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { LevelBadge } from '../../components/Badges/LevelBadge';
+import { VeloopLogo } from '../../components/common/VeloopLogo';
 import styles from './LandingPage.module.css';
 
 export const LandingPage = () => {
@@ -50,6 +51,10 @@ export const LandingPage = () => {
         <div className={styles.glowRight}></div>
 
         <div className={styles.heroContent}>
+          <div style={{ display: 'inline-flex', marginBottom: '14px' }}>
+            <VeloopLogo size="large" />
+          </div>
+
           <div className={styles.pillBadge}>
             <Sparkles size={14} className={styles.goldSparkle} />
             <span>VELOOP REWARDS 2.0 • GAMIFIED PROGRESSION HUB</span>
