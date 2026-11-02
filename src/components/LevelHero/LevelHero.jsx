@@ -46,14 +46,17 @@ export const LevelHero = () => {
         <div className={styles.cardContent}>
           {/* Left: Gold Beveled Plaque Badge (Screen 1) */}
           <div className={styles.badgeCol}>
-            <LevelBadge level={user.currentLevel} size="normal" animated={true} showStars={true} />
+            <LevelBadge level={user.currentLevel} size="normal" animated={true} showStars={true} showRarity={true} />
+            <div className={styles.tierNameTag}>
+              <span>DIAMOND CHAMPION</span>
+            </div>
           </div>
 
           {/* Right: Progression Metrics & Bar (Screen 1) */}
           <div className={styles.metricsCol}>
             <div className={styles.metricsHeaderRow}>
               <div className={styles.levelTagGroup}>
-                <span className={styles.currentLevelTag}>CURRENT LEVEL</span>
+                <span className={styles.currentLevelTag}>★ CURRENT TIER V</span>
                 <button 
                   className={styles.infoBtn}
                   onClick={() => setActiveInfoModal('level')}
@@ -71,7 +74,7 @@ export const LevelHero = () => {
               </div>
             </div>
 
-            {/* Glowing Animated Progress Bar */}
+            {/* Glowing Animated Liquid Progress Bar with Milestone Markers */}
             <div className={styles.progressBarSection}>
               <div className={styles.progressTrack}>
                 <div 
@@ -81,6 +84,11 @@ export const LevelHero = () => {
                   <div className={styles.progressGlowHead}></div>
                   <div className={styles.progressShimmer}></div>
                 </div>
+
+                {/* Milestone tick marks */}
+                <div className={styles.milestoneTick} style={{ left: '25%' }} title="25% Milestone" />
+                <div className={styles.milestoneTick} style={{ left: '50%' }} title="50% Milestone" />
+                <div className={styles.milestoneTick} style={{ left: '75%' }} title="75% Milestone" />
               </div>
 
               {/* Progress Labels: "6,420 / 8,000 XP" & Percentage */}
@@ -92,11 +100,13 @@ export const LevelHero = () => {
               </div>
             </div>
 
-            {/* Quick Earn Action */}
+            {/* Reward Preview Pill & Quick Earn Action */}
             <div className={styles.quickEarnRow}>
-              <span className={styles.xpRemainingText}>
-                <strong>{xpRemaining.toLocaleString()} XP</strong> remaining
-              </span>
+              <div className={styles.nextRewardPreview}>
+                <span className={styles.giftIcon}>🎁</span>
+                <span>Next Vault: <strong>+500 VEs &amp; +25 Gems</strong></span>
+              </div>
+
               <button 
                 className={styles.quickEarnLink}
                 onClick={() => setActiveScreen('earn')}

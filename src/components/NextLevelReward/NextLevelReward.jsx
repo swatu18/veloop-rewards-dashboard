@@ -1,226 +1,312 @@
-import React, { useState } from 'react';
-import { Lock, Gift, Info, ArrowRight, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Lock, Sparkles, ArrowRight, X, RotateCcw, Check, Zap, Info } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import styles from './NextLevelReward.module.css';
 
-/* ─── Premium 3D Gaming Vault Chest with Overflowing Coins & Gems (Screen 1) ─ */
-function PremiumTreasureChest() {
+/* ─── Web Audio API Sound Synthesizer (Zero asset dependency, instant playback) ─── */
+function playUnboxSound(type) {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+
+    if (type === 'rumble') {
+      // Low suspense rumble
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(65, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(140, ctx.currentTime + 1.2);
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 1.1);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 1.3);
+    } else if (type === 'burst') {
+      // Pop / burst sound
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(420, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.35);
+      gain.gain.setValueAtTime(0.25, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.5);
+    } else if (type === 'fanfare') {
+      // Golden fanfare chord
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+        gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + idx * 0.08 + 0.04);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.8);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + idx * 0.08);
+        osc.stop(ctx.currentTime + idx * 0.08 + 0.8);
+      });
+    }
+  } catch (e) {
+    // Audio context may be restricted by browser policy before user interaction
+  }
+}
+
+/* ─── 3D Treasure Box Graphic (Closed & Open States) ─────────────────────── */
+export function TreasureBox3D({ isOpen = false, isShaking = false, size = 'normal' }) {
   return (
-    <div className={styles.chestGraphic}>
+    <div
+      className={[
+        styles.boxWrapper,
+        styles[size],
+        isShaking ? styles.boxRattling : '',
+        isOpen ? styles.boxOpened : '',
+      ].filter(Boolean).join(' ')}
+    >
       <svg
-        viewBox="0 0 170 145"
+        viewBox="0 0 180 150"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={styles.chestSvg}
+        className={styles.treasureSvg}
       >
         <defs>
-          {/* Radial aura glow */}
-          <radialGradient id="chestAura" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.6" />
-            <stop offset="50%" stopColor="#D97706" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#D97706" stopOpacity="0" />
+          {/* Radial Aura Glow */}
+          <radialGradient id="tbAura" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.75" />
+            <stop offset="50%" stopColor="#D97706" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#78350F" stopOpacity="0" />
           </radialGradient>
 
-          {/* Gold metallic gradients */}
-          <linearGradient id="goldLidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FFFBEB" />
-            <stop offset="25%" stopColor="#FDE68A" />
-            <stop offset="60%" stopColor="#F59E0B" />
-            <stop offset="90%" stopColor="#D97706" />
+          {/* 24K Gold Trim Gradients */}
+          <linearGradient id="tbGoldLid" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="25%" stopColor="#FFFBEB" />
+            <stop offset="50%" stopColor="#FDE68A" />
+            <stop offset="75%" stopColor="#F59E0B" />
             <stop offset="100%" stopColor="#78350F" />
           </linearGradient>
 
-          <linearGradient id="goldRimGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="tbGoldRim" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#92400E" />
             <stop offset="20%" stopColor="#FDE68A" />
-            <stop offset="50%" stopColor="#FFFBEB" />
+            <stop offset="50%" stopColor="#FFFFFF" />
             <stop offset="80%" stopColor="#F59E0B" />
             <stop offset="100%" stopColor="#78350F" />
           </linearGradient>
 
-          {/* Dark obsidian wood body */}
-          <linearGradient id="chestBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#281A38" />
-            <stop offset="40%" stopColor="#1B1226" />
-            <stop offset="100%" stopColor="#0F0916" />
+          {/* Royal Obsidian Mahogany Body */}
+          <linearGradient id="tbBodyWood" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#312E81" />
+            <stop offset="30%" stopColor="#1E1B4B" />
+            <stop offset="70%" stopColor="#18182E" />
+            <stop offset="100%" stopColor="#0B0B18" />
           </linearGradient>
 
-          <linearGradient id="chestLidWood" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#3B2652" />
-            <stop offset="60%" stopColor="#241634" />
-            <stop offset="100%" stopColor="#150D20" />
+          <linearGradient id="tbLidWood" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#4338CA" />
+            <stop offset="50%" stopColor="#2E2880" />
+            <stop offset="100%" stopColor="#14113B" />
           </linearGradient>
 
-          {/* Cyan crystal gem glow */}
-          <radialGradient id="gemGlow" cx="40%" cy="35%" r="65%">
-            <stop offset="0%" stopColor="#E0F2FE" />
-            <stop offset="30%" stopColor="#38BDF8" />
-            <stop offset="80%" stopColor="#0284C7" />
-            <stop offset="100%" stopColor="#0369A1" />
+          {/* Cyan Gemstone Core */}
+          <radialGradient id="tbGem" cx="35%" cy="30%" r="65%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="30%" stopColor="#67E8F9" />
+            <stop offset="75%" stopColor="#0284C7" />
+            <stop offset="100%" stopColor="#082F49" />
           </radialGradient>
 
-          {/* Coin gold gradient */}
-          <radialGradient id="coinGrad" cx="35%" cy="35%" r="60%">
+          {/* Coin Gold Gradient */}
+          <radialGradient id="tbCoin" cx="35%" cy="35%" r="60%">
             <stop offset="0%" stopColor="#FFFBEB" />
             <stop offset="40%" stopColor="#FBBF24" />
             <stop offset="85%" stopColor="#D97706" />
             <stop offset="100%" stopColor="#78350F" />
           </radialGradient>
 
-          {/* Filter for glow */}
-          <filter id="goldGlowFilter" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="3.5" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-
-          <filter id="gemBloom" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="b" />
+          {/* Bloom Filters */}
+          <filter id="tbGoldBloom" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3.5" result="b" />
             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
         </defs>
 
-        {/* ── Background Aura Glow ── */}
-        <ellipse cx="85" cy="78" rx="70" ry="54" fill="url(#chestAura)" />
+        {/* Ambient Aura Background */}
+        <ellipse cx="90" cy="80" rx="80" ry="60" fill="url(#tbAura)" />
 
-        {/* ── Floating Light Beams ── */}
-        <polygon points="85,72 50,15 65,15" fill="#FDE68A" opacity="0.14" />
-        <polygon points="85,72 80,10 93,10" fill="#FDE68A" opacity="0.2" />
-        <polygon points="85,72 105,16 118,18" fill="#FDE68A" opacity="0.15" />
+        {/* Floating Volumetric Light Beams */}
+        <g opacity={isOpen ? 0.9 : 0.35}>
+          <polygon points="90,75 45,10 65,10" fill="#FDE68A" opacity="0.25" />
+          <polygon points="90,75 82,4 98,4" fill="#FDE68A" opacity="0.35" />
+          <polygon points="90,75 115,12 135,12" fill="#FDE68A" opacity="0.25" />
+        </g>
 
-        {/* ── Dais / Shadow Base ── */}
-        <ellipse cx="85" cy="125" rx="60" ry="12" fill="#000000" opacity="0.65" filter="blur(4px)" />
-        <ellipse cx="85" cy="122" rx="46" ry="7" fill="url(#goldRimGrad)" opacity="0.4" />
+        {/* Pedestal Cast Shadow */}
+        <ellipse cx="90" cy="128" rx="65" ry="12" fill="#000000" opacity="0.7" filter="blur(4px)" />
+        <ellipse cx="90" cy="125" rx="52" ry="7" fill="url(#tbGoldRim)" opacity="0.45" />
 
         {/* ── CHEST BASE / BODY ── */}
-        <rect x="31" y="68" width="108" height="48" rx="8" fill="url(#chestBodyGrad)" />
-        <rect x="33" y="70" width="104" height="44" rx="6" stroke="#4C1D95" strokeWidth="1" fill="none" opacity="0.4" />
+        <rect x="34" y="72" width="112" height="48" rx="8" fill="url(#tbBodyWood)" stroke="#1E1B4B" strokeWidth="1.5" />
 
-        {/* Golden corner brackets - bottom left */}
-        <path d="M31 100 L31 112 Q31 116 35 116 L51 116 L51 108 L39 108 L39 100 Z" fill="url(#goldLidGrad)" />
-        <circle cx="35" cy="112" r="1.5" fill="#FFFBEB" />
-
-        {/* Golden corner brackets - bottom right */}
-        <path d="M139 100 L139 112 Q139 116 135 116 L119 116 L119 108 L131 108 L131 100 Z" fill="url(#goldLidGrad)" />
-        <circle cx="135" cy="112" r="1.5" fill="#FFFBEB" />
+        {/* Golden Corner Brackets */}
+        <path d="M 34 102 L 34 116 Q 34 120 38 120 L 54 120 L 54 112 L 42 112 L 42 102 Z" fill="url(#tbGoldLid)" />
+        <circle cx="38" cy="116" r="1.6" fill="#FFFBEB" />
+        <path d="M 146 102 L 146 116 Q 146 120 142 120 L 126 120 L 126 112 L 138 112 L 138 102 Z" fill="url(#tbGoldLid)" />
+        <circle cx="142" cy="116" r="1.6" fill="#FFFBEB" />
 
         {/* Vertical Gold Straps on Body */}
-        <rect x="53" y="68" width="11" height="48" fill="url(#goldRimGrad)" />
-        <rect x="106" y="68" width="11" height="48" fill="url(#goldRimGrad)" />
-
-        {/* Strap Rivets / Studs */}
-        {[74, 90, 106].map((y, i) => (
+        <rect x="56" y="72" width="12" height="48" fill="url(#tbGoldRim)" />
+        <rect x="112" y="72" width="12" height="48" fill="url(#tbGoldRim)" />
+        {[78, 96, 112].map((y, i) => (
           <g key={i}>
-            <circle cx="58.5" cy={y} r="1.6" fill="#FFFBEB" />
-            <circle cx="58.5" cy={y} r="2.2" stroke="#78350F" strokeWidth="0.5" fill="none" />
-            <circle cx="111.5" cy={y} r="1.6" fill="#FFFBEB" />
-            <circle cx="111.5" cy={y} r="2.2" stroke="#78350F" strokeWidth="0.5" fill="none" />
+            <circle cx="62" cy={y} r="1.8" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.5" />
+            <circle cx="118" cy={y} r="1.8" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.5" />
           </g>
         ))}
 
         {/* Bottom Gold Trim Bar */}
-        <rect x="30" y="112" width="110" height="5" rx="2" fill="url(#goldRimGrad)" />
+        <rect x="33" y="116" width="114" height="5" rx="2" fill="url(#tbGoldRim)" />
 
-        {/* ── CHEST LID (Curved 3D Arch) ── */}
-        <path
-          d="M29 68 C29 43, 55 30, 85 30 C115 30, 141 43, 141 68 Z"
-          fill="url(#chestLidWood)"
-        />
-        <path
-          d="M31 66 C32 45, 56 33, 85 33 C114 33, 138 45, 139 66 Z"
-          stroke="rgba(255,255,255,0.18)" strokeWidth="1" fill="none"
-        />
+        {/* ── INSIDE TREASURE (When Open) ── */}
+        {isOpen && (
+          <g filter="url(#tbGoldBloom)">
+            {/* Glowing Golden Interior Light */}
+            <ellipse cx="90" cy="72" rx="46" ry="14" fill="#FDE68A" />
+            <ellipse cx="90" cy="70" rx="38" ry="10" fill="#FFFFFF" />
 
-        {/* Lid Gold Edge Rim */}
-        <path
-          d="M28 68 C28 42, 54 29, 85 29 C116 29, 142 42, 142 68 L139 70 C139 45, 114 32, 85 32 C56 32, 31 45, 31 70 Z"
-          fill="url(#goldRimGrad)"
-        />
+            {/* Overflowing Coin Piles inside */}
+            <ellipse cx="80" cy="68" rx="8" ry="4" fill="url(#tbCoin)" />
+            <ellipse cx="96" cy="67" rx="8" ry="4" fill="url(#tbCoin)" />
+            <ellipse cx="88" cy="65" rx="9" ry="4.5" fill="url(#tbCoin)" stroke="#FFFBEB" strokeWidth="0.8" />
+            {/* Sparkling Cyan Crystals emerging */}
+            <polygon points="70,62 76,52 82,62 76,70" fill="url(#tbGem)" />
+            <polygon points="102,60 108,50 114,60 108,68" fill="url(#tbGem)" />
+          </g>
+        )}
 
-        {/* Lid Vertical Straps */}
-        <path
-          d="M53 67 C53 48, 55 37, 57 31 L67 31 C65 37, 64 48, 64 67 Z"
-          fill="url(#goldRimGrad)"
-        />
-        <path
-          d="M106 67 C106 48, 105 37, 103 31 L113 31 C115 37, 117 48, 117 67 Z"
-          fill="url(#goldRimGrad)"
-        />
+        {/* ── CHEST LID ── */}
+        {!isOpen ? (
+          // Closed Arched Lid
+          <g filter="url(#tbGoldBloom)">
+            <path d="M 32 72 C 32 45, 60 32, 90 32 C 120 32, 148 45, 148 72 Z" fill="url(#tbLidWood)" />
+            <path d="M 31 72 C 31 44, 59 31, 90 31 C 121 31, 149 44, 149 72 L 146 74 C 146 47, 119 34, 90 34 C 61 34, 34 47, 34 74 Z" fill="url(#tbGoldRim)" />
 
-        {/* Lid Studs on Straps */}
-        <circle cx="59.5" cy="44" r="1.6" fill="#FFFBEB" />
-        <circle cx="58.5" cy="56" r="1.6" fill="#FFFBEB" />
-        <circle cx="110.5" cy="44" r="1.6" fill="#FFFBEB" />
-        <circle cx="111.5" cy="56" r="1.6" fill="#FFFBEB" />
+            {/* Vertical Lid Straps */}
+            <path d="M 56 71 C 56 50, 58 38, 60 32 L 70 32 C 68 38, 67 50, 67 71 Z" fill="url(#tbGoldRim)" />
+            <path d="M 112 71 C 112 50, 110 38, 108 32 L 118 32 C 120 38, 122 50, 122 71 Z" fill="url(#tbGoldRim)" />
+            <circle cx="63" cy="48" r="1.8" fill="#FFFBEB" />
+            <circle cx="115" cy="48" r="1.8" fill="#FFFBEB" />
 
-        {/* Lid Horizontal Lip/Sill */}
-        <rect x="26" y="65" width="118" height="6" rx="2.5" fill="url(#goldRimGrad)" filter="url(#goldGlowFilter)" />
-        <rect x="28" y="66" width="114" height="2" fill="#FFFBEB" opacity="0.65" />
+            {/* Lid Bottom Beveled Lip */}
+            <rect x="29" y="69" width="122" height="6.5" rx="2.5" fill="url(#tbGoldRim)" stroke="#FFFBEB" strokeWidth="0.5" />
 
-        {/* ── CHEST LOCK CLASP (Screen 1 & 5) ── */}
-        <rect x="75" y="63" width="20" height="26" rx="4" fill="#000" opacity="0.4" />
-        <rect x="76" y="62" width="18" height="25" rx="3" fill="url(#goldLidGrad)" filter="url(#goldGlowFilter)" />
-        <rect x="78" y="64" width="14" height="21" rx="2" fill="#2A1605" />
+            {/* Ornate Lock Clasp with Cyan Gemstone */}
+            <rect x="79" y="66" width="22" height="26" rx="4" fill="url(#tbGoldLid)" stroke="#78350F" strokeWidth="1" />
+            <rect x="82" y="69" width="16" height="20" rx="2" fill="#1E1B4B" />
+            <polygon points="90,72 95,76 95,82 90,86 85,82 85,76" fill="url(#tbGem)" stroke="#FFFBEB" strokeWidth="0.8" />
+            <circle cx="90" cy="88" r="1.4" fill="#FDE68A" />
+          </g>
+        ) : (
+          // Swung Back Open Lid in 3D Perspective
+          <g filter="url(#tbGoldBloom)">
+            <path d="M 32 46 C 32 20, 60 8, 90 8 C 120 8, 148 20, 148 46 L 146 54 C 146 28, 118 16, 90 16 C 62 16, 34 28, 34 54 Z" fill="url(#tbGoldRim)" />
+            <path d="M 34 46 C 34 22, 60 10, 90 10 C 120 10, 146 22, 146 46 Z" fill="url(#tbLidWood)" opacity="0.9" />
+            <rect x="30" y="46" width="120" height="5" rx="2" fill="url(#tbGoldRim)" />
+          </g>
+        )}
 
-        {/* Glowing Cyan Diamond Gem in Lock */}
-        <polygon
-          points="85,67 90,71 90,77 85,81 80,77 80,71"
-          fill="url(#gemGlow)"
-          filter="url(#gemBloom)"
-        />
-        <polygon points="85,69 88,72 88,76 85,79 82,76 82,72" fill="#E0F2FE" opacity="0.75" />
-        <circle cx="85" cy="83" r="1.2" fill="#FDE68A" />
+        {/* ── OVERFLOWING COINS & GEMS ON DAIS (Screen 1 & 5) ── */}
+        {/* Left Side Pile */}
+        <ellipse cx="26" cy="120" rx="8" ry="4.5" fill="url(#tbCoin)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.6))" />
+        <ellipse cx="26" cy="119" rx="5.5" ry="3" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.7" />
+        <ellipse cx="20" cy="125" rx="8" ry="4.5" fill="url(#tbCoin)" />
+        <ellipse cx="36" cy="124" rx="7.5" ry="4" fill="url(#tbCoin)" />
+        <polygon points="28,114 33,107 38,114 33,120" fill="url(#tbGem)" />
 
-        {/* ── OVERFLOWING GOLD COINS & BLUE GEMS (Screen 1 signature) ── */}
-        {/* Left Side Overflow Coins */}
-        <ellipse cx="24" cy="118" rx="7" ry="4" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-        <ellipse cx="24" cy="117" rx="5" ry="2.8" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.6" />
-        
-        <ellipse cx="18" cy="122" rx="7" ry="4" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-        <ellipse cx="18" cy="121" rx="5" ry="2.8" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.6" />
+        {/* Right Side Pile */}
+        <ellipse cx="154" cy="120" rx="8" ry="4.5" fill="url(#tbCoin)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.6))" />
+        <ellipse cx="154" cy="119" rx="5.5" ry="3" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.7" />
+        <ellipse cx="160" cy="125" rx="8" ry="4.5" fill="url(#tbCoin)" />
+        <ellipse cx="146" cy="124" rx="7.5" ry="4" fill="url(#tbCoin)" />
+        <polygon points="152,114 157,107 162,114 157,120" fill="url(#tbGem)" />
 
-        <ellipse cx="32" cy="121" rx="6.5" ry="3.8" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-
-        {/* Right Side Overflow Coins */}
-        <ellipse cx="144" cy="118" rx="7" ry="4" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-        <ellipse cx="144" cy="117" rx="5" ry="2.8" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.6" />
-
-        <ellipse cx="152" cy="122" rx="7" ry="4" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-        <ellipse cx="152" cy="121" rx="5" ry="2.8" stroke="#FFFBEB" strokeWidth="0.8" fill="none" opacity="0.6" />
-
-        <ellipse cx="138" cy="122" rx="6.5" ry="3.8" fill="url(#coinGrad)" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))" />
-
-        {/* Blue Crystals on Dais */}
-        <polygon points="26,112 30,105 34,112 30,118" fill="url(#gemGlow)" filter="url(#gemBloom)" />
-        <polygon points="142,112 146,105 150,112 146,118" fill="url(#gemGlow)" filter="url(#gemBloom)" />
-
-        {/* ── Floating Magical Sparkles ── */}
-        <g transform="translate(38, 22)" className={styles.sparkleOne}>
-          <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2" fill="#FDE68A" filter="url(#goldGlowFilter)" />
-          <circle cx="0" cy="0" r="1.5" fill="#FFFFFF" />
+        {/* Floating Twinkle Sparkles */}
+        <g transform="translate(42, 26)" className={styles.sparkleFast}>
+          <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2" fill="#FFFBEB" filter="drop-shadow(0 0 4px #F59E0B)" />
         </g>
-        <g transform="translate(132, 26)" className={styles.sparkleTwo}>
-          <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#67E8F9" filter="url(#gemBloom)" />
-          <circle cx="0" cy="0" r="1.8" fill="#FFFFFF" />
+        <g transform="translate(138, 28)" className={styles.sparkleSlow}>
+          <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#67E8F9" filter="drop-shadow(0 0 5px #0284C7)" />
         </g>
-        <circle cx="32" cy="50" r="2.2" fill="#FDE68A" opacity="0.8" className={styles.floatingMote1} />
-        <circle cx="138" cy="60" r="2.5" fill="#38BDF8" opacity="0.8" className={styles.floatingMote2} />
       </svg>
     </div>
   );
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   NextLevelReward  –  Complete 3D Mystery Box & Milestone Vault Experience
+═══════════════════════════════════════════════════════════════════════════ */
 export const NextLevelReward = () => {
-  const { user, progressPercentage, setActiveInfoModal } = useDashboard();
+  const { user, progressPercentage, setActiveInfoModal, addNotification } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Unboxing Animation States: 'idle' | 'suspense' | 'burst' | 'revealed'
+  const [unboxState, setUnboxState] = useState('idle');
+  const [activeTab, setActiveTab] = useState('cinematic'); // 'cinematic' | 'breakdown'
+  const [claimed, setClaimed] = useState(false);
 
   const nextLevel = user.currentLevel + 1;
   const formattedNextLevel = nextLevel < 10 ? `0${nextLevel}` : `${nextLevel}`;
 
+  // Start the cinematic unboxing sequence
+  const startUnboxing = () => {
+    setUnboxState('suspense');
+    setClaimed(false);
+    playUnboxSound('rumble');
+
+    // After 1.3s suspense rumble -> burst open!
+    setTimeout(() => {
+      setUnboxState('burst');
+      playUnboxSound('burst');
+
+      // After 0.4s burst -> reveal rewards with fanfare!
+      setTimeout(() => {
+        setUnboxState('revealed');
+        playUnboxSound('fanfare');
+      }, 400);
+    }, 1300);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    // Automatically trigger suspense unboxing on first open
+    if (unboxState === 'idle') {
+      startUnboxing();
+    }
+  };
+
+  const handleClaim = () => {
+    setClaimed(true);
+    playUnboxSound('fanfare');
+    if (addNotification) {
+      addNotification({
+        type: 'success',
+        title: 'Level 06 Milestone Claimed!',
+        message: '+500 VEs Tokens and +25 Gems credited to your rewards wallet.',
+      });
+    }
+  };
+
   return (
     <>
+      {/* ── Main Dashboard Mystery Box Card ── */}
       <div className={styles.rewardCard}>
-        {/* Glow ambient background */}
-        <div className={styles.ambientGlow}></div>
+        <div className={styles.ambientGlow} />
 
         <div className={styles.cardHeader}>
           <div className={styles.titleArea}>
@@ -229,7 +315,7 @@ export const NextLevelReward = () => {
                 <Lock size={12} />
                 <span>UNLOCKED AT LEVEL {formattedNextLevel}</span>
               </span>
-              <button 
+              <button
                 className={styles.infoBtn}
                 onClick={() => setActiveInfoModal('reward')}
                 title="Reward Policy"
@@ -238,9 +324,8 @@ export const NextLevelReward = () => {
                 <Info size={14} />
               </button>
             </div>
-            {/* Title matching Screen 1 */}
-            <h3 className={styles.cardTitle}>Level {formattedNextLevel} Rewards</h3>
-            <p className={styles.subtitle}>Amazing rewards await you!</p>
+            <h3 className={styles.cardTitle}>Level {formattedNextLevel} Mystery Vault</h3>
+            <p className={styles.subtitle}>Tap the 3D treasure chest to inspect unboxing rewards!</p>
           </div>
 
           <div className={styles.rewardChipsRow}>
@@ -255,12 +340,21 @@ export const NextLevelReward = () => {
           </div>
         </div>
 
-        {/* Chest Illustration & Progress Bar (Screen 1) */}
+        {/* 3D Visual Chest with Interactive Unboxing Trigger */}
         <div className={styles.visualRow}>
-          {/* High-quality 3D Gaming Vault Chest with Overflowing Coins */}
-          <div className={styles.chestContainer}>
-            <div className={styles.chestRays}></div>
-            <PremiumTreasureChest />
+          <div
+            className={styles.chestContainer}
+            onClick={handleOpenModal}
+            title="Click to Open 3D Mystery Box!"
+            role="button"
+            tabIndex={0}
+          >
+            <div className={styles.chestRays} />
+            <TreasureBox3D isOpen={false} size="normal" />
+            <div className={styles.tapToOpenPill}>
+              <Sparkles size={11} />
+              <span>TAP TO UNBOX</span>
+            </div>
           </div>
 
           <div className={styles.ctaCol}>
@@ -273,76 +367,231 @@ export const NextLevelReward = () => {
                 <span className={styles.previewPercent}>{progressPercentage}%</span>
               </div>
               <div className={styles.miniTrack}>
-                <div 
-                  className={styles.miniFill} 
+                <div
+                  className={styles.miniFill}
                   style={{ width: `${progressPercentage}%` }}
-                ></div>
+                >
+                  <div className={styles.miniFillGlow} />
+                </div>
               </div>
               <span className={styles.miniHint}>
-                Reach Level {formattedNextLevel} to automatically claim
+                Reach Level {formattedNextLevel} to automatically claim full bundle
               </span>
             </div>
 
-            <button 
+            <button
               className={styles.viewRewardsBtn}
-              onClick={() => setIsModalOpen(true)}
+              onClick={handleOpenModal}
             >
-              <span>View Rewards</span>
+              <Sparkles size={16} />
+              <span>Open Mystery Box</span>
               <ArrowRight size={15} />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Rewards Detail Modal */}
+      {/* ── Cinematic 3D Mystery Box Opening Modal ── */}
       {isModalOpen && (
         <div className={styles.modalBackdrop} onClick={() => setIsModalOpen(false)}>
           <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <div className={styles.modalIcon}>
-                <Gift size={24} />
+            {/* Modal Top Nav */}
+            <div className={styles.modalTopNav}>
+              <div className={styles.modalNavTabs}>
+                <button
+                  className={`${styles.navTab} ${activeTab === 'cinematic' ? styles.navTabActive : ''}`}
+                  onClick={() => setActiveTab('cinematic')}
+                >
+                  <Sparkles size={13} />
+                  <span>3D Unboxing Experience</span>
+                </button>
+                <button
+                  className={`${styles.navTab} ${activeTab === 'breakdown' ? styles.navTabActive : ''}`}
+                  onClick={() => setActiveTab('breakdown')}
+                >
+                  <Info size={13} />
+                  <span>Vault Details</span>
+                </button>
               </div>
-              <div>
-                <h4 className={styles.modalTitle}>Level {formattedNextLevel} Rewards Bundle</h4>
-                <p className={styles.modalSub}>Unlocks automatically upon reaching Level {formattedNextLevel}</p>
-              </div>
+
+              <button
+                className={styles.modalCloseBtn}
+                onClick={() => setIsModalOpen(false)}
+                aria-label="Close Modal"
+              >
+                <X size={18} />
+              </button>
             </div>
 
-            <div className={styles.modalList}>
-              <div className={styles.rewardItem}>
-                <span className={styles.itemEmoji}>🪙</span>
-                <div className={styles.itemInfo}>
-                  <span className={styles.itemTitle}>500 VEs Token Credit</span>
-                  <span className={styles.itemDesc}>Redeemable immediately for gift vouchers &amp; shop rewards</span>
-                </div>
-                <span className={styles.itemBadge}>500 VEs</span>
-              </div>
+            {/* TAB 1: CINEMATIC 3D UNBOXING */}
+            {activeTab === 'cinematic' && (
+              <div className={styles.cinematicStage}>
+                {/* Background Rotating Light Sunburst */}
+                <div className={`${styles.stageSunburst} ${unboxState === 'suspense' ? styles.sunburstFast : ''}`} />
 
-              <div className={styles.rewardItem}>
-                <span className={styles.itemEmoji}>💎</span>
-                <div className={styles.itemInfo}>
-                  <span className={styles.itemTitle}>25 Premium Gems</span>
-                  <span className={styles.itemDesc}>Used for arcade entry tickets &amp; multiplier boosts</span>
+                {/* Status Callout Above Chest */}
+                <div className={styles.statusCallout}>
+                  {unboxState === 'idle' && (
+                    <span className={styles.calloutText}>Ready to Unseal Level {formattedNextLevel} Treasure Box!</span>
+                  )}
+                  {unboxState === 'suspense' && (
+                    <div className={styles.suspenseIndicator}>
+                      <span className={styles.suspenseText}>⚡ BREAKING ENCHANTED SEAL...</span>
+                      <div className={styles.suspenseBar}>
+                        <div className={styles.suspenseBarFill} />
+                      </div>
+                    </div>
+                  )}
+                  {(unboxState === 'burst' || unboxState === 'revealed') && (
+                    <div className={styles.victoryCallout}>
+                      <span className={styles.victoryTitle}>🎉 VAULT UNSEALED!</span>
+                      <span className={styles.victorySub}>Congratulations! You revealed Level {formattedNextLevel} Rewards</span>
+                    </div>
+                  )}
                 </div>
-                <span className={styles.itemBadge}>25 Gems</span>
-              </div>
 
-              <div className={styles.rewardItem}>
-                <span className={styles.itemEmoji}>⚡</span>
-                <div className={styles.itemInfo}>
-                  <span className={styles.itemTitle}>1.5x XP Earning Multiplier</span>
-                  <span className={styles.itemDesc}>Boosts all daily activities and mini-game score XP</span>
+                {/* 3D Box Central Graphic */}
+                <div className={styles.stageBoxContainer}>
+                  <TreasureBox3D
+                    isOpen={unboxState === 'burst' || unboxState === 'revealed'}
+                    isShaking={unboxState === 'suspense'}
+                    size="large"
+                  />
                 </div>
-                <span className={styles.itemBadge}>Perk</span>
-              </div>
-            </div>
 
-            <button 
-              className={styles.closeBtn}
-              onClick={() => setIsModalOpen(false)}
-            >
-              Close Preview
-            </button>
+                {/* REWARD REVEAL CARDS (Burst Outwards upon Opening) */}
+                {(unboxState === 'burst' || unboxState === 'revealed') && (
+                  <div className={styles.revealedRewardsGrid}>
+                    {/* Reward 1: 500 VEs */}
+                    <div className={`${styles.revealCard} ${styles.cardOne}`}>
+                      <div className={styles.revealTagGold}>LEGENDARY DROP</div>
+                      <div className={styles.revealIconWrapGold}>
+                        <span className={styles.revealEmoji}>🪙</span>
+                      </div>
+                      <span className={styles.revealAmountGold}>+500 VEs</span>
+                      <span className={styles.revealDesc}>Tokens for Shopping &amp; Vouchers</span>
+                    </div>
+
+                    {/* Reward 2: 25 Gems */}
+                    <div className={`${styles.revealCard} ${styles.cardTwo}`}>
+                      <div className={styles.revealTagCyan}>RARE DROP</div>
+                      <div className={styles.revealIconWrapCyan}>
+                        <span className={styles.revealEmoji}>💎</span>
+                      </div>
+                      <span className={styles.revealAmountCyan}>+25 Gems</span>
+                      <span className={styles.revealDesc}>Arcade Entry Tickets &amp; Multipliers</span>
+                    </div>
+
+                    {/* Reward 3: 1.5x Multiplier Perk */}
+                    <div className={`${styles.revealCard} ${styles.cardThree}`}>
+                      <div className={styles.revealTagPurple}>TIER PERK</div>
+                      <div className={styles.revealIconWrapPurple}>
+                        <Zap size={22} />
+                      </div>
+                      <span className={styles.revealAmountPurple}>1.5x Multiplier</span>
+                      <span className={styles.revealDesc}>Permanent Daily XP Boost</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Bottom Action Buttons */}
+                <div className={styles.stageActions}>
+                  {unboxState === 'revealed' ? (
+                    <div className={styles.revealedActionsRow}>
+                      <button
+                        className={styles.claimAllBtn}
+                        onClick={handleClaim}
+                        disabled={claimed}
+                      >
+                        {claimed ? (
+                          <>
+                            <Check size={16} />
+                            <span>Claimed to Rewards Wallet!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Sparkles size={16} />
+                            <span>Claim All to Rewards Wallet</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        className={styles.replayBtn}
+                        onClick={startUnboxing}
+                        title="Watch Suspense Opening Again"
+                      >
+                        <RotateCcw size={15} />
+                        <span>Replay Unboxing</span>
+                      </button>
+                    </div>
+                  ) : unboxState === 'idle' ? (
+                    <button className={styles.startUnboxBtn} onClick={startUnboxing}>
+                      <Sparkles size={16} />
+                      <span>Start Opening Mystery Box</span>
+                    </button>
+                  ) : null}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 2: DETAILED BREAKDOWN */}
+            {activeTab === 'breakdown' && (
+              <div className={styles.breakdownList}>
+                <div className={styles.breakdownHeader}>
+                  <h4 className={styles.breakdownTitle}>Level {formattedNextLevel} Rewards Vault Specification</h4>
+                  <p className={styles.breakdownSub}>
+                    Unlocks automatically once your total XP reaches 8,000 XP (Level {formattedNextLevel}).
+                  </p>
+                </div>
+
+                <div className={styles.rewardDetailItem}>
+                  <div className={styles.detailIconCol}>🪙</div>
+                  <div className={styles.detailTextCol}>
+                    <div className={styles.detailTitleRow}>
+                      <span className={styles.detailName}>500 VEs Token Credit</span>
+                      <span className={styles.pillGold}>+500 VEs</span>
+                    </div>
+                    <p className={styles.detailExplanation}>
+                      Instant balance credit spendable across all merchant partner gift cards, electronics, and digital vouchers.
+                    </p>
+                  </div>
+                </div>
+
+                <div className={styles.rewardDetailItem}>
+                  <div className={styles.detailIconCol}>💎</div>
+                  <div className={styles.detailTextCol}>
+                    <div className={styles.detailTitleRow}>
+                      <span className={styles.detailName}>25 Premium Arcade Gems</span>
+                      <span className={styles.pillCyan}>+25 Gems</span>
+                    </div>
+                    <p className={styles.detailExplanation}>
+                      Required to unlock high-stakes multiplier tournaments in the VELOOP XP Catcher arcade.
+                    </p>
+                  </div>
+                </div>
+
+                <div className={styles.rewardDetailItem}>
+                  <div className={styles.detailIconCol}>⚡</div>
+                  <div className={styles.detailTextCol}>
+                    <div className={styles.detailTitleRow}>
+                      <span className={styles.detailName}>1.5x Daily XP Multiplier</span>
+                      <span className={styles.pillPurple}>Passive Perk</span>
+                    </div>
+                    <p className={styles.detailExplanation}>
+                      Permanently accelerates XP earned from Watch &amp; Earn, Daily Missions, and Mini-Games.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  className={styles.closePreviewBtn}
+                  onClick={() => setIsModalOpen(false)}
+                >
+                  Close Preview
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

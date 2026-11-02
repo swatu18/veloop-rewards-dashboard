@@ -8,6 +8,8 @@ export const LevelBadge = ({
   showStars = true,
   withLaurel = false,
   animated = false,
+  showRarity = false,
+  onClick,
 }) => {
   const meta = TIER_METADATA[level] || TIER_METADATA[5];
   const formattedLevel = level < 10 ? `0${level}` : `${level}`;
@@ -19,6 +21,7 @@ export const LevelBadge = ({
       <div
         className={`${styles.laurelWrapper} ${styles[size]} ${animated ? styles.animated : ''}`}
         style={{ '--tier-glow': meta.glow }}
+        onClick={onClick}
       >
         <div
           className={styles.laurelGlowAura}
@@ -99,6 +102,7 @@ export const LevelBadge = ({
         animated ? styles.animated : '',
       ].join(' ')}
       style={{ '--tier-glow': meta.glow, '--tier-primary': meta.primary }}
+      onClick={onClick}
     >
       {/* Ambient Radial Glow */}
       <div
@@ -129,12 +133,25 @@ export const LevelBadge = ({
           </div>
         )}
       </div>
+
+      {showRarity && (
+        <span
+          className={styles.rarityBadgeTag}
+          style={{
+            borderColor: meta.rarityColor,
+            color: meta.rarityColor,
+            background: `${meta.rarityColor}20`,
+          }}
+        >
+          {meta.rarity}
+        </span>
+      )}
     </div>
   );
 };
 
 /* ─── Mini Badge for Roadmap Nodes ───────────────────────────────────────── */
-export const MiniTierBadge = ({ level, status }) => {
+export const MiniTierBadge = ({ level, status, onClick }) => {
   const meta = TIER_METADATA[level] || TIER_METADATA[5];
   const formattedLevel = level < 10 ? `0${level}` : `${level}`;
   const uid = `mini-${level}-${status}`;
@@ -156,17 +173,18 @@ export const MiniTierBadge = ({ level, status }) => {
         '--mini-glow': meta.glow,
         '--mini-primary': meta.primary,
       }}
+      onClick={onClick}
     >
       {/* Ambient Radial Aura */}
       <div
         className={styles.miniGlowAura}
         style={{
           background: isCurrent
-            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.75) 0%, rgba(245, 158, 11, 0.15) 55%, transparent 75%)'
+            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.85) 0%, rgba(245, 158, 11, 0.25) 55%, transparent 75%)'
             : isNext
-            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.6) 0%, rgba(192, 132, 252, 0.1) 50%, transparent 70%)'
+            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.7) 0%, rgba(192, 132, 252, 0.15) 50%, transparent 70%)'
             : isCompleted
-            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, transparent 65%)'
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.5) 0%, transparent 65%)'
             : 'none',
         }}
       />
@@ -180,33 +198,18 @@ export const MiniTierBadge = ({ level, status }) => {
         aria-hidden="true"
       >
         <defs>
-          {/* Gold text gradient for current level */}
           <linearGradient id={`goldNum-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FFFBEB" />
+            <stop offset="0%" stopColor="#FFFFFF" />
             <stop offset="35%" stopColor="#FDE68A" />
             <stop offset="70%" stopColor="#F59E0B" />
             <stop offset="100%" stopColor="#B45309" />
           </linearGradient>
 
-          {/* Purple/Amethyst gradient for next goal */}
           <linearGradient id={`purpleNum-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#FAF5FF" />
             <stop offset="40%" stopColor="#E9D5FF" />
             <stop offset="80%" stopColor="#C084FC" />
             <stop offset="100%" stopColor="#7E22CE" />
-          </linearGradient>
-
-          {/* Metallic silver/bronze gradient for completed */}
-          <linearGradient id={`compNum-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="60%" stopColor="#D1D5DB" />
-            <stop offset="100%" stopColor="#9CA3AF" />
-          </linearGradient>
-
-          {/* Dim gradient for locked */}
-          <linearGradient id={`lockNum-${uid}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#94A3B8" />
-            <stop offset="100%" stopColor="#475569" />
           </linearGradient>
         </defs>
 
@@ -217,21 +220,18 @@ export const MiniTierBadge = ({ level, status }) => {
 
         {/* Extra golden laurel wreath wings for Current Level (05) */}
         {isCurrent && (
-          <g filter="drop-shadow(0 0 5px rgba(245, 158, 11, 0.8))">
-            {/* Left wreath wing */}
-            <path d="M 28 88 C 12 70 16 42 36 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-            <circle cx="22" cy="68" r="2" fill="#FFFBEB" />
-            <circle cx="26" cy="52" r="2" fill="#FFFBEB" />
-            <circle cx="32" cy="38" r="2" fill="#FFFBEB" />
+          <g filter="drop-shadow(0 0 6px rgba(245, 158, 11, 0.9))">
+            <path d="M 26 88 C 10 70 14 42 34 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.8" fill="none" strokeLinecap="round" />
+            <circle cx="20" cy="68" r="2.2" fill="#FFFBEB" />
+            <circle cx="24" cy="52" r="2.2" fill="#FFFBEB" />
+            <circle cx="30" cy="38" r="2.2" fill="#FFFBEB" />
 
-            {/* Right wreath wing */}
-            <path d="M 92 88 C 108 70 104 42 84 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
-            <circle cx="98" cy="68" r="2" fill="#FFFBEB" />
-            <circle cx="94" cy="52" r="2" fill="#FFFBEB" />
-            <circle cx="88" cy="38" r="2" fill="#FFFBEB" />
+            <path d="M 94 88 C 110 70 106 42 86 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.8" fill="none" strokeLinecap="round" />
+            <circle cx="100" cy="68" r="2.2" fill="#FFFBEB" />
+            <circle cx="96" cy="52" r="2.2" fill="#FFFBEB" />
+            <circle cx="90" cy="38" r="2.2" fill="#FFFBEB" />
 
-            {/* Radiant Crown Star */}
-            <polygon points="60,10 62.5,16 69,17 64,21 65.5,27 60,24 54.5,27 56,21 51,17 57.5,16" fill="#FFFBEB" filter="drop-shadow(0 0 4px #F59E0B)" />
+            <polygon points="60,8 63,15 70,16 65,21 66.5,28 60,24 53.5,28 55,21 50,16 57,15" fill="#FFFBEB" filter="drop-shadow(0 0 5px #F59E0B)" />
           </g>
         )}
 
@@ -242,10 +242,10 @@ export const MiniTierBadge = ({ level, status }) => {
             cy="60"
             r="54"
             stroke="#C084FC"
-            strokeWidth="2"
+            strokeWidth="2.5"
             strokeDasharray="6 4"
             fill="none"
-            opacity="0.85"
+            opacity="0.9"
           />
         )}
       </svg>

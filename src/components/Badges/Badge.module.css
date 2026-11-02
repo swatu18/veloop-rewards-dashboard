@@ -89,6 +89,21 @@
 .large  .plaqueLevelLabel { font-size: 0.88rem; margin-bottom: -4px; }
 .huge   .plaqueLevelLabel { font-size: 1.15rem; margin-bottom: -6px; }
 
+.rarityBadgeTag {
+  position: absolute;
+  bottom: -8px;
+  font-size: 0.55rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 3;
+}
+
 .plaqueLevelNum {
   font-family: var(--font-heading);
   font-size: 1.45rem;
