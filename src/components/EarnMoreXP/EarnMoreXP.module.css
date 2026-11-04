@@ -539,6 +539,48 @@
   cursor: default;
 }
 
+.collectRewardBtnLarge {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--gold-gradient);
+  color: #0F172A;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 900;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
+  animation: pulseGlow 2s infinite;
+  transition: all var(--transition-fast);
+}
+
+.collectRewardBtnLarge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(245, 158, 11, 0.6);
+}
+
+.claimedBtnLarge {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #059669;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: default;
+}
+
 /* Copy Link */
 .copyBox {
   display: flex;

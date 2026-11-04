@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { AuthGate } from '../../components/Auth/AuthGate';
 import { LevelHero } from '../../components/LevelHero/LevelHero';
 import { TodaysBoost } from '../../components/TodaysBoost/TodaysBoost';
+import { LuckyWheelBanner } from '../../components/LuckyWheel/LuckyWheelBanner';
 import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { NextLevelReward } from '../../components/NextLevelReward/NextLevelReward';
 import { LevelRoadmap } from '../../components/LevelRoadmap/LevelRoadmap';
@@ -89,6 +90,11 @@ export const LevelDashboard = () => {
       {/* 2. Today's Boost Metrics (XP Earned, Tasks Done, Streak) */}
       <section className={styles.sectionRow}>
         <TodaysBoost />
+      </section>
+
+      {/* 2.5 Daily Lucky Spin Wheel Banner */}
+      <section className={styles.sectionRow}>
+        <LuckyWheelBanner />
       </section>
 
       {/* 3. Earn More Section (Watch & Earn, Daily Tasks, Refer, Catcher, Mini Games, Streak) */}

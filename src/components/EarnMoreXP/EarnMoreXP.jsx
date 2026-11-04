@@ -32,7 +32,8 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
     currentXP, 
     totalRequiredXP, 
     progressPercentage,
-    user
+    user,
+    triggerConfetti
   } = useDashboard();
 
   // Modals state: 'watch' | 'tasks' | 'refer' | 'streak'
@@ -44,6 +45,7 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
   const [watchingAd, setWatchingAd] = useState(false);
   const [adProgress, setAdProgress] = useState(0);
   const [adCompleted, setAdCompleted] = useState(false);
+  const [watchCollected, setWatchCollected] = useState(false);
 
   // Daily Tasks state
   const [tasksState, setTasksState] = useState([
@@ -69,6 +71,7 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
       setActiveModal('watch');
       setWatchingAd(true);
       setAdCompleted(false);
+      setWatchCollected(false);
       setAdProgress(0);
 
       let p = 0;
@@ -79,11 +82,8 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
           clearInterval(interval);
           setWatchingAd(false);
           setAdCompleted(true);
-          addXP(50, 'Watch & Earn Video Reward', 'Media');
-          addVEs(15, 'Video Ad Token Bonus');
-          showToast('🎉 +50 XP and +15 VEs credited to your balance!');
         }
-      }, 600);
+      }, 500);
       return;
     }
 
@@ -106,13 +106,24 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
     }
   };
 
-  // Claim specific daily task
+  // Collect Watch & Earn Reward
+  const collectWatchReward = () => {
+    if (watchCollected) return;
+    setWatchCollected(true);
+    addXP(50, 'Watch & Earn Video Reward', 'Media');
+    addVEs(15, 'Video Ad Token Bonus');
+    triggerConfetti();
+    showToast('🎉 +50 XP and +15 VEs collected into your wallet!');
+  };
+
+  // Claim specific daily task with Joyful Confetti
   const claimTask = (task) => {
     if (task.claimed) return;
     addXP(task.rewardXP, task.title, 'Tasks');
     addVEs(task.rewardVEs, `${task.title} Bonus`);
+    triggerConfetti();
     setTasksState(prev => prev.map(t => t.id === task.id ? { ...t, claimed: true } : t));
-    showToast(`✅ Claimed +${task.rewardXP} XP and +${task.rewardVEs} VEs!`);
+    showToast(`✅ Claimed +${task.rewardXP} XP and +${task.rewardVEs} VEs! 🎉`);
   };
 
   // Copy referral link
@@ -254,14 +265,32 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
               ) : (
                 <div className={styles.videoFinishedGraphic}>
                   <div className={styles.bigCheckGlow}>✓</div>
-                  <span className={styles.rewardGrantText}>🎉 Video Finished! +50 XP &amp; +15 VEs Added!</span>
-                  <span className={styles.liveBalanceNotice}>Live XP: {currentXP.toLocaleString()} XP</span>
+                  <span className={styles.rewardGrantText}>🎉 Sponsor Video Completed!</span>
+                  <span className={styles.liveBalanceNotice}>Click below to collect your reward into your wallet:</span>
+
+                  <button 
+                    className={watchCollected ? styles.claimedBtnLarge : styles.collectRewardBtnLarge}
+                    onClick={collectWatchReward}
+                    disabled={watchCollected}
+                  >
+                    {watchCollected ? (
+                      <>
+                        <Check size={18} />
+                        <span>Collected to Wallet (+50 XP &amp; +15 VEs)</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles size={18} />
+                        <span>Collect +50 XP &amp; +15 VEs 🎁</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               )}
             </div>
 
             <div className={styles.modalActionGroup}>
-              {adCompleted ? (
+              {adCompleted && (
                 <button 
                   className={styles.modalPrimaryBtn}
                   onClick={() => { setActiveModal(null); setActiveScreen('dashboard'); }}
@@ -269,8 +298,6 @@ export const EarnMoreXP = ({ isFullPage = false }) => {
                   <ArrowLeft size={16} />
                   <span>Back to Dashboard</span>
                 </button>
-              ) : (
-                <span className={styles.adFooterNote}>Reward automatically credits to your account upon completion.</span>
               )}
             </div>
           </div>

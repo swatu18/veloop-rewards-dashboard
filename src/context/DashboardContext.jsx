@@ -31,6 +31,9 @@ export const DashboardProvider = ({ children }) => {
     isNewBest: true
   });
 
+  // Daily Lucky Spin Wheel modal state
+  const [isSpinModalOpen, setIsSpinModalOpen] = useState(false);
+
   // Sound settings
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -114,6 +117,59 @@ export const DashboardProvider = ({ children }) => {
       date: new Date().toISOString()
     };
     setHistory(prev => [newEntry, ...prev]);
+  };
+
+  // Add Gems action
+  const addGems = (amount, sourceTitle = 'Gemstone Bonus') => {
+    sounds.playGemSound();
+    setUser(prev => ({
+      ...prev,
+      gemBalance: prev.gemBalance + amount
+    }));
+
+    const newEntry = {
+      id: `act-${Date.now()}`,
+      type: 'reward',
+      title: sourceTitle,
+      subtitle: `Gems credited to rewards ledger`,
+      rewardText: `+${amount} Gems`,
+      category: 'Gems',
+      amount,
+      unit: 'Gems',
+      timestamp: 'Just now',
+      date: new Date().toISOString()
+    };
+    setHistory(prev => [newEntry, ...prev]);
+  };
+
+  // Universal Celebratory Confetti Burst
+  const triggerConfetti = () => {
+    try {
+      confetti({
+        particleCount: 110,
+        spread: 75,
+        origin: { y: 0.6 },
+        colors: ['#F59E0B', '#FBBF24', '#8B5CF6', '#38BDF8', '#10B981', '#FFFFFF']
+      });
+      setTimeout(() => {
+        confetti({
+          particleCount: 70,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#F59E0B', '#FBBF24', '#FDE68A']
+        });
+        confetti({
+          particleCount: 70,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#8B5CF6', '#38BDF8', '#10B981']
+        });
+      }, 250);
+    } catch {
+      // Confetti fallback
+    }
   };
 
   // Trigger Level Up Celebration
@@ -250,7 +306,13 @@ export const DashboardProvider = ({ children }) => {
         totalRequiredXP,
         currentXP,
         xpRemaining,
-        progressPercentage
+        progressPercentage,
+        addXP,
+        addVEs,
+        addGems,
+        triggerConfetti,
+        isSpinModalOpen,
+        setIsSpinModalOpen
       }}
     >
       {children}

@@ -9,6 +9,8 @@ import { DemoToolbar } from './components/DemoToolbar/DemoToolbar';
 import { LevelUpModal } from './components/LevelUpModal/LevelUpModal';
 import { LevelInfoModal } from './components/LevelInfo/LevelInfoModal';
 import { AuthModal } from './components/Auth/AuthModal';
+import { NavigationDrawer } from './components/NavigationDrawer/NavigationDrawer';
+import { LuckyWheelModal } from './components/LuckyWheel/LuckyWheelModal';
 import { LandingPage } from './pages/LandingPage/LandingPage';
 import { LevelDashboard } from './pages/LevelDashboard/LevelDashboard';
 import './styles/globals.css';
@@ -23,7 +25,7 @@ export function App() {
           <BrowserRouter>
             <div className="app-container">
               {/* Top Sticky Header with Auth & Notifications */}
-              <Navbar onOpenMenu={() => setMobileMenuOpen(!mobileMenuOpen)} />
+              <Navbar onOpenMenu={() => setMobileMenuOpen(true)} />
 
               {/* Evaluator Demo Switcher & UX State Verifier */}
               <DemoToolbar />
@@ -40,10 +42,14 @@ export function App() {
               {/* Mobile Bottom Navigation Bar */}
               <BottomNav />
 
+              {/* Slide-out Hamburger Drawer */}
+              <NavigationDrawer isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+
               {/* Global Modals */}
               <LevelUpModal />
               <LevelInfoModal />
               <AuthModal />
+              <LuckyWheelModal />
             </div>
           </BrowserRouter>
         </DashboardProvider>

@@ -147,6 +147,74 @@
   border-top: 1px solid var(--border-subtle);
 }
 
+.actionControlsRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dockBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-400);
+  border-radius: 6px;
+  padding: 3px 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.dockBtn:hover {
+  background: var(--gold-400);
+  color: #121420;
+}
+
+.dockedSideTab {
+  position: fixed;
+  top: 75px;
+  right: 0;
+  z-index: 2500;
+  background: rgba(18, 20, 32, 0.92);
+  border: 1px solid var(--border-gold);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gold-400);
+  cursor: pointer;
+  box-shadow: -4px 4px 16px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  backdrop-filter: blur(12px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideInDock 0.3s ease;
+}
+
+.dockedSideTab:hover {
+  transform: translateX(-4px);
+  background: rgba(24, 28, 48, 0.98);
+}
+
+.dockedText {
+  color: #ffffff;
+  font-size: 0.7rem;
+}
+
+@keyframes slideInDock {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 .levelUpTriggerBtn {
   flex: 1;
   display: flex;

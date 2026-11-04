@@ -252,12 +252,15 @@ export function TreasureBox3D({ isOpen = false, isShaking = false, size = 'norma
    NextLevelReward  –  Complete 3D Mystery Box & Milestone Vault Experience
 ═══════════════════════════════════════════════════════════════════════════ */
 export const NextLevelReward = () => {
-  const { user, progressPercentage, setActiveInfoModal, addNotification } = useDashboard();
+  const { user, progressPercentage, setActiveInfoModal, addNotification, addVEs, addGems, triggerConfetti } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Unboxing Animation States: 'idle' | 'suspense' | 'burst' | 'revealed'
   const [unboxState, setUnboxState] = useState('idle');
   const [activeTab, setActiveTab] = useState('cinematic'); // 'cinematic' | 'breakdown'
+  const [claimedVEs, setClaimedVEs] = useState(false);
+  const [claimedGems, setClaimedGems] = useState(false);
+  const [claimedPerk, setClaimedPerk] = useState(false);
   const [claimed, setClaimed] = useState(false);
 
   const nextLevel = user.currentLevel + 1;
@@ -267,6 +270,9 @@ export const NextLevelReward = () => {
   const startUnboxing = () => {
     setUnboxState('suspense');
     setClaimed(false);
+    setClaimedVEs(false);
+    setClaimedGems(false);
+    setClaimedPerk(false);
     playUnboxSound('rumble');
 
     // After 1.3s suspense rumble -> burst open!
@@ -278,6 +284,7 @@ export const NextLevelReward = () => {
       setTimeout(() => {
         setUnboxState('revealed');
         playUnboxSound('fanfare');
+        triggerConfetti();
       }, 400);
     }, 1300);
   };
@@ -290,9 +297,40 @@ export const NextLevelReward = () => {
     }
   };
 
+  const handleCollectVEs = (e) => {
+    e?.stopPropagation();
+    if (claimedVEs) return;
+    setClaimedVEs(true);
+    addVEs(500, 'Level 06 Milestone: +500 VEs');
+    triggerConfetti();
+    playUnboxSound('fanfare');
+  };
+
+  const handleCollectGems = (e) => {
+    e?.stopPropagation();
+    if (claimedGems) return;
+    setClaimedGems(true);
+    addGems(25, 'Level 06 Milestone: +25 Gems');
+    triggerConfetti();
+    playUnboxSound('fanfare');
+  };
+
+  const handleCollectPerk = (e) => {
+    e?.stopPropagation();
+    if (claimedPerk) return;
+    setClaimedPerk(true);
+    triggerConfetti();
+  };
+
   const handleClaim = () => {
+    if (!claimedVEs) addVEs(500, 'Level 06 Milestone: +500 VEs');
+    if (!claimedGems) addGems(25, 'Level 06 Milestone: +25 Gems');
+    setClaimedVEs(true);
+    setClaimedGems(true);
+    setClaimedPerk(true);
     setClaimed(true);
     playUnboxSound('fanfare');
+    triggerConfetti();
     if (addNotification) {
       addNotification({
         type: 'success',
@@ -470,6 +508,14 @@ export const NextLevelReward = () => {
                       </div>
                       <span className={styles.revealAmountGold}>+500 VEs</span>
                       <span className={styles.revealDesc}>Tokens for Shopping &amp; Vouchers</span>
+
+                      <button 
+                        className={claimedVEs ? styles.miniClaimedBtn : styles.miniClaimBtn}
+                        onClick={handleCollectVEs}
+                        disabled={claimedVEs}
+                      >
+                        {claimedVEs ? '✓ Collected' : 'Collect +500 VEs'}
+                      </button>
                     </div>
 
                     {/* Reward 2: 25 Gems */}
@@ -480,6 +526,14 @@ export const NextLevelReward = () => {
                       </div>
                       <span className={styles.revealAmountCyan}>+25 Gems</span>
                       <span className={styles.revealDesc}>Arcade Entry Tickets &amp; Multipliers</span>
+
+                      <button 
+                        className={claimedGems ? styles.miniClaimedBtn : styles.miniClaimBtnCyan}
+                        onClick={handleCollectGems}
+                        disabled={claimedGems}
+                      >
+                        {claimedGems ? '✓ Collected' : 'Collect +25 Gems'}
+                      </button>
                     </div>
 
                     {/* Reward 3: 1.5x Multiplier Perk */}
@@ -490,6 +544,14 @@ export const NextLevelReward = () => {
                       </div>
                       <span className={styles.revealAmountPurple}>1.5x Multiplier</span>
                       <span className={styles.revealDesc}>Permanent Daily XP Boost</span>
+
+                      <button 
+                        className={claimedPerk ? styles.miniClaimedBtn : styles.miniClaimBtnPurple}
+                        onClick={handleCollectPerk}
+                        disabled={claimedPerk}
+                      >
+                        {claimedPerk ? '✓ Active' : 'Activate 1.5x'}
+                      </button>
                     </div>
                   </div>
                 )}
