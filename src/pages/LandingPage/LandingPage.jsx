@@ -12,8 +12,8 @@ import {
   TrendingUp, 
   Users, 
   Gift, 
-  Play, 
-  Lock 
+  Lock,
+  Star
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -23,19 +23,22 @@ import styles from './LandingPage.module.css';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, openAuthModal, quickDemoLogin } = useAuth();
+  const { isAuthenticated, openAuthModal } = useAuth();
 
   const handleGetStarted = () => {
-    openAuthModal('signup');
+    if (isAuthenticated) {
+      navigate('/Lvl-Dashboard');
+    } else {
+      openAuthModal('signup');
+    }
   };
 
   const handleSignIn = () => {
-    openAuthModal('signin');
-  };
-
-  const handleTryDemo = () => {
-    quickDemoLogin();
-    navigate('/Lvl-Dashboard');
+    if (isAuthenticated) {
+      navigate('/Lvl-Dashboard');
+    } else {
+      openAuthModal('signin');
+    }
   };
 
   const handleGoToDashboard = () => {
@@ -44,14 +47,14 @@ export const LandingPage = () => {
 
   return (
     <div className={styles.landingWrapper}>
-      {/* Hero Section */}
+      {/* ── Hero Section ── */}
       <section className={styles.heroSection}>
-        {/* Ambient background glows */}
+        {/* Ambient atmospheric glows */}
         <div className={styles.glowTop}></div>
         <div className={styles.glowRight}></div>
 
         <div className={styles.heroContent}>
-          <div style={{ display: 'inline-flex', marginBottom: '14px' }}>
+          <div className={styles.brandLogoRow}>
             <VeloopLogo size="large" />
           </div>
 
@@ -67,7 +70,7 @@ export const LandingPage = () => {
 
           <p className={styles.heroSubtitle}>
             VELOOP Rewards transforms routine engagement into an exhilarating fintech progression journey. 
-            Catch XP orbs in skill mini-games, complete daily missions, ascend 10 progression tiers, and cash out verified VEs tokens.
+            Catch XP orbs in 60 FPS skill challenges, ascend 10 prestige tiers, unlock mystery vaults, and earn verifiable VEs token rewards.
           </p>
 
           <div className={styles.ctaGroup}>
@@ -88,17 +91,12 @@ export const LandingPage = () => {
                 </button>
               </>
             )}
-
-            <button className={styles.demoCta} onClick={handleTryDemo}>
-              <Zap size={16} className={styles.zapIcon} />
-              <span>Instant Demo Access</span>
-            </button>
           </div>
 
           <div className={styles.trustBadges}>
             <div className={styles.trustItem}>
               <ShieldCheck size={16} className={styles.trustIcon} />
-              <span>Zero Casino Odds • Pure Skill</span>
+              <span>100% Skill-Based • Zero Casino Odds</span>
             </div>
             <div className={styles.trustItem}>
               <CheckCircle2 size={16} className={styles.trustIcon} />
@@ -111,25 +109,25 @@ export const LandingPage = () => {
           </div>
         </div>
 
-        {/* Live Interactive Hero Preview Card */}
+        {/* ── Live Interactive Tier Preview Showcase ── */}
         <div className={styles.heroVisualCol}>
           <div className={styles.previewCard}>
             <div className={styles.cardHeader}>
               <div className={styles.previewUserGroup}>
                 <div className={styles.userDot}></div>
-                <span>LIVE USER TIER PREVIEW</span>
+                <span>LIVE PROGRESSION SHOWCASE</span>
               </div>
-              <span className={styles.statusLivePill}>Active Tier</span>
+              <span className={styles.statusLivePill}>Tier V Active</span>
             </div>
 
             <div className={styles.previewBody}>
               <div className={styles.badgeWrapper}>
-                <LevelBadge level={5} size="normal" showStars={true} />
+                <LevelBadge level={5} size="normal" showStars={true} animated={true} />
               </div>
 
               <div className={styles.previewDetails}>
-                <span className={styles.tierName}>DIAMOND CHAMPION</span>
-                <h3 className={styles.userName}>VELOOP Member</h3>
+                <span className={styles.tierName}>CELESTIAL DIAMOND</span>
+                <h3 className={styles.userName}>Diamond Champion</h3>
                 <span className={styles.xpLabel}>6,420 / 8,000 XP (80%)</span>
 
                 <div className={styles.progressTrack}>
@@ -163,26 +161,26 @@ export const LandingPage = () => {
                 <span className={styles.statEmoji}>🔥</span>
                 <div className={styles.statText}>
                   <span className={styles.statVal}>7 Days</span>
-                  <span className={styles.statLbl}>Daily Streak</span>
+                  <span className={styles.statLbl}>Active Streak</span>
                 </div>
               </div>
             </div>
 
             <div className={styles.cardFooter}>
-              <button className={styles.exploreInsideBtn} onClick={handleTryDemo}>
-                <span>Launch Interactive Progression Hub →</span>
+              <button className={styles.exploreInsideBtn} onClick={handleGetStarted}>
+                <span>{isAuthenticated ? 'Open Dashboard →' : 'Sign Up to Start Playing →'}</span>
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4-Step Progression Loop */}
+      {/* ── 4-Step Progression Engine ── */}
       <section className={styles.stepsSection}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>HOW IT WORKS</span>
           <h2 className={styles.sectionHeading}>The Core Progression Engine</h2>
-          <p className={styles.sectionSub}>Four continuous steps designed to motivate, reward, and elevate your experience.</p>
+          <p className={styles.sectionSub}>Four structured milestones designed to engage, motivate, and reward your daily achievements.</p>
         </div>
 
         <div className={styles.stepsGrid}>
@@ -191,9 +189,9 @@ export const LandingPage = () => {
             <div className={styles.stepIconWrap}>
               <Users size={24} />
             </div>
-            <h3 className={styles.stepTitle}>Sign Up &amp; Check In</h3>
+            <h3 className={styles.stepTitle}>Sign Up &amp; Daily Check-In</h3>
             <p className={styles.stepDesc}>
-              Create your account in seconds. Maintain your daily consecutive login streak to claim multiplier boosts.
+              Create your account in seconds. Maintain your daily consecutive login streak to unlock multiplier bonuses.
             </p>
           </div>
 
@@ -204,7 +202,7 @@ export const LandingPage = () => {
             </div>
             <h3 className={styles.stepTitle}>Play "XP Catcher"</h3>
             <p className={styles.stepDesc}>
-              Test your reflexes in 20-second arcade challenges catching falling gold V coins and purple XP orbs at 60fps.
+              Test your reflexes in 20-second arcade challenges catching falling gold V coins and purple XP orbs with buttery 60 FPS controls.
             </p>
           </div>
 
@@ -213,9 +211,9 @@ export const LandingPage = () => {
             <div className={styles.stepIconWrap}>
               <TrendingUp size={24} />
             </div>
-            <h3 className={styles.stepTitle}>Climb 10 Tiers</h3>
+            <h3 className={styles.stepTitle}>Ascend 10 Prestige Tiers</h3>
             <p className={styles.stepDesc}>
-              Progress from Bronze Scout all the way to Immortal Legend. Each level unlocks new privileges and earning limits.
+              Progress from Bronze Scout all the way to Immortal Legend. Each level unlocks new privileges, daily limits, and rare badges.
             </p>
           </div>
 
@@ -224,71 +222,71 @@ export const LandingPage = () => {
             <div className={styles.stepIconWrap}>
               <Gift size={24} />
             </div>
-            <h3 className={styles.stepTitle}>Unlock Milestone Vaults</h3>
+            <h3 className={styles.stepTitle}>Unlock Mystery Vaults</h3>
             <p className={styles.stepDesc}>
-              Claim pre-allocated token chests (+500 VEs, +25 Gems) credited directly to your verifiable activity ledger.
+              Claim milestone token chests (+500 VEs, +25 Gems) with 3D opening suspense animations credited directly to your verifiable wallet.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Feature Pillars */}
+      {/* ── Feature Pillars ── */}
       <section className={styles.featuresSection}>
         <div className={styles.sectionHeader}>
           <span className={styles.sectionTag}>PREMIUM ARCHITECTURE</span>
-          <h2 className={styles.sectionHeading}>Engineered for Trust &amp; Engagement</h2>
-          <p className={styles.sectionSub}>A seamless fintech experience designed strictly without casino styling.</p>
+          <h2 className={styles.sectionHeading}>Engineered for Luxury &amp; Performance</h2>
+          <p className={styles.sectionSub}>A seamless gaming and rewards experience built with fintech precision and zero casino mechanics.</p>
         </div>
 
         <div className={styles.featuresGrid}>
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Trophy size={28} />
+              <Trophy size={26} />
             </div>
             <h3 className={styles.featureTitle}>10-Tier Visual Roadmap</h3>
             <p className={styles.featureText}>
-              Interactive progression milestones from Level 01 to Level 10. Click any tier to inspect exact XP caps, rewards, and unlocked perks.
+              Interactive progression milestones from Level 01 to Level 10. Click any tier to inspect exact XP caps, milestone rewards, and unlocked perks.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Gamepad2 size={28} />
+              <Gamepad2 size={26} />
             </div>
-            <h3 className={styles.featureTitle}>Mandatory Mini-Game Hub</h3>
+            <h3 className={styles.featureTitle}>Skill-Based Canvas Game</h3>
             <p className={styles.featureText}>
-              Full HTML5 Canvas game with dynamic touch drag, keyboard controls, real-time audio synthesizers, combo multiplier gems, and zero gambling mechanics.
+              60 FPS HTML5 Canvas engine with responsive touch controls, keyboard arrows, dynamic particle synthesizers, combo multiplier gems, and zero gambling.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <Zap size={28} />
+              <Zap size={26} />
             </div>
-            <h3 className={styles.featureTitle}>Actionable Earning Features</h3>
+            <h3 className={styles.featureTitle}>Actionable Earning Hub</h3>
             <p className={styles.featureText}>
-              Watch &amp; Earn video simulator, daily platform missions, friend referrals with clipboard links, and upcoming concept showcases.
+              Watch &amp; Earn video simulator, daily platform missions, friend referrals with clipboard links, and upcoming streak showcases.
             </p>
           </div>
 
           <div className={styles.featureCard}>
             <div className={styles.featureIcon}>
-              <ShieldCheck size={28} />
+              <ShieldCheck size={26} />
             </div>
-            <h3 className={styles.featureTitle}>Full UX State Compliance</h3>
+            <h3 className={styles.featureTitle}>Ultra-Premium Theme Engine</h3>
             <p className={styles.featureText}>
-              Includes shimmer loading skeletons, meaningful empty states, and resilient error recovery with 1-click retry.
+              Seamless toggle between Dark Obsidian and Light Executive Swiss porcelain aesthetics with perfect contrast and balanced typography.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Platform Stats Row */}
+      {/* ── Platform Stats Row ── */}
       <section className={styles.statsSection}>
         <div className={styles.statsRow}>
           <div className={styles.statBlock}>
             <span className={styles.statBigNumber}>50,000+</span>
-            <span className={styles.statLabel}>Active VeLoopers</span>
+            <span className={styles.statLabel}>Active Members</span>
           </div>
           <div className={styles.statBlock}>
             <span className={styles.statBigNumber}>2.5M+</span>
@@ -300,18 +298,18 @@ export const LandingPage = () => {
           </div>
           <div className={styles.statBlock}>
             <span className={styles.statBigNumber}>100%</span>
-            <span className={styles.statLabel}>Transparent Ledger</span>
+            <span className={styles.statLabel}>Verifiable Ledger</span>
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA Banner */}
+      {/* ── Bottom CTA Banner ── */}
       <section className={styles.ctaBannerSection}>
         <div className={styles.ctaBannerCard}>
           <div className={styles.ctaBannerGlow}></div>
           <h2 className={styles.ctaBannerTitle}>Ready to Experience VELOOP Rewards?</h2>
           <p className={styles.ctaBannerSub}>
-            Sign up now to begin your progression, or test the full interactive Level-Up Dashboard right away.
+            Create your account today to begin your progression journey and start unlocking verified rewards.
           </p>
 
           <div className={styles.ctaBannerButtons}>
@@ -320,15 +318,14 @@ export const LandingPage = () => {
               <ArrowRight size={18} />
             </button>
 
-            <button className={styles.demoCtaLarge} onClick={handleTryDemo}>
-              <Zap size={18} className={styles.zapIcon} />
-              <span>Launch Demo Dashboard</span>
+            <button className={styles.secondaryCta} onClick={handleSignIn}>
+              <span>Sign In to Dashboard</span>
             </button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ── Footer ── */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.footerBrand}>
@@ -336,7 +333,7 @@ export const LandingPage = () => {
             <span className={styles.footerTitle}>VELOOP REWARDS</span>
           </div>
           <span className={styles.footerText}>
-            VELOOP Rewards Progression Hub • Gamified Level-Up Center
+            VELOOP Rewards Progression Hub • Gamified Level-Up Platform
           </span>
         </div>
       </footer>

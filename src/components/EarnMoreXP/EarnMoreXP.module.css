@@ -285,7 +285,7 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 17, 30, 0.88);
+  background: var(--bg-modal-backdrop);
   backdrop-filter: blur(10px);
   z-index: 4000;
   display: flex;

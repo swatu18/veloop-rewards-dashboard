@@ -2,11 +2,12 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(22, 24, 39, 0.88);
+  background: var(--bg-glass-heavy);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   padding: 10px 0;
+  transition: background-color 0.3s ease;
 }
 
 .container {
@@ -33,7 +34,7 @@
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-pill);
   border: 1px solid var(--border-subtle);
   transition: all var(--transition-fast);
   position: relative;
@@ -41,8 +42,8 @@
 
 .iconBtn:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.09);
-  border-color: var(--border-light);
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--gold-400);
 }
 
 .activeIcon { color: var(--gold-400); }

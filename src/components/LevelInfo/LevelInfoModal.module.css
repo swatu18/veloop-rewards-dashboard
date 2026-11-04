@@ -1,7 +1,7 @@
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 17, 30, 0.85);
+  background: var(--bg-modal-backdrop);
   backdrop-filter: blur(8px);
   z-index: 2500;
   display: flex;
@@ -84,7 +84,7 @@
 }
 
 .infoCallout {
-  background: rgba(15, 17, 30, 0.6);
+  background: var(--bg-card-inner);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   padding: 12px;

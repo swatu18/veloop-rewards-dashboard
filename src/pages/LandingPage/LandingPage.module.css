@@ -6,7 +6,7 @@
   overflow-x: hidden;
 }
 
-/* Hero Section */
+/* ── Hero Section ── */
 .heroSection {
   max-width: 1360px;
   margin: 0 auto;
@@ -21,7 +21,7 @@
   .heroSection {
     display: grid;
     grid-template-columns: 1.25fr 1fr;
-    gap: 48px;
+    gap: 52px;
     align-items: center;
     padding: 70px 24px 80px 24px;
   }
@@ -57,13 +57,18 @@
   gap: 16px;
 }
 
+.brandLogoRow {
+  display: inline-flex;
+  margin-bottom: 12px;
+}
+
 .pillBadge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  padding: 4px 14px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 5px 14px;
   border-radius: var(--radius-full);
   font-size: 0.72rem;
   font-weight: 800;
@@ -72,11 +77,13 @@
   width: fit-content;
 }
 
-.goldSparkle { color: var(--gold-400); }
+.goldSparkle { 
+  color: var(--gold-400); 
+}
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   font-weight: 800;
   line-height: 1.2;
   color: var(--text-primary);
@@ -85,7 +92,7 @@
 
 @media (min-width: 768px) {
   .heroTitle {
-    font-size: 3.1rem;
+    font-size: 3.2rem;
     line-height: 1.15;
   }
 }
@@ -97,18 +104,18 @@
 }
 
 .heroSubtitle {
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
   margin: 0;
-  max-width: 600px;
+  max-width: 620px;
 }
 
 .ctaGroup {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   margin-top: 10px;
 }
 
@@ -117,11 +124,11 @@
   align-items: center;
   gap: 10px;
   background: var(--gold-gradient);
-  color: #161827;
+  color: #0F172A;
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 800;
-  padding: 13px 24px;
+  padding: 13px 26px;
   border-radius: var(--radius-md);
   box-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);
   transition: all var(--transition-fast);
@@ -136,48 +143,28 @@
 .secondaryCta {
   display: inline-flex;
   align-items: center;
-  padding: 13px 22px;
+  padding: 13px 24px;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-card);
   border: 1px solid var(--border-light);
   color: var(--text-primary);
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 700;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-fast);
   cursor: pointer;
 }
 .secondaryCta:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--bg-card-hover);
   border-color: var(--gold-400);
-}
-
-.demoCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  border-radius: var(--radius-md);
-  background: rgba(139, 92, 246, 0.15);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  color: var(--purple-400);
-  font-family: var(--font-heading);
-  font-size: 0.88rem;
-  font-weight: 700;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-.demoCta:hover {
-  background: rgba(139, 92, 246, 0.25);
   transform: translateY(-1px);
 }
-
-.zapIcon { color: var(--gold-400); }
 
 .trustBadges {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 18px;
   margin-top: 14px;
 }
 
@@ -185,12 +172,14 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
 }
-.trustIcon { color: var(--gold-400); }
+.trustIcon { 
+  color: var(--gold-400); 
+}
 
-/* Live Preview Card */
+/* ── Live Preview Card ── */
 .heroVisualCol {
   position: relative;
   z-index: 2;
@@ -201,14 +190,15 @@
 .previewCard {
   width: 100%;
   max-width: 480px;
-  background: linear-gradient(145deg, rgba(31, 35, 58, 0.98), rgba(22, 24, 39, 0.98));
+  background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  padding: 22px;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(245, 158, 11, 0.2);
+  padding: 24px;
+  box-shadow: var(--shadow-card), 0 0 30px rgba(245, 158, 11, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+  transition: all var(--transition-normal);
 }
 
 .cardHeader {
@@ -250,16 +240,18 @@
 .previewBody {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
 }
 
-.badgeWrapper { flex-shrink: 0; }
+.badgeWrapper { 
+  flex-shrink: 0; 
+}
 
 .previewDetails {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .tierName {
@@ -271,22 +263,23 @@
 
 .userName {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
 }
 
 .xpLabel {
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--gold-300);
+  color: var(--gold-400);
 }
 
 .progressTrack {
   width: 100%;
   height: 8px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   overflow: hidden;
   margin: 4px 0;
@@ -299,39 +292,50 @@
 }
 
 .previewTarget {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }
-.previewTarget strong { color: var(--gold-400); }
+.previewTarget strong { 
+  color: var(--gold-400); 
+}
 
 .previewStatsGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: 10px;
 }
 
 .statPill {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--bg-card-inner);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 8px;
+  padding: 9px;
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: background 0.3s ease;
 }
 
-.statEmoji { font-size: 1.1rem; }
+.statEmoji { 
+  font-size: 1.15rem; 
+}
 
-.statText { display: flex; flex-direction: column; }
+.statText { 
+  display: flex; 
+  flex-direction: column; 
+}
 
 .statVal {
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: var(--text-primary);
 }
 
-.statLbl { font-size: 0.62rem; color: var(--text-muted); }
+.statLbl { 
+  font-size: 0.64rem; 
+  color: var(--text-muted); 
+}
 
 .cardFooter {
   border-top: 1px solid var(--border-subtle);
@@ -341,52 +345,54 @@
 .exploreInsideBtn {
   width: 100%;
   background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  color: var(--gold-300);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: var(--gold-400);
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  padding: 10px;
+  padding: 11px;
   border-radius: var(--radius-md);
   transition: all var(--transition-fast);
   cursor: pointer;
+  text-align: center;
 }
 .exploreInsideBtn:hover {
-  background: rgba(245, 158, 11, 0.22);
-  color: #FFFFFF;
+  background: var(--gold-gradient);
+  color: #0F172A;
+  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.4);
 }
 
-/* Steps Section */
+/* ── Steps Section ── */
 .stepsSection {
   max-width: 1360px;
   margin: 0 auto;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 40px;
 }
 
 .sectionTag {
   font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--gold-400);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .sectionHeading {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin: 0 0 6px 0;
+  margin: 0 0 8px 0;
 }
 
 .sectionSub {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -394,23 +400,25 @@
 .stepsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .stepCard {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 24px;
+  padding: 26px;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 .stepCard:hover {
-  transform: translateY(-3px);
-  border-color: var(--border-light);
+  transform: translateY(-4px);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-md);
 }
 
 .stepNumber {
@@ -420,7 +428,8 @@
   font-family: var(--font-heading);
   font-size: 1.6rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.08);
+  color: var(--border-light);
+  opacity: 0.7;
 }
 
 .stepIconWrap {
@@ -428,7 +437,7 @@
   height: 48px;
   border-radius: 12px;
   background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   color: var(--gold-400);
   display: flex;
   align-items: center;
@@ -437,20 +446,20 @@
 
 .stepTitle {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
 }
 
 .stepDesc {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
   margin: 0;
 }
 
-/* Features Section */
+/* ── Features Section ── */
 .featuresSection {
   max-width: 1360px;
   margin: 0 auto;
@@ -460,28 +469,31 @@
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .featureCard {
-  background: rgba(15, 17, 30, 0.6);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 24px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 .featureCard:hover {
-  background: rgba(31, 35, 58, 0.6);
+  background: var(--bg-card-hover);
   border-color: var(--gold-400);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .featureIcon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
   background: rgba(139, 92, 246, 0.15);
   border: 1px solid rgba(139, 92, 246, 0.35);
   color: var(--purple-400);
@@ -493,20 +505,20 @@
 
 .featureTitle {
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
 }
 
 .featureText {
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
   margin: 0;
 }
 
-/* Stats Row */
+/* ── Stats Row ── */
 .statsSection {
   max-width: 1360px;
   margin: 0 auto;
@@ -514,32 +526,38 @@
 }
 
 .statsRow {
-  background: linear-gradient(135deg, rgba(31, 35, 58, 0.8), rgba(22, 24, 39, 0.8));
+  background: var(--bg-card);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-lg);
-  padding: 30px 20px;
+  padding: 32px 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
   text-align: center;
+  box-shadow: var(--shadow-md);
+  transition: background 0.4s ease;
 }
 
-.statBlock { display: flex; flex-direction: column; gap: 4px; }
+.statBlock { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 4px; 
+}
 
 .statBigNumber {
   font-family: var(--font-heading);
-  font-size: 1.9rem;
+  font-size: 2.1rem;
   font-weight: 800;
   color: var(--gold-400);
 }
 
 .statLabel {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
   font-weight: 600;
 }
 
-/* Bottom CTA Banner */
+/* ── Bottom CTA Banner ── */
 .ctaBannerSection {
   max-width: 1360px;
   margin: 0 auto;
@@ -548,73 +566,55 @@
 
 .ctaBannerCard {
   position: relative;
-  background: linear-gradient(135deg, rgba(40, 45, 75, 0.95), rgba(22, 24, 39, 0.95));
+  background: var(--bg-card);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  padding: 44px 24px;
+  padding: 48px 24px;
   text-align: center;
   overflow: hidden;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-lg);
+  transition: background 0.4s ease;
 }
 
 .ctaBannerGlow {
   position: absolute;
-  top: -50px;
+  top: -60px;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  height: 220px;
   background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 70%);
-  filter: blur(35px);
+  filter: blur(40px);
   pointer-events: none;
 }
 
 .ctaBannerTitle {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
 }
 
 .ctaBannerSub {
-  font-size: 0.9rem;
+  font-size: 0.94rem;
   color: var(--text-secondary);
-  max-width: 580px;
-  margin: 0 auto 24px auto;
+  max-width: 600px;
+  margin: 0 auto 28px auto;
+  line-height: 1.6;
 }
 
 .ctaBannerButtons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
 }
 
-.demoCtaLarge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 24px;
-  border-radius: var(--radius-md);
-  background: rgba(139, 92, 246, 0.2);
-  border: 1px solid var(--purple-400);
-  color: #DDD6FE;
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 700;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-}
-.demoCtaLarge:hover {
-  background: rgba(139, 92, 246, 0.35);
-  transform: translateY(-2px);
-}
-
-/* Footer */
+/* ── Footer ── */
 .footer {
   border-top: 1px solid var(--border-subtle);
-  padding: 24px 20px 0 20px;
+  padding: 28px 20px 0 20px;
 }
 
 .footerInner {
@@ -623,7 +623,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   text-align: center;
 }
 
@@ -637,32 +637,32 @@
 .footerBrand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .logoMarkSmall {
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
   background: var(--gold-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  color: #161827;
+  color: #0F172A;
 }
 
 .footerTitle {
   font-family: var(--font-heading);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: 0.05em;
 }
 
 .footerText {
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
 }

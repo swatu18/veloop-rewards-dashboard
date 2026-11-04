@@ -137,6 +137,27 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
     }
   };
 
+  // iOS Safari touch locking: Prevent browser gesture rubber-band scrolling
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const handleTouch = (e) => {
+      if (e.cancelable) e.preventDefault();
+      if (e.touches && e.touches[0]) {
+        handlePointerMove(e.touches[0].clientX);
+      }
+    };
+
+    canvas.addEventListener('touchstart', handleTouch, { passive: false });
+    canvas.addEventListener('touchmove', handleTouch, { passive: false });
+
+    return () => {
+      canvas.removeEventListener('touchstart', handleTouch);
+      canvas.removeEventListener('touchmove', handleTouch);
+    };
+  }, [handlePointerMove]);
+
   // Main Canvas Render & Physics Loop
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -552,14 +573,16 @@ export const GamePlay = ({ onGameOver, onQuit }) => {
         Catch XP orbs &amp; coins. Score high for better rewards!
       </p>
 
-      {/* Interactive HTML5 Canvas */}
+      {/* Interactive HTML5 Canvas with 60 FPS Mobile Touch Locking */}
       <div 
         className={styles.canvasWrapper}
         onMouseMove={onMouseMove}
+        onPointerMove={onMouseMove}
         onTouchStart={onTouchMove}
         onTouchMove={onTouchMove}
+        style={{ touchAction: 'none', userSelect: 'none', WebkitUserSelect: 'none' }}
       >
-        <canvas ref={canvasRef} className={styles.gameCanvas} />
+        <canvas ref={canvasRef} className={styles.gameCanvas} style={{ touchAction: 'none' }} />
         
         {/* Mobile touch hint overlay */}
         <div className={styles.touchControlNotice}>

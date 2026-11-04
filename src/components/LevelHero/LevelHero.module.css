@@ -60,12 +60,12 @@
 /* ─── Progression Card ────────────────────────────────────── */
 .levelCard {
   position: relative;
-  background: linear-gradient(135deg, rgba(31, 35, 58, 0.95) 0%, rgba(22, 24, 39, 0.95) 100%);
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  background: var(--bg-card-gradient);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 22px 24px;
   overflow: hidden;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-card);
   transition: border-color var(--transition-normal);
 }
 
@@ -197,11 +197,11 @@
   position: relative;
   width: 100%;
   height: 12px;
-  background: rgba(15, 17, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .milestoneTick {

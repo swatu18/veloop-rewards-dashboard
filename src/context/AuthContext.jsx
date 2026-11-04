@@ -26,7 +26,7 @@ const getStoredUsers = () => {
   return initial;
 };
 
-// Returns null if no active session in localStorage (requires sign in / sign up)
+// Returns active session user or null (forces authentication gate)
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));

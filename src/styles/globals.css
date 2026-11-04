@@ -8,6 +8,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -21,6 +25,18 @@ body {
     radial-gradient(ellipse 60% 40% at 85% 60%, rgba(245, 158, 11, 0.08), transparent),
     radial-gradient(ellipse 60% 40% at 15% 85%, rgba(56, 189, 248, 0.08), transparent);
   background-attachment: fixed;
+  transition: background-color 0.4s ease, color 0.3s ease;
+}
+
+/* Light Theme Root Body Background */
+[data-theme="light"] body,
+[data-theme="light"] {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(245, 158, 11, 0.09), transparent),
+    radial-gradient(ellipse 60% 40% at 85% 60%, rgba(217, 119, 6, 0.05), transparent),
+    radial-gradient(ellipse 60% 40% at 15% 85%, rgba(139, 92, 246, 0.04), transparent);
 }
 
 /* Hide Netlify free-tier badge */
@@ -70,10 +86,11 @@ button:focus-visible {
 /* Glassmorphism Surface Helpers */
 .glass-panel {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
 }
 .glass-panel:hover {
@@ -81,10 +98,23 @@ button:focus-visible {
 }
 
 .glass-panel-gold {
-  background: linear-gradient(145deg, rgba(31, 35, 58, 0.9), rgba(40, 45, 75, 0.9));
+  background: var(--bg-card-gradient);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+}
+
+[data-theme="light"] .glass-panel {
+  background: var(--bg-glass);
+  border-color: var(--border-subtle);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .glass-panel-gold {
+  background: linear-gradient(145deg, #FFFFFF, #FFFBEB);
+  border-color: var(--border-gold);
+  box-shadow: 0 6px 24px rgba(217, 119, 6, 0.12);
 }
 
 /* Keyframe Animations */

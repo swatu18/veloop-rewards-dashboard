@@ -241,8 +241,8 @@
 
 /* Today's Summary Card matching Screen 6 */
 .summaryCard {
-  background: rgba(15, 17, 30, 0.7);
-  border: 1px solid var(--border-light);
+  background: var(--bg-card-inner);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 14px 16px;
 }

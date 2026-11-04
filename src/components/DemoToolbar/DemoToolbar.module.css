@@ -5,21 +5,30 @@
   z-index: 2000;
   max-width: 440px;
   width: calc(100% - 32px);
-  background: rgba(22, 24, 39, 0.95);
+  background: var(--bg-card);
   backdrop-filter: blur(14px);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-md);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-card);
   transition: all var(--transition-normal);
 }
 
 @media (max-width: 600px) {
   .toolbarWrapper {
-    top: auto;
-    bottom: 74px;
-    right: 10px;
-    left: 10px;
+    top: 60px;
+    right: 8px;
+    left: auto;
     width: auto;
+    max-width: 240px;
+  }
+
+  .toolbarWrapper.expanded {
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 }
 
