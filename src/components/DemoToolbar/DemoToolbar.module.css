@@ -121,25 +121,33 @@
   color: var(--gold-300);
 }
 
-.stateBtn {
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
+.stateChip {
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
   transition: all var(--transition-fast);
 }
 
-.stateBtn:hover {
+.stateChip:hover {
+  background: rgba(255, 255, 255, 0.12);
   color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
-.stateBtnActive {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: var(--purple-400);
-  color: var(--purple-400);
+.stateChip.chipActive {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
 }
 
 .actionsRow {

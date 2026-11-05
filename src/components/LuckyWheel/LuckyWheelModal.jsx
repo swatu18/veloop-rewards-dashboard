@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
-import { Sparkles, X, Gift, Zap, RotateCw, Check, Trophy } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Sparkles, X, Gift, Zap, RotateCw, Check, Trophy, Crown, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import styles from './LuckyWheelModal.module.css';
 
-// 8 Slices matching Candy Crush / Top Gamified Fintech Tier standards
+// 8 Slices matching Candy Crush / Top Gamified Fintech Standards
 const WHEEL_SLICES = [
   { id: 0, label: '+100 XP', sub: 'Experience', xp: 100, ve: 0, gem: 0, color: '#F59E0B', bg: '#78350F' },
   { id: 1, label: '+50 VEs', sub: 'Tokens', xp: 0, ve: 50, gem: 0, color: '#38BDF8', bg: '#0369A1' },
@@ -29,54 +29,73 @@ export const LuckyWheelModal = () => {
   const [rotation, setRotation] = useState(0);
   const [winningSlice, setWinningSlice] = useState(null);
   const [hasClaimed, setHasClaimed] = useState(false);
-  const [spinsLeft, setSpinsLeft] = useState(3); // 3 daily bonus spins for evaluator demo
+  const [spinsLeft, setSpinsLeft] = useState(3); // 3 daily bonus spins
+  const [showProUpgradeModal, setShowProUpgradeModal] = useState(false);
 
-  const spinSoundRef = useRef(null);
+  const audioCtxRef = useRef(null);
 
-  if (!isSpinModalOpen) return null;
-
-  const playTickerSound = () => {
-    try {
+  // Initialize or resume shared AudioContext on first interaction
+  const getAudioContext = () => {
+    if (!audioCtxRef.current) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      if (AudioContext) {
+        audioCtxRef.current = new AudioContext();
+      }
+    }
+    if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
+      audioCtxRef.current.resume();
+    }
+    return audioCtxRef.current;
+  };
+
+  const playTickerSound = (pitch = 540) => {
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(580, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(320, ctx.currentTime + 0.05);
+      osc.frequency.setValueAtTime(pitch, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(260, ctx.currentTime + 0.04);
       gain.gain.setValueAtTime(0.12, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.05);
+      osc.stop(ctx.currentTime + 0.04);
     } catch {}
   };
 
   const playWinSound = () => {
     try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
-      const ctx = new AudioContext();
+      const ctx = getAudioContext();
+      if (!ctx) return;
       [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.09);
-        gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.09);
-        gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + idx * 0.09 + 0.04);
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.09 + 0.7);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
+        gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + idx * 0.08 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 0.6);
         osc.connect(gain);
         gain.connect(ctx.destination);
-        osc.start(ctx.currentTime + idx * 0.09);
-        osc.stop(ctx.currentTime + idx * 0.09 + 0.7);
+        osc.start(ctx.currentTime + idx * 0.08);
+        osc.stop(ctx.currentTime + idx * 0.08 + 0.6);
       });
     } catch {}
   };
 
+  if (!isSpinModalOpen) return null;
+
   const handleSpin = () => {
     if (isSpinning) return;
+
+    if (spinsLeft <= 0) {
+      setShowProUpgradeModal(true);
+      return;
+    }
+
     setIsSpinning(true);
     setWinningSlice(null);
     setHasClaimed(false);
@@ -84,24 +103,39 @@ export const LuckyWheelModal = () => {
     // Pick random slice
     const sliceIndex = Math.floor(Math.random() * WHEEL_SLICES.length);
     const sliceAngle = 360 / WHEEL_SLICES.length;
-    // Calculate final angle to land with pointer at top (270deg offset in SVG space)
+    // Calculate final angle to land with pointer at top
     const extraTurns = 5 * 360; // 5 full revolutions
     const targetOffset = 360 - (sliceIndex * sliceAngle + sliceAngle / 2);
     const nextRotation = rotation + extraTurns + targetOffset;
 
     setRotation(nextRotation);
 
-    // Interval ticker clicking while spinning
-    let clickCount = 0;
-    const tickerInterval = setInterval(() => {
-      playTickerSound();
-      clickCount++;
-      if (clickCount > 25) clearInterval(tickerInterval);
-    }, 140);
+    // Physical deceleration schedule for audio ticks matching wheel slowdown
+    // Starts very fast (every 60ms), gradually slows down to 400ms before stopping
+    const tickTimeouts = [];
+    let currentTime = 100;
+    let delay = 60;
+
+    while (currentTime < 3600) {
+      const capturedTime = currentTime;
+      tickTimeouts.push(
+        setTimeout(() => {
+          playTickerSound(capturedTime > 2600 ? 640 : 520);
+        }, capturedTime)
+      );
+      // Exponentially increase delay as rotation slows down
+      if (currentTime < 1800) {
+        delay += 6;
+      } else if (currentTime < 2800) {
+        delay += 24;
+      } else {
+        delay += 60;
+      }
+      currentTime += delay;
+    }
 
     // After 3.8s spin animation finishes
     setTimeout(() => {
-      clearInterval(tickerInterval);
       setIsSpinning(false);
       setWinningSlice(WHEEL_SLICES[sliceIndex]);
       setSpinsLeft(prev => Math.max(0, prev - 1));
@@ -148,10 +182,19 @@ export const LuckyWheelModal = () => {
           </button>
         </div>
 
-        {/* Spins Left Badge */}
-        <div className={styles.spinsCounterBadge}>
-          <Sparkles size={13} className={styles.sparkleIcon} />
-          <span><strong>{spinsLeft} Spins Available Today</strong> • Zero Ads Required</span>
+        {/* Spins Left Badge & Pro Notice */}
+        <div className={spinsLeft > 0 ? styles.spinsCounterBadge : styles.spinsExhaustedBadge}>
+          {spinsLeft > 0 ? (
+            <>
+              <Sparkles size={13} className={styles.sparkleIcon} />
+              <span><strong>{spinsLeft} Spins Available Today</strong> • Zero Ads Required</span>
+            </>
+          ) : (
+            <>
+              <Crown size={14} className={styles.proCrownIcon} />
+              <span><strong>0 Spins Left Today</strong> • Upgrade to Pro or complete missions!</span>
+            </>
+          )}
         </div>
 
         {/* ── Wheel Arena ── */}
@@ -262,11 +305,11 @@ export const LuckyWheelModal = () => {
           <button 
             className={`${styles.centerSpinBtn} ${isSpinning ? styles.spinBtnDisabled : ''}`}
             onClick={handleSpin}
-            disabled={isSpinning || spinsLeft <= 0}
-            title={spinsLeft <= 0 ? 'No spins left' : 'Click to Spin!'}
+            disabled={isSpinning}
+            title={spinsLeft <= 0 ? 'Click to Unlock More Spins!' : 'Click to Spin!'}
           >
             <span className={styles.centerSpinText}>
-              {isSpinning ? '...' : 'SPIN'}
+              {isSpinning ? '...' : spinsLeft > 0 ? 'SPIN' : 'PRO'}
             </span>
           </button>
         </div>
@@ -299,7 +342,7 @@ export const LuckyWheelModal = () => {
                 )}
               </button>
 
-              {spinsLeft > 0 && (
+              {spinsLeft > 0 ? (
                 <button 
                   className={styles.spinAgainBtn}
                   onClick={handleSpin}
@@ -308,21 +351,97 @@ export const LuckyWheelModal = () => {
                   <RotateCw size={15} />
                   <span>Spin Again ({spinsLeft} left)</span>
                 </button>
+              ) : (
+                <button 
+                  className={styles.doneBtn}
+                  onClick={() => setIsSpinModalOpen(false)}
+                >
+                  <span>Done &amp; Return to Dashboard ➔</span>
+                </button>
               )}
             </div>
+
+            {hasClaimed && spinsLeft > 0 && (
+              <button 
+                className={styles.exitReturnLink}
+                onClick={() => setIsSpinModalOpen(false)}
+              >
+                Done &amp; Return to Dashboard ➔
+              </button>
+            )}
           </div>
         )}
 
-        {/* Bottom Helper Note */}
+        {/* Bottom Helper Note / Spin CTA */}
         {!winningSlice && (
           <div className={styles.bottomFooter}>
-            <button 
-              className={styles.primarySpinCta}
-              onClick={handleSpin}
-              disabled={isSpinning || spinsLeft <= 0}
-            >
-              {isSpinning ? '🎡 Wheel is spinning...' : 'Tap Wheel or Click Here to Spin'}
-            </button>
+            {spinsLeft > 0 ? (
+              <button 
+                className={styles.primarySpinCta}
+                onClick={handleSpin}
+                disabled={isSpinning}
+              >
+                {isSpinning ? '🎡 Wheel is spinning...' : `Tap Wheel to Spin (${spinsLeft} Left Today)`}
+              </button>
+            ) : (
+              <button 
+                className={styles.upgradeProCta}
+                onClick={() => setShowProUpgradeModal(true)}
+              >
+                <Crown size={16} />
+                <span>Get Unlimited Spins with VELOOP Pro ➔</span>
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* ── VIP / PRO UPGRADE MODAL OVERLAY ── */}
+        {showProUpgradeModal && (
+          <div className={styles.proModalOverlay} onClick={() => setShowProUpgradeModal(false)}>
+            <div className={styles.proModalCard} onClick={e => e.stopPropagation()}>
+              <div className={styles.proHeader}>
+                <Crown size={28} className={styles.crownGold} />
+                <h3 className={styles.proTitle}>Daily Spins Completed (0/3)</h3>
+                <p className={styles.proSub}>
+                  You unlocked all 3 complimentary daily spins for today! Upgrade to <strong>VELOOP Pro VIP</strong> or complete daily tasks to get extra spins.
+                </p>
+              </div>
+
+              <div className={styles.proPerksList}>
+                <div className={styles.proPerkItem}>
+                  <ShieldCheck size={18} className={styles.perkIcon} />
+                  <span>Unlimited Daily Lucky Wheel Spins</span>
+                </div>
+                <div className={styles.proPerkItem}>
+                  <ShieldCheck size={18} className={styles.perkIcon} />
+                  <span>2x XP Multiplier on all Arcade Games</span>
+                </div>
+                <div className={styles.proPerkItem}>
+                  <ShieldCheck size={18} className={styles.perkIcon} />
+                  <span>Instant VIP Mystery Box Early Access</span>
+                </div>
+              </div>
+
+              <div className={styles.proActionsRow}>
+                <button 
+                  className={styles.proUpgradeBtn}
+                  onClick={() => {
+                    setSpinsLeft(3); // Demo grant 3 bonus spins
+                    setShowProUpgradeModal(false);
+                    triggerConfetti();
+                  }}
+                >
+                  <Crown size={16} />
+                  <span>Activate Pro Pass Demo (+3 Spins)</span>
+                </button>
+                <button 
+                  className={styles.proCloseBtn}
+                  onClick={() => setShowProUpgradeModal(false)}
+                >
+                  Back to Wheel
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>

@@ -586,6 +586,14 @@ export const NextLevelReward = () => {
                         <RotateCcw size={15} />
                         <span>Replay Unboxing</span>
                       </button>
+
+                      <button
+                        className={styles.doneReturnBtn}
+                        onClick={() => setIsModalOpen(false)}
+                        title="Return back to Dashboard"
+                      >
+                        <span>Done &amp; Return to Dashboard ➔</span>
+                      </button>
                     </div>
                   ) : unboxState === 'idle' ? (
                     <button className={styles.startUnboxBtn} onClick={startUnboxing}>
