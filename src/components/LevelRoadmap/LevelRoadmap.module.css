@@ -68,7 +68,6 @@
 
 .headerIcon {
   color: var(--gold-400);
-  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.45));
 }
 
 .sectionTitle {
@@ -157,7 +156,7 @@
 }
 
 .selected .badgeHolder {
-  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.7));
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
 }
 
 /* Node labels */

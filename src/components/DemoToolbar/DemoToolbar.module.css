@@ -19,7 +19,8 @@
     right: 8px;
     left: auto;
     width: auto;
-    max-width: 240px;
+    max-width: 200px;
+    opacity: 0.92;
   }
 
   .toolbarWrapper.expanded {
@@ -29,6 +30,7 @@
     max-width: none;
     max-height: 80vh;
     overflow-y: auto;
+    opacity: 1;
   }
 }
 

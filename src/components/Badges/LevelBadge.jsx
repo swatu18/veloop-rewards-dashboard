@@ -25,7 +25,7 @@ export const LevelBadge = ({
       >
         <div
           className={styles.laurelGlowAura}
-          style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 70%)` }}
+          style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 65%)` }}
         />
 
         <svg
@@ -107,7 +107,7 @@ export const LevelBadge = ({
       {/* Ambient Radial Glow */}
       <div
         className={styles.glowAura}
-        style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 70%)` }}
+        style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 65%)` }}
       />
 
       {/* Unique SVG for this specific level */}
@@ -180,11 +180,11 @@ export const MiniTierBadge = ({ level, status, onClick }) => {
         className={styles.miniGlowAura}
         style={{
           background: isCurrent
-            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.85) 0%, rgba(245, 158, 11, 0.25) 55%, transparent 75%)'
+            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0.1) 50%, transparent 70%)'
             : isNext
-            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.7) 0%, rgba(192, 132, 252, 0.15) 50%, transparent 70%)'
+            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, rgba(192, 132, 252, 0.08) 50%, transparent 70%)'
             : isCompleted
-            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.5) 0%, transparent 65%)'
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 65%)'
             : 'none',
         }}
       />
@@ -218,18 +218,18 @@ export const MiniTierBadge = ({ level, status, onClick }) => {
           {renderTierSvg(level, uid)}
         </g>
 
-        {/* Extra golden laurel wreath wings for Current Level (05) */}
+        {/* Golden laurel wreath wings for Current Level (05) */}
         {isCurrent && (
-          <g filter="drop-shadow(0 0 6px rgba(245, 158, 11, 0.9))">
-            <path d="M 26 88 C 10 70 14 42 34 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.8" fill="none" strokeLinecap="round" />
-            <circle cx="20" cy="68" r="2.2" fill="#FFFBEB" />
-            <circle cx="24" cy="52" r="2.2" fill="#FFFBEB" />
-            <circle cx="30" cy="38" r="2.2" fill="#FFFBEB" />
+          <g opacity="0.85">
+            <path d="M 26 88 C 10 70 14 42 34 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            <circle cx="20" cy="68" r="1.8" fill="#FFFBEB" />
+            <circle cx="24" cy="52" r="1.8" fill="#FFFBEB" />
+            <circle cx="30" cy="38" r="1.8" fill="#FFFBEB" />
 
-            <path d="M 94 88 C 110 70 106 42 86 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.8" fill="none" strokeLinecap="round" />
-            <circle cx="100" cy="68" r="2.2" fill="#FFFBEB" />
-            <circle cx="96" cy="52" r="2.2" fill="#FFFBEB" />
-            <circle cx="90" cy="38" r="2.2" fill="#FFFBEB" />
+            <path d="M 94 88 C 110 70 106 42 86 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.2" fill="none" strokeLinecap="round" />
+            <circle cx="100" cy="68" r="1.8" fill="#FFFBEB" />
+            <circle cx="96" cy="52" r="1.8" fill="#FFFBEB" />
+            <circle cx="90" cy="38" r="1.8" fill="#FFFBEB" />
           </g>
         )}
 

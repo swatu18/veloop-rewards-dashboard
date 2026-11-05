@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    Badge.module.css  –  VELOOP Level Badge System
-   Supports Unique Level-wise SVG Badges & Mini Roadmap Badges
+   Clean, balanced, executive luxury metallic gaming badges.
+   Zero excessive glow, crisp bevels, premium metallic finishes.
 ═══════════════════════════════════════════════════════════ */
 
 /* ─── Standard Plaque Badge ───────────────────────────────── */
@@ -11,13 +12,13 @@
   justify-content: center;
   user-select: none;
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
+  transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.45));
 }
 
 .plaqueWrapper:hover {
-  transform: scale(1.08) translateY(-3px);
-  filter: drop-shadow(0 12px 30px var(--tier-glow, rgba(245, 158, 11, 0.6)));
+  transform: translateY(-2px);
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
 }
 
 /* Size Variants */
@@ -38,19 +39,15 @@
   height: 180px;
 }
 
+/* Subtle Balanced Ambient Glow (Controlled, non-blinding) */
 .glowAura {
   position: absolute;
-  inset: -12%;
+  inset: -6%;
   border-radius: 50%;
-  filter: blur(18px);
+  filter: blur(10px);
   pointer-events: none;
-  animation: pulseGlow 3.5s ease-in-out infinite;
+  opacity: 0.35;
   z-index: 0;
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.5; transform: scale(0.92); }
-  50%       { opacity: 1;   transform: scale(1.1); }
 }
 
 .plaqueSvg {
@@ -80,7 +77,7 @@
   font-weight: 800;
   letter-spacing: 0.22em;
   color: var(--gold-300);
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   margin-bottom: -3px;
   text-transform: uppercase;
 }
@@ -93,14 +90,14 @@
   position: absolute;
   bottom: -8px;
   font-size: 0.55rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 2px 8px;
   border-radius: var(--radius-full);
   border: 1px solid;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   z-index: 3;
 }
 
@@ -112,7 +109,7 @@
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.9));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
   letter-spacing: -0.02em;
 }
 .small  .plaqueLevelNum { font-size: 1.05rem; }
@@ -127,7 +124,6 @@
   margin-top: 2px;
   color: var(--gold-400);
   font-size: 0.48rem;
-  text-shadow: 0 0 6px rgba(245, 158, 11, 0.75);
 }
 .centerStar {
   font-size: 0.62rem;
@@ -149,7 +145,7 @@
   justify-content: center;
   user-select: none;
   cursor: default;
-  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.5));
 }
 
 .laurelWrapper.normal {
@@ -161,26 +157,25 @@
   height: 170px;
 }
 .laurelWrapper.huge {
-  width: 260px;
-  height: 220px;
+  width: 250px;
+  height: 210px;
 }
 
 .laurelGlowAura {
   position: absolute;
-  inset: -8%;
+  inset: -10%;
   border-radius: 50%;
-  filter: blur(25px);
+  filter: blur(14px);
+  opacity: 0.3;
   pointer-events: none;
-  animation: pulseGlow 3s ease-in-out infinite;
-  z-index: 0;
 }
 
 .laurelSvg {
-  position: relative;
-  z-index: 1;
   width: 100%;
   height: 100%;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .laurelContent {
@@ -196,14 +191,14 @@
   transform: translateY(-4px);
 }
 
-/* Float Animation */
+/* Subtle float animation */
 .animated {
   animation: floatBadge 4s ease-in-out infinite;
 }
 
 @keyframes floatBadge {
   0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-5px); }
+  50%       { transform: translateY(-3px); }
 }
 
 /* ─── Mini Badge for Roadmap Nodes ────────────────────────── */
@@ -214,8 +209,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
   cursor: pointer;
 }
 
@@ -227,18 +222,18 @@
 }
 
 .miniNodeBadge:hover {
-  transform: translateY(-5px) scale(1.12);
-  filter: drop-shadow(0 10px 22px var(--mini-glow, rgba(245, 158, 11, 0.7)));
+  transform: translateY(-3px);
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
 }
 
 .miniGlowAura {
   position: absolute;
-  inset: -14%;
+  inset: -8%;
   border-radius: 50%;
-  filter: blur(14px);
+  filter: blur(8px);
   pointer-events: none;
   z-index: 0;
-  transition: opacity 0.3s ease;
+  opacity: 0.3;
 }
 
 .miniNodeSvg {
@@ -249,61 +244,38 @@
   display: block;
 }
 
-/* Current Tier (Level 05) - Hero of the Roadmap */
+/* Current Tier (Level 05) - Clean, balanced focal point */
 .miniNodeCurrent {
-  width: 86px;
-  height: 86px;
-  filter: drop-shadow(0 0 24px rgba(245, 158, 11, 0.95)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.95));
-  animation: heroBadgePulse 3s ease-in-out infinite;
+  width: 84px;
+  height: 84px;
+  filter: drop-shadow(0 4px 16px rgba(245, 158, 11, 0.4)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
 }
 
 @media (max-width: 600px) {
   .miniNodeCurrent {
-    width: 76px;
-    height: 76px;
+    width: 74px;
+    height: 74px;
   }
 }
 
 .miniNodeCurrent:hover {
-  transform: translateY(-5px) scale(1.08);
-}
-
-@keyframes heroBadgePulse {
-  0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.8)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.9));
-  }
-  50% {
-    transform: scale(1.06) translateY(-2px);
-    filter: drop-shadow(0 0 30px rgba(245, 158, 11, 1)) drop-shadow(0 10px 22px rgba(0, 0, 0, 0.95));
-  }
+  transform: translateY(-3px);
 }
 
 /* Next Target (Level 06) */
 .miniNodeNext {
-  filter: drop-shadow(0 0 16px rgba(192, 132, 252, 0.75)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.75));
-  animation: nextGoalShimmer 3.5s ease-in-out infinite;
-}
-
-@keyframes nextGoalShimmer {
-  0%, 100% {
-    filter: drop-shadow(0 0 12px rgba(192, 132, 252, 0.6));
-  }
-  50% {
-    filter: drop-shadow(0 0 22px rgba(192, 132, 252, 0.95));
-    transform: scale(1.04);
-  }
+  filter: drop-shadow(0 4px 14px rgba(192, 132, 252, 0.35)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
 /* Completed Tier (Levels 01 - 04) */
 .miniNodeCompleted {
-  filter: drop-shadow(0 0 14px rgba(16, 185, 129, 0.55)) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(0 3px 10px rgba(16, 185, 129, 0.25)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
 }
 
 /* Locked Tier (Levels 07 - 10) */
 .miniNodeLocked {
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.75));
-  opacity: 0.85;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+  opacity: 0.75;
 }
 
 /* ─── Level Number Overlay Inside Badge ────────────────────── */
@@ -322,16 +294,16 @@
   font-weight: 900;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
   line-height: 1;
 }
 
 .miniNumCurrent {
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   background: linear-gradient(180deg, #FFFFFF 0%, #FFFBEB 25%, #FDE68A 50%, #F59E0B 80%, #B45309 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.9));
 }
 
 .miniNumNext {
@@ -339,7 +311,7 @@
   background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 30%, #E9D5FF 60%, #C084FC 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.9));
 }
 
 .miniNumCompleted {
@@ -347,7 +319,7 @@
   background: linear-gradient(180deg, #FFFFFF 0%, #F3F4F6 50%, #D1D5DB 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.95));
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.9));
 }
 
 .miniNumLocked {
@@ -359,30 +331,8 @@
 /* ─── Corner Badges & Indicators ─────────────────────────── */
 .completedBadgePill {
   position: absolute;
-  bottom: -4px;
-  right: -4px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.7);
-  animation: popIn 0.3s ease-out;
-}
-
-.checkIconSvg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
-}
-
-.lockedBadgePill {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
+  bottom: -3px;
+  right: -3px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -390,16 +340,31 @@
   align-items: center;
   justify-content: center;
   z-index: 3;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.checkIconSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lockedBadgePill {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .lockIconSvg {
   width: 100%;
   height: 100%;
   display: block;
-}
-
-@keyframes popIn {
-  from { transform: scale(0); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
 }

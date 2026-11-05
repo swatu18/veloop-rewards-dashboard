@@ -76,10 +76,10 @@ export function TreasureBox3D({ isOpen = false, isShaking = false, size = 'norma
         className={styles.treasureSvg}
       >
         <defs>
-          {/* Radial Aura Glow */}
+          {/* Radial Aura Glow - subtle, non-excessive */}
           <radialGradient id="tbAura" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.75" />
-            <stop offset="50%" stopColor="#D97706" stopOpacity="0.25" />
+            <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.35" />
+            <stop offset="60%" stopColor="#D97706" stopOpacity="0.08" />
             <stop offset="100%" stopColor="#78350F" stopOpacity="0" />
           </radialGradient>
 
@@ -141,10 +141,10 @@ export function TreasureBox3D({ isOpen = false, isShaking = false, size = 'norma
         <ellipse cx="90" cy="80" rx="80" ry="60" fill="url(#tbAura)" />
 
         {/* Floating Volumetric Light Beams */}
-        <g opacity={isOpen ? 0.9 : 0.35}>
-          <polygon points="90,75 45,10 65,10" fill="#FDE68A" opacity="0.25" />
-          <polygon points="90,75 82,4 98,4" fill="#FDE68A" opacity="0.35" />
-          <polygon points="90,75 115,12 135,12" fill="#FDE68A" opacity="0.25" />
+        <g opacity={isOpen ? 0.8 : 0.2}>
+          <polygon points="90,75 45,10 65,10" fill="#FDE68A" opacity="0.18" />
+          <polygon points="90,75 82,4 98,4" fill="#FDE68A" opacity="0.25" />
+          <polygon points="90,75 115,12 135,12" fill="#FDE68A" opacity="0.18" />
         </g>
 
         {/* Pedestal Cast Shadow */}
