@@ -8,6 +8,8 @@ import { LuckyWheelBanner } from '../../components/LuckyWheel/LuckyWheelBanner';
 import { EarnMoreXP } from '../../components/EarnMoreXP/EarnMoreXP';
 import { NextLevelReward } from '../../components/NextLevelReward/NextLevelReward';
 import { LevelRoadmap } from '../../components/LevelRoadmap/LevelRoadmap';
+import { MultiplayerLeaderboard } from '../../components/Multiplayer/MultiplayerLeaderboard';
+import { RedemptionGateway } from '../../components/Redemption/RedemptionGateway';
 import { GameContainer } from '../../components/PlayAndEarn/GameContainer';
 import { XPActivity } from '../../components/XPActivity/XPActivity';
 import { LoadingSkeleton } from '../../components/States/LoadingSkeleton';
@@ -110,6 +112,16 @@ export const LevelDashboard = () => {
       {/* 5. Progression Roadmap with 10 Tier Badges */}
       <section className={styles.sectionRow}>
         <LevelRoadmap />
+      </section>
+
+      {/* 5.5 Multiplayer League & Tournament Brackets */}
+      <section className={styles.sectionRow}>
+        <MultiplayerLeaderboard isFullPage={false} />
+      </section>
+
+      {/* 5.6 Instant Redemption Gateway & E-Vouchers */}
+      <section className={styles.sectionRow}>
+        <RedemptionGateway isFullPage={false} />
       </section>
 
       {/* 6. Play & Earn Mini-Game Hub + Live XP Activity Ledger */}
