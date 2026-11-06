@@ -18,12 +18,9 @@ const DEFAULT_USER = {
 const getStoredUsers = () => {
   try {
     const data = JSON.parse(localStorage.getItem(MOCK_USERS_KEY));
-    if (Array.isArray(data) && data.length > 0) return data;
+    if (Array.isArray(data)) return data;
   } catch {}
-  // Pre-seed default demo account
-  const initial = [DEFAULT_USER];
-  localStorage.setItem(MOCK_USERS_KEY, JSON.stringify(initial));
-  return initial;
+  return [];
 };
 
 // Returns active session user or null (forces authentication gate)

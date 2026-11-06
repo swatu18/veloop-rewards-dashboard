@@ -77,7 +77,7 @@ export const AuthGate = () => {
           </div>
         )}
 
-        {/* Main Authentication Form */}
+        {/* Form Submission Button */}
         <form onSubmit={handleSubmit} className={styles.form}>
           {mode === 'signup' && (
             <div className={styles.inputGroup}>
@@ -142,24 +142,6 @@ export const AuthGate = () => {
             )}
           </button>
         </form>
-
-        {/* Divider */}
-        <div className={styles.divider}>
-          <span>OR</span>
-        </div>
-
-        {/* Instant Demo Access (Evaluator Mode) */}
-        <button
-          type="button"
-          className={styles.demoLoginBtn}
-          onClick={quickDemoLogin}
-        >
-          <Zap size={16} className={styles.demoZap} />
-          <div>
-            <span className={styles.demoTitle}>Instant Demo Access (Evaluator Mode)</span>
-            <span className={styles.demoSub}>Explore Level 05 Diamond Champion • 1,420 VEs</span>
-          </div>
-        </button>
 
         {/* Security Trust Note */}
         <div className={styles.securityNote}>

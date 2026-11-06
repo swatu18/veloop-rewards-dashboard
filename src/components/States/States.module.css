@@ -1,164 +1,444 @@
+/* ═══════════════════════════════════════════════════════════
+   States.module.css  –  Empty, Error & High-Fidelity Loading Skeletons
+   Featuring interactive color presets, layout stability & fluid animations
+═══════════════════════════════════════════════════════════ */
+
 .skeletonContainer {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px 0;
+  padding: 10px 0 40px 0;
+  width: 100%;
 }
 
+/* ── Interactive Color Themes ── */
+.theme_gold {
+  --shimmer-base: rgba(245, 158, 11, 0.05);
+  --shimmer-highlight: rgba(253, 230, 138, 0.16);
+  --shimmer-accent: #F59E0B;
+  --shimmer-border: rgba(245, 158, 11, 0.25);
+}
+
+.theme_cyber {
+  --shimmer-base: rgba(56, 189, 248, 0.05);
+  --shimmer-highlight: rgba(125, 211, 252, 0.16);
+  --shimmer-accent: #38BDF8;
+  --shimmer-border: rgba(56, 189, 248, 0.25);
+}
+
+.theme_amethyst {
+  --shimmer-base: rgba(192, 132, 252, 0.05);
+  --shimmer-highlight: rgba(233, 213, 255, 0.16);
+  --shimmer-accent: #C084FC;
+  --shimmer-border: rgba(192, 132, 252, 0.25);
+}
+
+.theme_emerald {
+  --shimmer-base: rgba(16, 185, 129, 0.05);
+  --shimmer-highlight: rgba(110, 231, 183, 0.16);
+  --shimmer-accent: #10B981;
+  --shimmer-border: rgba(16, 185, 129, 0.25);
+}
+
+/* Control Bar */
+.skeletonControlBar {
+  background: var(--bg-card);
+  border: 1px solid var(--shimmer-border, var(--border-subtle));
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .skeletonControlBar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.controlInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.livePulseDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--shimmer-accent, #F59E0B);
+  box-shadow: 0 0 10px var(--shimmer-accent, #F59E0B);
+  animation: pulseLive 1.5s infinite;
+}
+
+@keyframes pulseLive {
+  0%, 100% { opacity: 0.5; transform: scale(0.9); }
+  50%       { opacity: 1; transform: scale(1.15); }
+}
+
+.controlTitle {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: block;
+}
+
+.controlSub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.themeSelectorGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.themeLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.themeButtons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.themeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.themeBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.themeBtnActive {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--btn-theme-color, #F59E0B);
+  color: #FFFFFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.themeColorDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* Shimmer Effect */
 .shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-card);
+  border: 1px solid var(--shimmer-border, var(--border-subtle));
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.03) 25%,
-    rgba(255, 255, 255, 0.09) 50%,
-    rgba(255, 255, 255, 0.03) 75%
+    transparent 0%,
+    var(--shimmer-highlight, rgba(255, 255, 255, 0.1)) 50%,
+    transparent 100%
   );
-  background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
+  transform: translateX(-100%);
+  animation: shimmerSweep 1.8s infinite;
 }
 
-.skeletonGreeting {
+@keyframes shimmerSweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Generic Skeleton Placeholders ── */
+.skeletonSectionBlock {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+.skeletonBadgePill {
+  width: 140px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.05));
+}
+
 .skeletonLine {
-  height: 16px;
-  background: rgba(255, 255, 255, 0.05);
+  height: 14px;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.05));
   border-radius: var(--radius-sm);
 }
 
+.lineLg {
+  height: 22px;
+}
+
+.w20 { width: 20%; }
+.w30 { width: 30%; }
 .w40 { width: 40%; }
 .w50 { width: 50%; }
+.w60 { width: 60%; }
 .w70 { width: 70%; }
+.w80 { width: 80%; }
 .w90 { width: 90%; }
 
+/* Card 1: Hero Progression Skeleton */
 .skeletonCard {
-  height: 140px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
+  min-height: 150px;
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 22px;
   display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+@media (min-width: 600px) {
+  .skeletonCard {
+    flex-direction: row;
+    align-items: center;
+    gap: 26px;
+  }
+}
+
+.skeletonBadgeWrap {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 8px;
 }
 
 .skeletonBadge {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  flex-shrink: 0;
+  width: 86px;
+  height: 86px;
+  border-radius: 18px;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+}
+
+.skeletonBadgeLabel {
+  width: 70px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.04));
 }
 
 .skeletonCol {
   flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.skeletonBar {
-  height: 12px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: var(--radius-full);
+.skeletonHeaderRow,
+.skeletonFooterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+.skeletonProgressTrack {
+  height: 12px;
+  width: 100%;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.skeletonProgressFill {
+  height: 100%;
+  width: 65%;
+  background: var(--shimmer-accent, #F59E0B);
+  opacity: 0.6;
+}
+
+/* Card 2: Boost Grid */
 .skeletonGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
 .skeletonCardSmall {
-  height: 90px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
 }
 
+.skeletonCircleIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+}
+
+/* Card 3: Mystery Box Reward Skeleton */
 .skeletonRewardCard {
-  height: 160px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
+.skeletonRewardTop,
+.skeletonRewardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skeletonChestPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.skeletonChestBox {
+  width: 120px;
+  height: 90px;
+  border-radius: 16px;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+}
+
+.skeletonBtnPill {
+  width: 130px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: var(--shimmer-accent, #F59E0B);
+  opacity: 0.5;
+}
+
+/* Card 4: Roadmap Stepper Skeleton */
 .skeletonRoadmap {
-  height: 120px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
+  padding: 20px;
+  overflow-x: auto;
 }
 
-/* Empty & Error Cards */
+.skeletonRoadmapTrack {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 600px;
+  gap: 20px;
+}
+
+.skeletonRoadmapNode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.skeletonRoadmapBadge {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+}
+
+/* ── Existing Empty & Error State Cards ── */
 .stateCard {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 40px 20px;
-  text-align: center;
+  padding: 48px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin: 40px auto;
-  max-width: 480px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+  margin: 20px 0;
 }
 
-.iconCircle {
-  width: 60px;
-  height: 60px;
+.iconWrap {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid var(--border-gold);
-  color: var(--gold-400);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 6px;
 }
 
-.errorIconCircle {
+.errorIcon {
   background: rgba(239, 68, 68, 0.15);
-  border-color: rgba(239, 68, 68, 0.4);
-  color: #F87171;
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
-.stateTitle {
+.emptyIcon {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--gold-400);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.title {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
 }
 
-.stateSubtitle {
-  font-size: 0.85rem;
+.message {
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  margin: 0 0 10px 0;
+  max-width: 440px;
+  margin: 0;
+  line-height: 1.5;
 }
 
-.primaryBtn {
+.actionBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: var(--gold-gradient);
-  color: #161827;
+  color: #0F172A;
   font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  padding: 12px 24px;
+  padding: 10px 22px;
   border-radius: var(--radius-md);
-  box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
-.primaryBtn:hover {
+.actionBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
 }

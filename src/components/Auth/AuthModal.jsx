@@ -221,24 +221,6 @@ export const AuthModal = () => {
           </button>
         </form>
 
-        {/* Divider */}
-        <div className={styles.divider}>
-          <span>OR</span>
-        </div>
-
-        {/* One-Click Quick Demo Login */}
-        <button
-          type="button"
-          className={styles.demoLoginBtn}
-          onClick={quickDemoLogin}
-        >
-          <Zap size={16} className={styles.demoZap} />
-          <div>
-            <span className={styles.demoTitle}>Quick Demo Login (Swathi G)</span>
-            <span className={styles.demoSub}>Level 05 Diamond Champion • 1,420 VEs</span>
-          </div>
-        </button>
-
         {/* Security badge */}
         <div className={styles.securityNote}>
           <ShieldCheck size={14} />
