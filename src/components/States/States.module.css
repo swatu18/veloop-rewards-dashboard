@@ -40,7 +40,7 @@
   --shimmer-border: rgba(16, 185, 129, 0.25);
 }
 
-/* Control Bar */
+/* ── Control Bar ── */
 .skeletonControlBar {
   background: var(--bg-card);
   border: 1px solid var(--shimmer-border, var(--border-subtle));
@@ -48,28 +48,50 @@
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   transition: all 0.3s ease;
 }
 
-@media (min-width: 640px) {
-  .skeletonControlBar {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.controlInfo {
+.controlLeftGroup {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
+.backToNormalBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backToNormalBtn:hover {
+  background: var(--gold-400);
+  color: #0F172A;
+  border-color: var(--gold-400);
+}
+
+.liveIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .livePulseDot {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   background: var(--shimmer-accent, #F59E0B);
   box-shadow: 0 0 10px var(--shimmer-accent, #F59E0B);
@@ -81,39 +103,73 @@
   50%       { opacity: 1; transform: scale(1.15); }
 }
 
-.controlTitle {
+.liveIndicatorText {
   font-family: var(--font-heading);
-  font-size: 0.82rem;
+  font-size: 0.74rem;
   font-weight: 800;
-  color: var(--text-primary);
-  display: block;
+  color: var(--shimmer-accent, #F59E0B);
 }
 
-.controlSub {
-  font-size: 0.7rem;
-  color: var(--text-muted);
+.customizationRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 10px;
 }
 
-.themeSelectorGroup {
+@media (min-width: 640px) {
+  .customizationRow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.controlPillGroup {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.themeLabel {
+.groupLabel {
   font-size: 0.72rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.themeButtons {
+.pillButtons {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
+}
+
+.pillBtn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pillBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.pillBtnActive {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--gold-400);
+  color: var(--gold-300);
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
 }
 
 .themeBtn {
@@ -149,7 +205,7 @@
   border-radius: 50%;
 }
 
-/* Shimmer Effect */
+/* ── Shimmer Keyframes ── */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -177,7 +233,14 @@
   }
 }
 
-/* ── Generic Skeleton Placeholders ── */
+.layoutBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Section elements */
 .skeletonSectionBlock {
   display: flex;
   flex-direction: column;
@@ -371,59 +434,350 @@
   background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
 }
 
-/* ── Existing Empty & Error State Cards ── */
-.stateCard {
+/* Arcade Game Skeleton */
+.skeletonGameContainer {
+  min-height: 380px;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeletonGameHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.skeletonScorePill {
+  width: 100px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.skeletonCanvasArena {
+  flex: 1;
+  min-height: 240px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 14px;
+}
+
+.orbSkeleton {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--shimmer-accent, #F59E0B);
+  opacity: 0.5;
+  box-shadow: 0 0 10px var(--shimmer-accent, #F59E0B);
+}
+
+.basketSkeleton {
+  width: 120px;
+  height: 24px;
+  border-radius: var(--radius-md);
+  background: var(--shimmer-accent, #F59E0B);
+  opacity: 0.6;
+}
+
+.skeletonControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Roadmap Full Grid Skeleton */
+.skeletonRoadmapFull {
+  min-height: 340px;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.badgesGridSkeleton {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 14px;
+}
+
+.badgeCardSkeleton {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.badgeArtSkeleton {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM ERROR & EMPTY STATES
+═══════════════════════════════════════════════════════════ */
+.stateWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding-bottom: 40px;
+}
+
+.stateTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  background: var(--gold-400);
+  color: #0F172A;
+}
+
+.stateTagError {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.stateTagEmpty {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Luxury Cards */
+.luxuryErrorCard,
+.luxuryEmptyCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  padding: 48px 24px;
+  padding: 40px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 16px;
+  position: relative;
+  overflow: hidden;
   box-shadow: var(--shadow-card);
-  margin: 20px 0;
 }
 
-.iconWrap {
+.luxuryErrorCard {
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+.errorAura {
+  position: absolute;
+  top: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.emptyAura {
+  position: absolute;
+  top: -40px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.errorIconWrap {
   width: 72px;
   height: 72px;
   border-radius: 50%;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.25);
 }
 
 .errorIcon {
-  background: rgba(239, 68, 68, 0.15);
   color: #EF4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
-.emptyIcon {
-  background: rgba(245, 158, 11, 0.15);
+.emptyIconWrap {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+.emptySparkleIcon {
   color: var(--gold-400);
-  border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
-.title {
+.stateTitle {
   font-family: var(--font-heading);
   font-size: 1.3rem;
   font-weight: 800;
   color: var(--text-primary);
-  margin: 0;
+  margin-bottom: 8px;
 }
 
-.message {
-  font-size: 0.88rem;
+.stateSubtitle {
+  font-size: 0.86rem;
   color: var(--text-secondary);
-  max-width: 440px;
-  margin: 0;
+  max-width: 520px;
   line-height: 1.5;
+  margin-bottom: 24px;
 }
 
-.actionBtn {
+.diagnosticsBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.diagRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+}
+
+.diagKey {
+  color: var(--text-muted);
+}
+
+.diagVal {
+  font-family: monospace;
+  color: #EF4444;
+}
+
+.diagValSafe {
+  color: #10B981;
+  font-weight: 700;
+}
+
+/* Quick Start Grid for Empty state */
+.quickStartGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 24px;
+}
+
+.quickStartCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.quickStartCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--gold-400);
+  transform: translateY(-2px);
+}
+
+.quickIcon {
+  font-size: 1.6rem;
+}
+
+.quickTitle {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: block;
+}
+
+.quickSub {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.quickArrow {
+  margin-left: auto;
+  color: var(--gold-400);
+}
+
+.stateActionsRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primaryBtn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -432,13 +786,33 @@
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 800;
-  padding: 10px 22px;
-  border-radius: var(--radius-md);
+  padding: 11px 22px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
+  transition: all 0.2s ease;
 }
 
-.actionBtn:hover {
+.primaryBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 6px 22px rgba(245, 158, 11, 0.5);
+}
+
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 11px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
