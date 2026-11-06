@@ -1,139 +1,134 @@
 /* ═══════════════════════════════════════════════════════════
-   States.module.css  –  Empty, Error & High-Fidelity Loading Skeletons
-   Featuring interactive color presets, layout stability & fluid animations
+   States.module.css  –  Rich High-Fidelity UX States
+   Loaded with visible labels, metrics, color themes, and return flows
 ═══════════════════════════════════════════════════════════ */
 
 .skeletonContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 10px 0 40px 0;
+  gap: 22px;
+  padding: 10px 0 50px 0;
   width: 100%;
 }
 
 /* ── Interactive Color Themes ── */
 .theme_gold {
-  --shimmer-base: rgba(245, 158, 11, 0.05);
-  --shimmer-highlight: rgba(253, 230, 138, 0.16);
+  --shimmer-base: rgba(245, 158, 11, 0.08);
+  --shimmer-highlight: rgba(253, 230, 138, 0.22);
   --shimmer-accent: #F59E0B;
-  --shimmer-border: rgba(245, 158, 11, 0.25);
+  --shimmer-border: rgba(245, 158, 11, 0.35);
+  --shimmer-glow: rgba(245, 158, 11, 0.25);
 }
 
 .theme_cyber {
-  --shimmer-base: rgba(56, 189, 248, 0.05);
-  --shimmer-highlight: rgba(125, 211, 252, 0.16);
+  --shimmer-base: rgba(56, 189, 248, 0.08);
+  --shimmer-highlight: rgba(125, 211, 252, 0.22);
   --shimmer-accent: #38BDF8;
-  --shimmer-border: rgba(56, 189, 248, 0.25);
+  --shimmer-border: rgba(56, 189, 248, 0.35);
+  --shimmer-glow: rgba(56, 189, 248, 0.25);
 }
 
 .theme_amethyst {
-  --shimmer-base: rgba(192, 132, 252, 0.05);
-  --shimmer-highlight: rgba(233, 213, 255, 0.16);
+  --shimmer-base: rgba(192, 132, 252, 0.08);
+  --shimmer-highlight: rgba(233, 213, 255, 0.22);
   --shimmer-accent: #C084FC;
-  --shimmer-border: rgba(192, 132, 252, 0.25);
+  --shimmer-border: rgba(192, 132, 252, 0.35);
+  --shimmer-glow: rgba(192, 132, 252, 0.25);
 }
 
 .theme_emerald {
-  --shimmer-base: rgba(16, 185, 129, 0.05);
-  --shimmer-highlight: rgba(110, 231, 183, 0.16);
+  --shimmer-base: rgba(16, 185, 129, 0.08);
+  --shimmer-highlight: rgba(110, 231, 183, 0.22);
   --shimmer-accent: #10B981;
-  --shimmer-border: rgba(16, 185, 129, 0.25);
+  --shimmer-border: rgba(16, 185, 129, 0.35);
+  --shimmer-glow: rgba(16, 185, 129, 0.25);
 }
 
-/* ── Control Bar ── */
+/* ── Evaluator Return & Control Bar ── */
 .skeletonControlBar {
   background: var(--bg-card);
-  border: 1px solid var(--shimmer-border, var(--border-subtle));
+  border: 1px solid var(--shimmer-border, var(--border-gold));
   border-radius: var(--radius-md);
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
-.controlLeftGroup {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.backToNormalBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-light);
-  color: var(--text-primary);
-  font-family: var(--font-heading);
-  font-size: 0.76rem;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.backToNormalBtn:hover {
-  background: var(--gold-400);
-  color: #0F172A;
-  border-color: var(--gold-400);
-}
-
-.liveIndicator {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.livePulseDot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--shimmer-accent, #F59E0B);
-  box-shadow: 0 0 10px var(--shimmer-accent, #F59E0B);
-  animation: pulseLive 1.5s infinite;
-}
-
-@keyframes pulseLive {
-  0%, 100% { opacity: 0.5; transform: scale(0.9); }
-  50%       { opacity: 1; transform: scale(1.15); }
-}
-
-.liveIndicatorText {
-  font-family: var(--font-heading);
-  font-size: 0.74rem;
-  font-weight: 800;
-  color: var(--shimmer-accent, #F59E0B);
-}
-
-.customizationRow {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 10px;
-}
-
-@media (min-width: 640px) {
-  .customizationRow {
+@media (min-width: 680px) {
+  .skeletonControlBar {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   }
 }
 
-.controlPillGroup {
+.controlLeftGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.backToNormalBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gold-gradient);
+  color: #0F172A;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.35);
+}
+
+.backToNormalBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.5);
+}
+
+.simulateLoadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.simulateLoadBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.spinIcon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.themeSelectorWrap {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.groupLabel {
+.themeLabel {
   font-size: 0.72rem;
   font-weight: 800;
   color: var(--text-secondary);
@@ -142,34 +137,10 @@
   gap: 4px;
 }
 
-.pillButtons {
+.themeButtons {
   display: flex;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
-}
-
-.pillBtn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text-muted);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.pillBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-}
-
-.pillBtnActive {
-  background: rgba(245, 158, 11, 0.2);
-  border-color: var(--gold-400);
-  color: var(--gold-300);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
 }
 
 .themeBtn {
@@ -205,7 +176,53 @@
   border-radius: 50%;
 }
 
-/* ── Shimmer Keyframes ── */
+/* ── Explainer Card ── */
+.explainerCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--shimmer-border, var(--border-subtle));
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.explainerIconWrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--shimmer-base);
+  border: 1px solid var(--shimmer-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.explainerIcon {
+  color: var(--shimmer-accent);
+}
+
+.explainerTitle {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.explainerText {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.explainerText strong {
+  color: var(--shimmer-accent);
+}
+
+/* ── Shimmer Animation Effect ── */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -220,7 +237,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--shimmer-highlight, rgba(255, 255, 255, 0.1)) 50%,
+    var(--shimmer-highlight, rgba(255, 255, 255, 0.15)) 50%,
     transparent 100%
   );
   transform: translateX(-100%);
@@ -233,86 +250,91 @@
   }
 }
 
-.layoutBody {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-}
-
-/* Section elements */
-.skeletonSectionBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.skeletonBadgePill {
-  width: 140px;
-  height: 22px;
-  border-radius: var(--radius-full);
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.05));
-}
-
-.skeletonLine {
-  height: 14px;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.05));
-  border-radius: var(--radius-sm);
-}
-
-.lineLg {
-  height: 22px;
-}
-
-.w20 { width: 20%; }
-.w30 { width: 30%; }
-.w40 { width: 40%; }
-.w50 { width: 50%; }
-.w60 { width: 60%; }
-.w70 { width: 70%; }
-.w80 { width: 80%; }
-.w90 { width: 90%; }
-
-/* Card 1: Hero Progression Skeleton */
-.skeletonCard {
-  min-height: 150px;
+/* ── CARD 1: HERO PROGRESSION PLACEHOLDER ── */
+.heroSkeletonCard {
+  background: var(--bg-card-gradient);
+  border: 1px solid var(--shimmer-border);
   border-radius: var(--radius-lg);
   padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeaderIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 10px;
+}
+
+.sectionTag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--shimmer-accent);
+}
+
+.shimmerPill {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.heroInnerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 @media (min-width: 600px) {
-  .skeletonCard {
+  .heroInnerContent {
     flex-direction: row;
     align-items: center;
     gap: 26px;
   }
 }
 
-.skeletonBadgeWrap {
+.badgeSkeletonBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
-.skeletonBadge {
-  width: 86px;
-  height: 86px;
+.badgeShape {
+  width: 90px;
+  height: 90px;
   border-radius: 18px;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+  background: var(--shimmer-base);
+  border: 2px solid var(--shimmer-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px var(--shimmer-glow);
 }
 
-.skeletonBadgeLabel {
-  width: 70px;
+.badgeLabelPlaceholder {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--shimmer-accent);
+}
+
+.badgeNamePlaceholder {
+  width: 80px;
   height: 14px;
   border-radius: var(--radius-full);
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.04));
+  background: var(--shimmer-base);
 }
 
-.skeletonCol {
+.metricsSkeletonBlock {
   flex: 1;
   width: 100%;
   display: flex;
@@ -320,123 +342,153 @@
   gap: 12px;
 }
 
-.skeletonHeaderRow,
-.skeletonFooterRow {
+.metricRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
-.skeletonProgressTrack {
-  height: 12px;
-  width: 100%;
+.mockSmallLabel {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.mockRightAlign {
+  text-align: right;
+}
+
+.textSkeletonBar {
+  height: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--shimmer-base);
+}
+
+.w140 { width: 140px; }
+.w90 { width: 90px; }
+
+.progressTrackWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progressTrackBar {
+  height: 14px;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: var(--radius-full);
-  background: rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.skeletonProgressFill {
+.progressTrackFill {
   height: 100%;
-  width: 65%;
-  background: var(--shimmer-accent, #F59E0B);
-  opacity: 0.6;
+  background: var(--shimmer-accent);
+  box-shadow: 0 0 10px var(--shimmer-accent);
 }
 
-/* Card 2: Boost Grid */
-.skeletonGrid {
+.progressTrackMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.heroSkeletonFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 8px;
+}
+
+.pillPlaceholder {
+  width: 140px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--shimmer-base);
+}
+
+.pillPlaceholderSmall {
+  width: 90px;
+  height: 20px;
+  border-radius: var(--radius-full);
+  background: var(--shimmer-base);
+}
+
+/* ── CARD 2: TODAY'S BOOST METRICS ── */
+.sectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.sectionZap {
+  color: var(--shimmer-accent);
+}
+
+.sectionHeading {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.boostGridSkeleton {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
 }
 
-.skeletonCardSmall {
+@media (max-width: 540px) {
+  .boostGridSkeleton {
+    grid-template-columns: 1fr;
+  }
+}
+
+.boostCardSkeleton {
   border-radius: var(--radius-md);
   padding: 16px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   text-align: center;
+  gap: 8px;
 }
 
-.skeletonCircleIcon {
+.mockIconCircle {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
-}
-
-/* Card 3: Mystery Box Reward Skeleton */
-.skeletonRewardCard {
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.skeletonRewardTop,
-.skeletonRewardBottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.skeletonChestPlaceholder {
+  background: var(--shimmer-base);
+  border: 1px solid var(--shimmer-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 0;
+  color: var(--shimmer-accent);
 }
 
-.skeletonChestBox {
-  width: 120px;
-  height: 90px;
-  border-radius: 16px;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+.metricTitleLabel {
+  font-size: 0.72rem;
+  color: var(--text-muted);
 }
 
-.skeletonBtnPill {
-  width: 130px;
-  height: 34px;
-  border-radius: var(--radius-md);
-  background: var(--shimmer-accent, #F59E0B);
-  opacity: 0.5;
+.metricBigValue {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-primary);
 }
 
-/* Card 4: Roadmap Stepper Skeleton */
-.skeletonRoadmap {
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  overflow-x: auto;
-}
-
-.skeletonRoadmapTrack {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 600px;
-  gap: 20px;
-}
-
-.skeletonRoadmapNode {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-}
-
-.skeletonRoadmapBadge {
-  width: 64px;
-  height: 64px;
-  border-radius: 14px;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
-}
-
-/* Arcade Game Skeleton */
-.skeletonGameContainer {
-  min-height: 380px;
+/* ── CARD 3: MYSTERY BOX VAULT ── */
+.mysteryBoxSkeletonCard {
   border-radius: var(--radius-lg);
   padding: 22px;
   display: flex;
@@ -444,90 +496,162 @@
   gap: 16px;
 }
 
-.skeletonGameHeader {
+.vaultTopRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-}
-
-.skeletonScorePill {
-  width: 100px;
-  height: 28px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.skeletonCanvasArena {
-  flex: 1;
-  min-height: 240px;
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px dashed rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-md);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding-bottom: 14px;
-}
-
-.orbSkeleton {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--shimmer-accent, #F59E0B);
-  opacity: 0.5;
-  box-shadow: 0 0 10px var(--shimmer-accent, #F59E0B);
-}
-
-.basketSkeleton {
-  width: 120px;
-  height: 24px;
-  border-radius: var(--radius-md);
-  background: var(--shimmer-accent, #F59E0B);
-  opacity: 0.6;
-}
-
-.skeletonControls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* Roadmap Full Grid Skeleton */
-.skeletonRoadmapFull {
-  min-height: 340px;
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.badgesGridSkeleton {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 14px;
-}
-
-.badgeCardSkeleton {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 14px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-.badgeArtSkeleton {
-  width: 60px;
-  height: 60px;
-  border-radius: 14px;
-  background: var(--shimmer-base, rgba(255, 255, 255, 0.06));
+.vaultTag {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--shimmer-accent);
+}
+
+.vaultTitle {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 2px 0 0 0;
+}
+
+.vaultPill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--shimmer-accent);
+  background: var(--shimmer-base);
+  border: 1px solid var(--shimmer-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.chestPlaceholderArena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 0;
+}
+
+.mockChestGraphic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.chestEmoji {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 16px var(--shimmer-glow));
+}
+
+.chestStatus {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.vaultFooterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.unlockProgressLabel {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.unlockProgressLabel strong {
+  color: var(--shimmer-accent);
+}
+
+.mockUnlockBtn {
+  background: var(--shimmer-base);
+  border: 1px solid var(--shimmer-border);
+  color: var(--shimmer-accent);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── CARD 4: ROADMAP STEPPER ── */
+.roadmapSkeletonCard {
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  overflow-x: auto;
+}
+
+.roadmapHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.trophyIcon {
+  color: var(--shimmer-accent);
+}
+
+.roadmapHeading {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.roadmapNodesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 580px;
+  gap: 14px;
+}
+
+.roadmapNodeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.nodeBadgeCircle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--shimmer-base);
+  border: 1.5px solid var(--shimmer-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.95rem;
+  color: var(--shimmer-accent);
+  box-shadow: 0 0 10px var(--shimmer-glow);
+}
+
+.nodeName {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.nodeStatus {
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--text-muted);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -555,21 +679,19 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-light);
-  color: var(--text-primary);
+  background: var(--gold-gradient);
+  color: #0F172A;
   font-family: var(--font-heading);
   font-size: 0.78rem;
   font-weight: 800;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .backBtn:hover {
-  background: var(--gold-400);
-  color: #0F172A;
+  transform: translateY(-2px);
 }
 
 .stateTagError {
@@ -592,7 +714,6 @@
   border-radius: var(--radius-full);
 }
 
-/* Luxury Cards */
 .luxuryErrorCard,
 .luxuryEmptyCard {
   background: var(--bg-card);
@@ -718,7 +839,6 @@
   font-weight: 700;
 }
 
-/* Quick Start Grid for Empty state */
 .quickStartGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
