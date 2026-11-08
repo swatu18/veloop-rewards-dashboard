@@ -13,22 +13,27 @@
   transition: all var(--transition-normal);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .toolbarWrapper {
-    top: 60px;
-    right: 8px;
+    top: auto;
+    bottom: 82px;
+    right: 12px;
     left: auto;
     width: auto;
-    max-width: 200px;
-    opacity: 0.92;
+    max-width: 220px;
+    opacity: 0.95;
+    z-index: 2100;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
   }
 
   .toolbarWrapper.expanded {
-    left: 8px;
-    right: 8px;
+    bottom: 82px;
+    top: auto;
+    left: 10px;
+    right: 10px;
     width: auto;
     max-width: none;
-    max-height: 80vh;
+    max-height: 72vh;
     overflow-y: auto;
     opacity: 1;
   }

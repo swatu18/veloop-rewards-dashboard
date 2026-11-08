@@ -20,12 +20,12 @@ export const LevelBadge = ({
     return (
       <div
         className={`${styles.laurelWrapper} ${styles[size]} ${animated ? styles.animated : ''}`}
-        style={{ '--tier-glow': meta.glow }}
+        style={{ '--tier-glow': meta.glow, '--tier-primary': meta.primary }}
         onClick={onClick}
       >
         <div
           className={styles.laurelGlowAura}
-          style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 65%)` }}
+          style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 68%)` }}
         />
 
         <svg
@@ -37,7 +37,7 @@ export const LevelBadge = ({
           <defs>
             <linearGradient id={`laurelGold-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FFFBEB" />
-              <stop offset="30%" stopColor="#FDE68A" />
+              <stop offset="25%" stopColor="#FDE68A" />
               <stop offset="60%" stopColor="#F59E0B" />
               <stop offset="100%" stopColor="#78350F" />
             </linearGradient>
@@ -77,10 +77,12 @@ export const LevelBadge = ({
           </g>
         </svg>
 
-        {/* Badge Content Overlay */}
+        {/* Sculpted Badge Ribbon Overlay */}
         <div className={styles.laurelContent}>
-          <span className={styles.plaqueLevelLabel}>LEVEL</span>
-          <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+          <div className={styles.plaquePlateBanner}>
+            <span className={styles.plaqueLevelLabel}>LVL</span>
+            <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+          </div>
           {showStars && (
             <div className={styles.plaqueStars}>
               {Array.from({ length: Math.min(meta.stars, 3) }).map((_, i) => (
@@ -93,7 +95,7 @@ export const LevelBadge = ({
     );
   }
 
-  // Standard Tier Badge (Hero, Cards, Roadmaps)
+  // Standard Tier Badge (Hero, Cards, Roadmaps, Showcase)
   return (
     <div
       className={[
@@ -104,13 +106,15 @@ export const LevelBadge = ({
       style={{ '--tier-glow': meta.glow, '--tier-primary': meta.primary }}
       onClick={onClick}
     >
-      {/* Ambient Radial Glow */}
+      {/* Ambient Pulsing Radial Glow */}
       <div
         className={styles.glowAura}
-        style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 65%)` }}
+        style={{
+          background: `radial-gradient(circle, ${meta.glow} 0%, rgba(0,0,0,0) 70%)`
+        }}
       />
 
-      {/* Unique SVG for this specific level */}
+      {/* Unique SVG Artwork for this specific level */}
       <svg
         viewBox="0 0 120 120"
         fill="none"
@@ -121,10 +125,15 @@ export const LevelBadge = ({
         {renderTierSvg(level, uid)}
       </svg>
 
-      {/* Text Overlay */}
+      {/* Holographic Metallic Sheen Effect on Hover */}
+      <div className={styles.badgeSheenLayer} />
+
+      {/* Sculpted Level Number Banner Overlay */}
       <div className={styles.plaqueContent}>
-        <span className={styles.plaqueLevelLabel}>LEVEL</span>
-        <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+        <div className={styles.plaquePlateBanner}>
+          <span className={styles.plaqueLevelLabel}>LVL</span>
+          <span className={styles.plaqueLevelNum}>{formattedLevel}</span>
+        </div>
         {showStars && (
           <div className={styles.plaqueStars}>
             {Array.from({ length: Math.min(meta.stars, 3) }).map((_, i) => (
@@ -141,6 +150,7 @@ export const LevelBadge = ({
             borderColor: meta.rarityColor,
             color: meta.rarityColor,
             background: `${meta.rarityColor}20`,
+            boxShadow: `0 2px 10px ${meta.rarityColor}35`,
           }}
         >
           {meta.rarity}
@@ -180,11 +190,11 @@ export const MiniTierBadge = ({ level, status, onClick }) => {
         className={styles.miniGlowAura}
         style={{
           background: isCurrent
-            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(245, 158, 11, 0.1) 50%, transparent 70%)'
+            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.5) 0%, rgba(245, 158, 11, 0.15) 50%, transparent 72%)'
             : isNext
-            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.4) 0%, rgba(192, 132, 252, 0.08) 50%, transparent 70%)'
+            ? 'radial-gradient(circle, rgba(192, 132, 252, 0.45) 0%, rgba(192, 132, 252, 0.12) 50%, transparent 72%)'
             : isCompleted
-            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 65%)'
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 68%)'
             : 'none',
         }}
       />
@@ -214,22 +224,22 @@ export const MiniTierBadge = ({ level, status, onClick }) => {
         </defs>
 
         {/* Tier shape artwork */}
-        <g opacity={isLocked ? 0.45 : 1}>
+        <g opacity={isLocked ? 0.35 : 1}>
           {renderTierSvg(level, uid)}
         </g>
 
         {/* Golden laurel wreath wings for Current Level (05) */}
         {isCurrent && (
-          <g opacity="0.85">
-            <path d="M 26 88 C 10 70 14 42 34 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-            <circle cx="20" cy="68" r="1.8" fill="#FFFBEB" />
-            <circle cx="24" cy="52" r="1.8" fill="#FFFBEB" />
-            <circle cx="30" cy="38" r="1.8" fill="#FFFBEB" />
+          <g opacity="0.95">
+            <path d="M 24 88 C 8 70 12 40 34 26" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <circle cx="18" cy="68" r="2" fill="#FFFBEB" />
+            <circle cx="22" cy="50" r="2" fill="#FFFBEB" />
+            <circle cx="28" cy="36" r="2" fill="#FFFBEB" />
 
-            <path d="M 94 88 C 110 70 106 42 86 28" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-            <circle cx="100" cy="68" r="1.8" fill="#FFFBEB" />
-            <circle cx="96" cy="52" r="1.8" fill="#FFFBEB" />
-            <circle cx="90" cy="38" r="1.8" fill="#FFFBEB" />
+            <path d="M 96 88 C 112 70 108 40 86 26" stroke="url(#goldNum-mini-5-current)" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+            <circle cx="102" cy="68" r="2" fill="#FFFBEB" />
+            <circle cx="98" cy="50" r="2" fill="#FFFBEB" />
+            <circle cx="92" cy="36" r="2" fill="#FFFBEB" />
           </g>
         )}
 

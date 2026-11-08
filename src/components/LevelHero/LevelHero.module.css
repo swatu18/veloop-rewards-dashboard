@@ -1,102 +1,146 @@
 /* ═══════════════════════════════════════════════════════════
-   LevelHero.module.css  –  Level Progression Hero Card
-   Polished gaming UI with clean, balanced visuals and subtle depth.
+   LevelHero.module.css  –  AAA Gaming Level Progression Hero
+   High-tech cyberpunk glassmorphism, animated liquid XP tube,
+   glowing accents, and responsive layout.
 ═══════════════════════════════════════════════════════════ */
 
 .heroSection {
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
 .greetingHeader {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .greetingBadge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.22);
-  padding: 4px 12px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 5px 14px;
   border-radius: var(--radius-full);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--gold-400);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.15);
 }
 
 .sparkleIcon {
   color: var(--gold-400);
+  animation: pulseSparkle 2s infinite ease-in-out;
+}
+
+@keyframes pulseSparkle {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
 }
 
 .heroTitle {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
-  font-weight: 800;
+  font-size: 1.8rem;
+  font-weight: 900;
   color: var(--text-primary);
-  margin-bottom: 4px;
-  line-height: 1.2;
+  margin-bottom: 6px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 @media (min-width: 768px) {
   .heroTitle {
-    font-size: 2rem;
+    font-size: 2.3rem;
   }
 }
 
 .goldText {
-  background: var(--gold-gradient);
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 25%, #FDE68A 50%, #F59E0B 80%, #D97706 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(245, 158, 11, 0.4));
 }
 
 .heroSubtitle {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
   margin: 0;
+  max-width: 680px;
+  line-height: 1.5;
 }
 
-/* ─── Progression Card ────────────────────────────────────── */
+/* ─── Main Progression Card ──────────────────────────────── */
 .levelCard {
   position: relative;
-  background: var(--bg-card-gradient);
-  border: 1px solid var(--border-gold);
-  border-radius: var(--radius-lg);
-  padding: 22px 24px;
+  background: linear-gradient(145deg, rgba(22, 27, 46, 0.85) 0%, rgba(12, 16, 28, 0.95) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-xl);
+  padding: 26px 28px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  transition: border-color var(--transition-normal);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .levelCard:hover {
-  border-color: rgba(245, 158, 11, 0.45);
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(245, 158, 11, 0.2);
+  transform: translateY(-2px);
 }
 
-/* Controlled, soft ambient glow */
+/* Dynamic Ambient Glow */
 .cardGlow {
   position: absolute;
-  top: -40px;
-  left: 20px;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
-  filter: blur(24px);
+  top: -30px;
+  left: 30px;
+  width: 220px;
+  height: 220px;
+  filter: blur(36px);
   pointer-events: none;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+/* Cyber Corner Accents */
+.cardCornerDecoTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-top: 2px solid var(--gold-400);
+  border-left: 2px solid var(--gold-400);
+  border-top-left-radius: var(--radius-xl);
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.cardCornerDecoTopRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  border-top: 2px solid var(--gold-400);
+  border-right: 2px solid var(--gold-400);
+  border-top-right-radius: var(--radius-xl);
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 .cardContent {
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
   align-items: center;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 680px) {
   .cardContent {
     flex-direction: row;
-    gap: 28px;
+    gap: 32px;
     align-items: center;
   }
 }
@@ -106,20 +150,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+}
+
+.badgeWrap {
+  padding: 8px;
 }
 
 .tierNameTag {
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--gold-300);
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  background: rgba(14, 18, 32, 0.85);
+  border: 1px solid;
+  padding: 4px 14px;
   border-radius: var(--radius-full);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
+  backdrop-filter: blur(8px);
 }
 
 .metricsCol {
@@ -127,81 +174,183 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .metricsHeaderRow {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+}
+
+@media (min-width: 520px) {
+  .metricsHeaderRow {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .levelTagGroup {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .currentLevelTag {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
 }
 
 .infoBtn {
   color: var(--text-muted);
   display: inline-flex;
   align-items: center;
-  transition: color var(--transition-fast);
-  padding: 2px;
-  background: none;
-  border: none;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: all var(--transition-fast);
 }
 
 .infoBtn:hover {
   color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--gold-400);
 }
 
 .targetCallout {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: flex-start;
+}
+
+@media (min-width: 520px) {
+  .targetCallout {
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+.targetCalloutBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.targetZapIcon {
+  color: #38BDF8;
 }
 
 .targetBigXP {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 0.85rem;
   font-weight: 800;
-  color: var(--text-primary);
-  line-height: 1.1;
+  color: #38BDF8;
+  letter-spacing: 0.05em;
 }
 
 .targetLevelSub {
   font-size: 0.74rem;
-  color: var(--gold-400);
+  color: var(--text-secondary);
   font-weight: 600;
+  margin-top: 3px;
 }
 
-/* ─── Clean Gaming Progress Bar ──────────────────────────── */
+/* ─── High-Tech Liquid Progress Bar ──────────────────────── */
 .progressBarSection {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .progressTrack {
   position: relative;
   width: 100%;
-  height: 12px;
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border-subtle);
+  height: 16px;
+  background: rgba(10, 14, 26, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-full);
   overflow: hidden;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.progressFill {
+  position: relative;
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+}
+
+.progressGlowHead {
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  bottom: -2px;
+  width: 8px;
+  background: #FFFFFF;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px #FFFFFF, 0 0 20px #38BDF8;
+}
+
+.progressShimmer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  animation: liquidShimmer 2.5s infinite;
+}
+
+@keyframes liquidShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.progressBubbleOne {
+  position: absolute;
+  top: 3px;
+  left: 30%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  animation: bubbleFloat 3s infinite ease-in-out;
+}
+
+.progressBubbleTwo {
+  position: absolute;
+  top: 4px;
+  left: 65%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  animation: bubbleFloat 2.2s infinite ease-in-out 0.8s;
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-2px); opacity: 0.9; }
 }
 
 .milestoneTick {
@@ -209,20 +358,86 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   z-index: 2;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestonePip {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.6);
+  transform: rotate(45deg);
+  border-radius: 1px;
+}
+
+.progressFootnote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.xpFractionText {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.xpFractionText strong {
+  color: var(--text-primary);
+  font-size: 0.96rem;
+}
+
+.percentageText {
+  display: flex;
+  align-items: center;
+}
+
+.percentBadge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #34D399;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+/* ─── Quick Earn Action Bar ───────────────────────────────── */
+.quickEarnRow {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 640px) {
+  .quickEarnRow {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.perksBadgeGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
 }
 
 .nextRewardPreview {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.74rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
   border-radius: var(--radius-full);
 }
 
@@ -231,100 +446,46 @@
 }
 
 .giftIcon {
-  font-size: 0.85rem;
+  color: var(--gold-400);
 }
 
-.progressFill {
-  position: relative;
-  height: 100%;
-  background: var(--gold-gradient);
-  border-radius: var(--radius-full);
-  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
-}
-
-.progressGlowHead {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: #FFFFFF;
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-}
-
-.progressShimmer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.25) 50%,
-    transparent 100%
-  );
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.progressFootnote {
-  display: flex;
+.streakBadge {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 0.82rem;
-}
-
-.xpFractionText {
-  color: var(--text-secondary);
-}
-
-.xpFractionText strong {
-  color: var(--text-primary);
+  gap: 6px;
+  font-size: 0.74rem;
+  color: #F87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
   font-weight: 700;
 }
 
-.percentageText {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: var(--gold-400);
-}
-
-/* Quick Earn Row */
-.quickEarnRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 6px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.78rem;
-}
-
-.xpRemainingText {
-  color: var(--text-muted);
-}
-
-.xpRemainingText strong {
-  color: var(--gold-400);
+.streakIcon {
+  color: #EF4444;
 }
 
 .quickEarnLink {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  color: var(--gold-400);
-  font-weight: 700;
-  background: none;
-  border: none;
+  gap: 6px;
+  padding: 7px 16px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.3) 100%);
+  border: 1px solid var(--gold-400);
+  border-radius: var(--radius-full);
+  color: var(--gold-300);
+  font-size: 0.82rem;
+  font-weight: 800;
   cursor: pointer;
-  padding: 0;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.2);
+  align-self: flex-start;
 }
 
 .quickEarnLink:hover {
-  color: var(--gold-300);
+  background: var(--gold-gradient);
+  color: #1A0F00;
+  transform: translateX(2px);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
 }
