@@ -26,19 +26,11 @@ export const LandingPage = () => {
   const { isAuthenticated, openAuthModal } = useAuth();
 
   const handleGetStarted = () => {
-    if (isAuthenticated) {
-      navigate('/Lvl-Dashboard');
-    } else {
-      openAuthModal('signup');
-    }
+    openAuthModal('signup');
   };
 
   const handleSignIn = () => {
-    if (isAuthenticated) {
-      navigate('/Lvl-Dashboard');
-    } else {
-      openAuthModal('signin');
-    }
+    openAuthModal('signin');
   };
 
   const handleGoToDashboard = () => {

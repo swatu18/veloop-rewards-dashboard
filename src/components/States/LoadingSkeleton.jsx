@@ -38,6 +38,17 @@ export const LoadingSkeleton = () => {
     }, 800);
   };
 
+  const handleApplyTheme = () => {
+    const selected = THEMES.find(t => t.id === activeTheme) || THEMES[0];
+    document.documentElement.style.setProperty('--gold-300', selected.primary);
+    document.documentElement.style.setProperty('--gold-400', selected.primary);
+    document.documentElement.style.setProperty('--gold-500', selected.primary);
+    document.documentElement.style.setProperty('--gold-glow', `0 0 24px ${selected.primary}80`);
+    document.documentElement.style.setProperty('--border-gold', `${selected.primary}66`);
+    localStorage.setItem('veloop_accent_theme', activeTheme);
+    setDemoState('normal');
+  };
+
   return (
     <div className={`${styles.skeletonContainer} ${styles[`theme_${activeTheme}`]}`}>
       {/* ── Evaluator Return & Customization Bar ── */}
@@ -66,7 +77,7 @@ export const LoadingSkeleton = () => {
         <div className={styles.themeSelectorWrap}>
           <span className={styles.themeLabel}>
             <Palette size={14} />
-            <span>Skeleton Accent:</span>
+            <span>Theme Accent:</span>
           </span>
           <div className={styles.themeButtons}>
             {THEMES.map(t => (
@@ -81,6 +92,15 @@ export const LoadingSkeleton = () => {
               </button>
             ))}
           </div>
+
+          <button
+            className={styles.applyThemeBtn}
+            onClick={handleApplyTheme}
+            title="Apply this theme accent to the entire game and return to dashboard"
+          >
+            <CheckCircle2 size={15} />
+            <span>Apply Theme &amp; Done ✓</span>
+          </button>
         </div>
       </div>
 

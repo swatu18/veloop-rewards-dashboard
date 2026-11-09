@@ -110,29 +110,13 @@ export const LuckyWheelModal = () => {
 
     setRotation(nextRotation);
 
-    // Physical deceleration schedule for audio ticks matching wheel slowdown
-    // Starts very fast (every 60ms), gradually slows down to 400ms before stopping
-    const tickTimeouts = [];
-    let currentTime = 100;
-    let delay = 60;
-
-    while (currentTime < 3600) {
-      const capturedTime = currentTime;
-      tickTimeouts.push(
-        setTimeout(() => {
-          playTickerSound(capturedTime > 2600 ? 640 : 520);
-        }, capturedTime)
-      );
-      // Exponentially increase delay as rotation slows down
-      if (currentTime < 1800) {
-        delay += 6;
-      } else if (currentTime < 2800) {
-        delay += 24;
-      } else {
-        delay += 60;
-      }
-      currentTime += delay;
-    }
+    // Optimized deceleration schedule for audio ticks (GPU friendly, zero jank on Android)
+    const tickMoments = [250, 600, 1050, 1600, 2200, 2800, 3250, 3550];
+    tickMoments.forEach((t) => {
+      setTimeout(() => {
+        playTickerSound(t > 2600 ? 640 : 520);
+      }, t);
+    });
 
     // After 3.8s spin animation finishes
     setTimeout(() => {
@@ -211,8 +195,10 @@ export const LuckyWheelModal = () => {
           <div 
             className={styles.wheelWrapper}
             style={{
-              transform: `rotate(${rotation}deg)`,
-              transition: isSpinning ? 'transform 3.8s cubic-bezier(0.12, 0.98, 0.32, 1)' : 'none'
+              transform: `rotate(${rotation}deg) translateZ(0)`,
+              WebkitTransform: `rotate(${rotation}deg) translateZ(0)`,
+              transition: isSpinning ? 'transform 3.8s cubic-bezier(0.12, 0.98, 0.32, 1)' : 'none',
+              WebkitTransition: isSpinning ? '-webkit-transform 3.8s cubic-bezier(0.12, 0.98, 0.32, 1)' : 'none'
             }}
           >
             <svg viewBox="0 0 300 300" className={styles.wheelSvg}>

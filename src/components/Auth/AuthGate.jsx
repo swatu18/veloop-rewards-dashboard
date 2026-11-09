@@ -141,6 +141,19 @@ export const AuthGate = () => {
               </>
             )}
           </button>
+
+          <div className={styles.divider}>
+            <span>or instant review</span>
+          </div>
+
+          <button
+            type="button"
+            className={styles.demoLoginBtn}
+            onClick={() => quickDemoLogin()}
+          >
+            <Zap size={15} />
+            <span>1-Click Instant Demo Login (Reviewer Access)</span>
+          </button>
         </form>
 
         {/* Security Trust Note */}

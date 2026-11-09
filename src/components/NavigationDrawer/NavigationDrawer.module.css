@@ -4,10 +4,11 @@
   background: var(--bg-modal-backdrop);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  z-index: 2800;
+  z-index: 99999;
   display: flex;
   justify-content: flex-start;
   animation: fadeIn 0.2s ease-out;
+  touch-action: pan-y;
 }
 
 @keyframes fadeIn {
@@ -19,12 +20,17 @@
   width: 100%;
   max-width: 360px;
   height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   background: var(--bg-card);
   border-right: 1px solid var(--border-gold);
   box-shadow: 10px 0 40px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -327,8 +333,9 @@
 
 /* Drawer Footer */
 .drawerFooter {
-  padding: 16px 20px;
+  padding: 16px 20px 85px 20px;
   border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
 }
 
 .signOutBtn, .signInBtn {

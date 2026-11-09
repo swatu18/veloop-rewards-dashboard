@@ -23,13 +23,13 @@ const getStoredUsers = () => {
   return [];
 };
 
-// Returns active session user or default demo member (ensures review access without blocking)
+// Returns active session user if exists in localStorage, otherwise null (unauthenticated by default)
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));
     if (session && session.expiresAt > Date.now()) return session.user;
   } catch {}
-  return DEFAULT_USER;
+  return null;
 };
 
 export const AuthProvider = ({ children }) => {
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
     setAuthError('');
     setIsLoading(true);
 
-    await new Promise(r => setTimeout(r, 600));
+    await new Promise(r => setTimeout(r, 60));
 
     const cleanEmail = email.toLowerCase().trim();
     const cleanName = name.trim();
@@ -115,7 +115,7 @@ export const AuthProvider = ({ children }) => {
     setAuthError('');
     setIsLoading(true);
 
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 60));
 
     const cleanEmail = email.toLowerCase().trim();
     const users = getStoredUsers();

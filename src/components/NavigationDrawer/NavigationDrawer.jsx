@@ -50,10 +50,16 @@ export const NavigationDrawer = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const handleNav = (screen, route = '/Lvl-Dashboard') => {
+  const handleNav = (screen, route = '/Lvl-Dashboard', targetId = null) => {
     setActiveScreen(screen);
     navigate(route);
     onClose();
+    if (targetId) {
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 150);
+    }
   };
 
   const handleOpenSpinWheel = () => {
@@ -157,7 +163,7 @@ export const NavigationDrawer = ({ isOpen, onClose }) => {
 
             <button 
               className={`${styles.navItem} ${activeScreen === 'dashboard' ? styles.activeItem : ''}`}
-              onClick={() => handleNav('dashboard')}
+              onClick={() => handleNav('dashboard', '/Lvl-Dashboard', 'hero-section')}
             >
               <div className={styles.navItemLeft}>
                 <Home size={18} className={styles.navIcon} />
@@ -177,7 +183,7 @@ export const NavigationDrawer = ({ isOpen, onClose }) => {
 
             <button 
               className={styles.navItem}
-              onClick={() => handleNav('dashboard')}
+              onClick={() => handleNav('dashboard', '/Lvl-Dashboard', 'roadmap-section')}
             >
               <div className={styles.navItemLeft}>
                 <Trophy size={18} className={styles.navIcon} />
@@ -187,7 +193,7 @@ export const NavigationDrawer = ({ isOpen, onClose }) => {
 
             <button 
               className={styles.navItem}
-              onClick={() => handleNav('dashboard')}
+              onClick={() => handleNav('dashboard', '/Lvl-Dashboard', 'vault-section')}
             >
               <div className={styles.navItemLeft}>
                 <Gift size={18} className={styles.navIcon} />

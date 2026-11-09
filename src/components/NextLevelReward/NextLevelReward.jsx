@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Lock, Sparkles, ArrowRight, X, RotateCcw, Check, Zap, Info } from 'lucide-react';
 import { useDashboard } from '../../context/DashboardContext';
 import styles from './NextLevelReward.module.css';
@@ -430,7 +431,7 @@ export const NextLevelReward = () => {
       </div>
 
       {/* ── Cinematic 3D Mystery Box Opening Modal ── */}
-      {isModalOpen && (
+      {isModalOpen && typeof document !== 'undefined' && createPortal(
         <div className={styles.modalBackdrop} onClick={() => setIsModalOpen(false)}>
           <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
             {/* Modal Top Nav */}
@@ -663,7 +664,8 @@ export const NextLevelReward = () => {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

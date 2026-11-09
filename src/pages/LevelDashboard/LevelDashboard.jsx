@@ -85,47 +85,47 @@ export const LevelDashboard = () => {
   return (
     <main className={styles.mainContainer}>
       {/* 1. Main Level Progression Hero */}
-      <section className={styles.sectionRow}>
+      <section id="hero-section" className={styles.sectionRow}>
         <LevelHero />
       </section>
 
       {/* 2. Progression Roadmap with 10 Tier Cards & Timeline */}
-      <section className={styles.sectionRow}>
+      <section id="roadmap-section" className={styles.sectionRow}>
         <LevelRoadmap />
       </section>
 
       {/* 3. Today's Boost Metrics (XP Earned, Tasks Done, Streak) */}
-      <section className={styles.sectionRow}>
+      <section id="boost-section" className={styles.sectionRow}>
         <TodaysBoost />
       </section>
 
       {/* 4. Daily Lucky Spin Wheel Banner */}
-      <section className={styles.sectionRow}>
+      <section id="lucky-wheel-section" className={styles.sectionRow}>
         <LuckyWheelBanner />
       </section>
 
       {/* 5. Level Rewards Milestone Vault */}
-      <section className={styles.sectionRow}>
+      <section id="vault-section" className={styles.sectionRow}>
         <NextLevelReward />
       </section>
 
       {/* 6. Earn More Section */}
-      <section className={styles.sectionRow}>
+      <section id="earn-more-section" className={styles.sectionRow}>
         <EarnMoreXP isFullPage={false} />
       </section>
 
       {/* 7. Multiplayer League & Tournament Brackets */}
-      <section className={styles.sectionRow}>
+      <section id="multiplayer-section" className={styles.sectionRow}>
         <MultiplayerLeaderboard isFullPage={false} />
       </section>
 
       {/* 8. Instant Redemption Gateway & E-Vouchers */}
-      <section className={styles.sectionRow}>
+      <section id="redemption-section" className={styles.sectionRow}>
         <RedemptionGateway isFullPage={false} />
       </section>
 
       {/* 9. Play & Earn Mini-Game Hub + Live XP Activity Ledger */}
-      <div className={styles.middleGrid}>
+      <div id="arcade-section" className={styles.middleGrid}>
         <div className={styles.gameCol}>
           <div className={styles.colHeader}>
             <span className={styles.colBadge}>FEATURED ARCADE</span>

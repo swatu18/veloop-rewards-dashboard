@@ -21,7 +21,7 @@ const MOCK_LEADERBOARD = [
   { rank: 2, name: 'Kavya "Valkyrie" Sen', level: 9, tier: 'Cosmic Overlord', xp: 32450, streak: 28, avatar: 'KS', isUser: false, change: 'same' },
   { rank: 3, name: 'Rohan "Thunder" Das', level: 8, tier: 'Mythic Vanguard', xp: 23110, streak: 21, avatar: 'RD', isUser: false, change: 'up' },
   { rank: 4, name: 'Elena Rostova', level: 7, tier: 'Grand Ascendant', xp: 16890, streak: 15, avatar: 'ER', isUser: false, change: 'down' },
-  { rank: 5, name: 'Swathi G (You)', level: 5, tier: 'Diamond Champion', xp: 6420, streak: 7, avatar: 'SG', isUser: true, change: 'up' },
+  { rank: 5, name: 'Swathi G', level: 5, tier: 'Diamond Champion', xp: 6420, streak: 7, avatar: 'SG', isUser: true, change: 'up' },
   { rank: 6, name: 'Marcus Chen', level: 5, tier: 'Diamond Champion', xp: 6180, streak: 12, avatar: 'MC', isUser: false, change: 'down' },
   { rank: 7, name: 'Priya Sharma', level: 4, tier: 'Platinum Elite', xp: 5420, streak: 9, avatar: 'PS', isUser: false, change: 'up' },
   { rank: 8, name: 'David Kim', level: 4, tier: 'Platinum Elite', xp: 4950, streak: 6, avatar: 'DK', isUser: false, change: 'same' },
@@ -38,14 +38,14 @@ const TOURNAMENT_MATCHUPS = [
   {
     id: 'm2',
     round: 'Quarter-Finals',
-    player1: { name: 'Swathi G (You)', score: 1350, won: true },
+    player1: { name: 'Swathi G', score: 1350, won: true },
     player2: { name: 'Marcus C.', score: 980, won: false },
     status: 'COMPLETED'
   },
   {
     id: 'm3',
     round: 'Semi-Finals',
-    player1: { name: 'Swathi G (You)', score: 0, won: null },
+    player1: { name: 'Swathi G', score: 0, won: null },
     player2: { name: 'Alex M.', score: 0, won: null },
     status: 'LIVE_RACE'
   },
@@ -157,7 +157,7 @@ export const MultiplayerLeaderboard = ({ isFullPage = false }) => {
                   <div className={styles.nameMeta}>
                     <span className={styles.playerName}>
                       {player.name}
-                      {player.isUser && <span className={styles.youTag}>YOU</span>}
+                      {player.isUser && <span className={styles.youTag}>ACTIVE PLAYER</span>}
                     </span>
                     <span className={styles.playerTier}>Tier V • {player.tier}</span>
                   </div>
