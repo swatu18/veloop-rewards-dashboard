@@ -4,14 +4,29 @@
 ═══════════════════════════════════════════════════════════ */
 
 .roadmapSection {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 22px;
+  background: linear-gradient(155deg, rgba(22, 17, 44, 0.9) 0%, rgba(10, 8, 24, 0.97) 100%);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: var(--radius-xl);
+  padding: clamp(14px, 2.5vw, 24px);
   margin-bottom: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.roadmapSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #F59E0B, #C084FC, #38BDF8, transparent);
+  pointer-events: none;
 }
 
 .sectionHeader {
@@ -701,21 +716,32 @@
 }
 
 .cardLevelChip {
-  background: rgba(10, 14, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(10, 14, 26, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: var(--radius-sm);
-  padding: 2px 7px;
+  padding: 3px 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.cardLevelPrefix {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  letter-spacing: 0.08em;
 }
 
 .cardLevelNumText {
   font-family: var(--font-heading);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 900;
   background: linear-gradient(180deg, #FFFFFF 0%, #FDE68A 60%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
 }
 
 .cardStatusGroup {
@@ -865,10 +891,29 @@
   box-shadow: 0 0 6px #FFFFFF;
 }
 
+.cardProgressDetailRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  width: 100%;
+}
+
 .cardProgressLabel {
   font-size: 0.68rem;
   color: var(--text-secondary);
   font-weight: 700;
+}
+
+.cardXPBadge {
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 1px 6px;
+  border-radius: var(--radius-xs, 4px);
+  white-space: nowrap;
 }
 
 /* Milestone Reward Chip */

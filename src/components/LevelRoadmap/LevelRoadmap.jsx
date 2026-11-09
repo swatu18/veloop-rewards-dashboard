@@ -8,7 +8,7 @@ import styles from './LevelRoadmap.module.css';
 
 export const LevelRoadmap = () => {
   const { user, currentXP, progressPercentage } = useDashboard();
-  const [activeView, setActiveView] = useState('roadmap'); // 'roadmap' | 'collection'
+  const [activeView, setActiveView] = useState('collection'); // Default to Trophy Room so all 10 Level Cards are shown upfront
   const [rarityFilter, setRarityFilter] = useState('ALL'); // 'ALL' | 'UNLOCKED' | 'LOCKED' | 'COMMON' | 'RARE' | 'LEGENDARY' | 'MYTHIC'
   const [selectedLevel, setSelectedLevel] = useState(
     LEVEL_ROADMAP[user.currentLevel - 1] || LEVEL_ROADMAP[4]
@@ -51,21 +51,21 @@ export const LevelRoadmap = () => {
           </div>
         </div>
 
-        {/* View Switcher: Stepper vs Collection */}
+        {/* View Switcher: Level Cards vs Timeline */}
         <div className={styles.viewToggleGroup}>
-          <button
-            className={`${styles.viewBtn} ${activeView === 'roadmap' ? styles.viewBtnActive : ''}`}
-            onClick={() => setActiveView('roadmap')}
-          >
-            <Sparkles size={14} />
-            <span>Timeline</span>
-          </button>
           <button
             className={`${styles.viewBtn} ${activeView === 'collection' ? styles.viewBtnActive : ''}`}
             onClick={() => setActiveView('collection')}
           >
             <Shield size={14} />
-            <span>Trophy Room</span>
+            <span>Level Cards (10 Tiers)</span>
+          </button>
+          <button
+            className={`${styles.viewBtn} ${activeView === 'roadmap' ? styles.viewBtnActive : ''}`}
+            onClick={() => setActiveView('roadmap')}
+          >
+            <Sparkles size={14} />
+            <span>Timeline Path</span>
           </button>
         </div>
       </div>
@@ -364,7 +364,8 @@ export const LevelRoadmap = () => {
                   {/* Card Rarity & Level Header */}
                   <div className={styles.cardHeaderRow}>
                     <div className={styles.cardLevelChip}>
-                      <span className={styles.cardLevelNumText}>LVL {formattedNum}</span>
+                      <span className={styles.cardLevelPrefix}>LVL</span>
+                      <span className={styles.cardLevelNumText}>{formattedNum}</span>
                     </div>
 
                     <div className={styles.cardStatusGroup}>
@@ -381,7 +382,7 @@ export const LevelRoadmap = () => {
 
                       {isCurrent ? (
                         <span className={styles.cardCurrentBadge}>
-                          <Sparkles size={11} /> Current
+                          <Sparkles size={11} /> Active
                         </span>
                       ) : isCompleted ? (
                         <span className={styles.cardUnlockedBadge}>
@@ -433,7 +434,12 @@ export const LevelRoadmap = () => {
                         {isCurrent && <div className={styles.cardProgressGlow} />}
                       </div>
                     </div>
-                    <span className={styles.cardProgressLabel}>{itemProgressLabel}</span>
+                    <div className={styles.cardProgressDetailRow}>
+                      <span className={styles.cardProgressLabel}>{itemProgressLabel}</span>
+                      <span className={styles.cardXPBadge}>
+                        {item.minXP.toLocaleString()} XP
+                      </span>
+                    </div>
                   </div>
 
                   {/* Milestone Reward Chip */}

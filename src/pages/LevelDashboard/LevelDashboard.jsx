@@ -84,47 +84,67 @@ export const LevelDashboard = () => {
   // Level Hero → Today's Boost → Earn More (6 Cards) → Level Rewards (Treasure Chest) → Roadmap → Game & Activity
   return (
     <main className={styles.mainContainer}>
+      {/* ── Immersive Ambient Gaming Background Canvas ── */}
+      <div className={styles.gamingEnvironmentBg} aria-hidden="true">
+        <div className={styles.plasmaNebulaTopLeft} />
+        <div className={styles.plasmaNebulaTopRight} />
+        <div className={styles.plasmaNebulaCenterLeft} />
+        <div className={styles.plasmaNebulaCenterRight} />
+        <div className={styles.plasmaNebulaBottom} />
+        <div className={styles.cyberMatrixOverlay} />
+        <div className={styles.floatingMotesWrap}>
+          <span className={`${styles.mote} ${styles.mote1}`} />
+          <span className={`${styles.mote} ${styles.mote2}`} />
+          <span className={`${styles.mote} ${styles.mote3}`} />
+          <span className={`${styles.mote} ${styles.mote4}`} />
+          <span className={`${styles.mote} ${styles.mote5}`} />
+          <span className={`${styles.mote} ${styles.mote6}`} />
+          <span className={`${styles.mote} ${styles.mote7}`} />
+          <span className={`${styles.mote} ${styles.mote8}`} />
+        </div>
+      </div>
+
       {/* 1. Main Level Progression Hero */}
       <section className={styles.sectionRow}>
         <LevelHero />
       </section>
 
-      {/* 2. Today's Boost Metrics (XP Earned, Tasks Done, Streak) */}
-      <section className={styles.sectionRow}>
-        <TodaysBoost />
-      </section>
-
-      {/* 2.5 Daily Lucky Spin Wheel Banner */}
-      <section className={styles.sectionRow}>
-        <LuckyWheelBanner />
-      </section>
-
-      {/* 3. Earn More Section (Watch & Earn, Daily Tasks, Refer, Catcher, Mini Games, Streak) */}
-      <section className={styles.sectionRow}>
-        <EarnMoreXP isFullPage={false} />
-      </section>
-
-      {/* 4. Level Rewards Milestone Vault (Treasure Chest with Overflowing Coins & Gems) */}
-      <section className={styles.sectionRow}>
-        <NextLevelReward />
-      </section>
-
-      {/* 5. Progression Roadmap with 10 Tier Badges */}
+      {/* 2. Progression Roadmap with 10 Tier Cards & Timeline */}
       <section className={styles.sectionRow}>
         <LevelRoadmap />
       </section>
 
-      {/* 5.5 Multiplayer League & Tournament Brackets */}
+      {/* 3. Today's Boost Metrics (XP Earned, Tasks Done, Streak) */}
+      <section className={styles.sectionRow}>
+        <TodaysBoost />
+      </section>
+
+      {/* 4. Daily Lucky Spin Wheel Banner */}
+      <section className={styles.sectionRow}>
+        <LuckyWheelBanner />
+      </section>
+
+      {/* 5. Level Rewards Milestone Vault */}
+      <section className={styles.sectionRow}>
+        <NextLevelReward />
+      </section>
+
+      {/* 6. Earn More Section */}
+      <section className={styles.sectionRow}>
+        <EarnMoreXP isFullPage={false} />
+      </section>
+
+      {/* 7. Multiplayer League & Tournament Brackets */}
       <section className={styles.sectionRow}>
         <MultiplayerLeaderboard isFullPage={false} />
       </section>
 
-      {/* 5.6 Instant Redemption Gateway & E-Vouchers */}
+      {/* 8. Instant Redemption Gateway & E-Vouchers */}
       <section className={styles.sectionRow}>
         <RedemptionGateway isFullPage={false} />
       </section>
 
-      {/* 6. Play & Earn Mini-Game Hub + Live XP Activity Ledger */}
+      {/* 9. Play & Earn Mini-Game Hub + Live XP Activity Ledger */}
       <div className={styles.middleGrid}>
         <div className={styles.gameCol}>
           <div className={styles.colHeader}>
