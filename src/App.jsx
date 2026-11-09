@@ -11,6 +11,7 @@ import { LevelInfoModal } from './components/LevelInfo/LevelInfoModal';
 import { AuthModal } from './components/Auth/AuthModal';
 import { NavigationDrawer } from './components/NavigationDrawer/NavigationDrawer';
 import { LuckyWheelModal } from './components/LuckyWheel/LuckyWheelModal';
+import { GamingBackground } from './components/GamingBackground/GamingBackground';
 import { LandingPage } from './pages/LandingPage/LandingPage';
 import { LevelDashboard } from './pages/LevelDashboard/LevelDashboard';
 import './styles/globals.css';
@@ -24,6 +25,9 @@ export function App() {
         <DashboardProvider>
           <BrowserRouter>
             <div className="app-container">
+              {/* Dynamic AAA 60fps Living Gaming Canvas & Plasma Background */}
+              <GamingBackground />
+
               {/* Top Sticky Header with Auth & Notifications */}
               <Navbar onOpenMenu={() => setMobileMenuOpen(true)} />
 

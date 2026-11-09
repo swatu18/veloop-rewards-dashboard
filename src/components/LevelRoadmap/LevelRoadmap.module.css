@@ -650,6 +650,19 @@
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(12px);
+  animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--card-index, 0) * 0.05s);
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .collectionCard:hover {
@@ -1157,3 +1170,148 @@
     gap: 8px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Light Theme Gaming Overrides (Solar Celestial Dawn)
+═══════════════════════════════════════════════════════════ */
+:global([data-theme="light"]) .roadmapSection {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.98) 100%);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .viewToggleGroup {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .viewBtn {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .viewBtnActive {
+  background: rgba(245, 158, 11, 0.15);
+  color: #B45309;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+:global([data-theme="light"]) .filterPill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .filterPillActive {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: #D97706;
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .collectionCard {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.98) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .collectionCard:hover {
+  background: #FFFFFF;
+  border-color: var(--card-primary, #D97706);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12), 0 0 25px rgba(245, 158, 11, 0.25);
+}
+
+:global([data-theme="light"]) .cardCurrent {
+  background: linear-gradient(155deg, #FFFDF5 0%, #FEF3C7 100%);
+  border-color: #D97706;
+  box-shadow: 0 0 28px rgba(245, 158, 11, 0.3), 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .cardLevelChip {
+  background: rgba(241, 245, 249, 0.95);
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme="light"]) .cardLevelPrefix {
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .cardLevelNumText {
+  background: linear-gradient(180deg, #92400E 0%, #D97706 60%, #B45309 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global([data-theme="light"]) .cardName {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .cardThemeTag {
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .cardFinish {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .cardPerkSnippet {
+  color: #475569;
+}
+
+:global([data-theme="light"]) .cardProgressTrack {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="light"]) .cardProgressLabel {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .cardXPBadge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #B45309;
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+:global([data-theme="light"]) .cardRewardChip {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.25);
+  color: #334155;
+}
+
+:global([data-theme="light"]) .cardRewardChip strong {
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .inspectBtn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #1E293B;
+}
+
+:global([data-theme="light"]) .inspectBtn:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #B45309;
+}
+
+:global([data-theme="light"]) .inspectorWrap {
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .statBox {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .statVal {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .perkCard {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1E293B;
+}
+

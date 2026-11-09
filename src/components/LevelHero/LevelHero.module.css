@@ -489,3 +489,48 @@
   transform: translateX(2px);
   box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   Light Theme Gaming Overrides (Solar Celestial Dawn)
+═══════════════════════════════════════════════════════════ */
+:global([data-theme="light"]) .levelCard {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.94) 0%, rgba(248, 250, 252, 0.98) 100%);
+  border: 1px solid rgba(217, 119, 6, 0.4);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 0 30px rgba(245, 158, 11, 0.15);
+}
+
+:global([data-theme="light"]) .tierName {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .progressTubeTrack {
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+:global([data-theme="light"]) .metricItem {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .metricLabel {
+  color: #64748B;
+}
+
+:global([data-theme="light"]) .metricVal {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .quickActionItem {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+:global([data-theme="light"]) .actionTitle {
+  color: #0F172A;
+}
+
+:global([data-theme="light"]) .actionDesc {
+  color: #475569;
+}
+

@@ -1,0 +1,232 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   GamingBackground.module.css  –  AAA Gaming Dynamic Atmospheric Background
+   Layered plasma nebulas, interactive 60fps canvas, animated cyber grid,
+   and floating 3D gaming rune motes.
+═══════════════════════════════════════════════════════════════════════════ */
+
+.gamingBgContainer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #070514;
+  background-image: 
+    radial-gradient(circle 900px at 50% -10%, rgba(124, 58, 237, 0.32), transparent 70%),
+    radial-gradient(circle 800px at 95% 30%, rgba(245, 158, 11, 0.2), transparent 60%),
+    radial-gradient(circle 850px at 5% 65%, rgba(14, 165, 233, 0.22), transparent 65%),
+    linear-gradient(180deg, #070514 0%, #0E0A24 30%, #130D35 60%, #060512 100%);
+  transition: background-color 0.4s ease, background-image 0.4s ease;
+}
+
+/* ── Light Mode: Ethereal Solar Celestial Dawn Gaming Atmosphere ── */
+.lightMode {
+  background-color: #F8FAFC;
+  background-image: 
+    radial-gradient(circle 850px at 50% -10%, rgba(245, 158, 11, 0.18), transparent 70%),
+    radial-gradient(circle 800px at 90% 30%, rgba(56, 189, 248, 0.15), transparent 60%),
+    radial-gradient(circle 750px at 10% 70%, rgba(192, 132, 252, 0.14), transparent 65%),
+    linear-gradient(180deg, #F8FAFC 0%, #EEF2F6 40%, #E2E8F0 100%);
+}
+
+/* ── Layer 1: Living Organic Plasma Nebulae ── */
+.nebulaAuraTopLeft {
+  position: absolute;
+  top: -15%;
+  left: -10%;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.28) 0%, rgba(217, 119, 6, 0.1) 45%, transparent 70%);
+  filter: blur(85px);
+  animation: pulseNebulaOne 10s ease-in-out infinite alternate;
+}
+
+.lightMode .nebulaAuraTopLeft {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(251, 191, 36, 0.08) 50%, transparent 70%);
+  filter: blur(80px);
+}
+
+.nebulaAuraTopRight {
+  position: absolute;
+  top: -10%;
+  right: -15%;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.32) 0%, rgba(126, 34, 206, 0.12) 50%, transparent 70%);
+  filter: blur(95px);
+  animation: pulseNebulaTwo 12s ease-in-out infinite alternate-reverse;
+}
+
+.lightMode .nebulaAuraTopRight {
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.18) 0%, rgba(56, 189, 248, 0.06) 50%, transparent 70%);
+}
+
+.nebulaAuraCenter {
+  position: absolute;
+  top: 45%;
+  left: 20%;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, rgba(2, 132, 199, 0.08) 50%, transparent 70%);
+  filter: blur(90px);
+  animation: pulseNebulaThree 14s ease-in-out infinite alternate;
+}
+
+.nebulaAuraBottom {
+  position: absolute;
+  bottom: -15%;
+  right: 15%;
+  width: 750px;
+  height: 750px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(192, 132, 252, 0.25) 0%, rgba(139, 92, 246, 0.1) 50%, transparent 70%);
+  filter: blur(100px);
+  animation: pulseNebulaOne 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes pulseNebulaOne {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50%  { transform: translate(25px, -20px) scale(1.12); opacity: 1; }
+  100% { transform: translate(-15px, 15px) scale(0.94); opacity: 0.85; }
+}
+
+@keyframes pulseNebulaTwo {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.85; }
+  50%  { transform: translate(-30px, 20px) scale(1.1); opacity: 1; }
+  100% { transform: translate(20px, -15px) scale(0.96); opacity: 0.75; }
+}
+
+@keyframes pulseNebulaThree {
+  0%   { transform: translate(0, 0) scale(0.95); opacity: 0.7; }
+  50%  { transform: translate(20px, 25px) scale(1.15); opacity: 0.95; }
+  100% { transform: translate(-20px, -15px) scale(1); opacity: 0.8; }
+}
+
+/* ── Layer 2: Isometric Cyber Matrix Grid ── */
+.cyberHexGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 158, 11, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 158, 11, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, black 35%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 50%, black 35%, transparent 90%);
+  opacity: 0.85;
+}
+
+.lightMode .cyberHexGrid {
+  background-image:
+    linear-gradient(rgba(217, 119, 6, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 119, 6, 0.05) 1px, transparent 1px);
+  opacity: 0.65;
+}
+
+/* Scanning Horizontal Light Beam */
+.scanningLightBeam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(245, 158, 11, 0.6) 50%, transparent 100%);
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.8));
+  animation: scanLine 8s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+@keyframes scanLine {
+  0%   { top: 0%; opacity: 0; }
+  15%  { opacity: 0.7; }
+  85%  { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ── Layer 3: Interactive 60 FPS HTML5 Canvas ── */
+.particleCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+}
+
+/* ── Layer 4: Floating 3D Gaming Runes ── */
+.floatingRunesContainer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.rune {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 900;
+  user-select: none;
+  filter: drop-shadow(0 0 12px currentColor);
+  opacity: 0.35;
+}
+
+.rune1 {
+  top: 18%;
+  left: 8%;
+  color: #F59E0B;
+  animation: floatRune 9s ease-in-out infinite alternate;
+}
+
+.rune2 {
+  top: 32%;
+  right: 9%;
+  color: #C084FC;
+  animation: floatRune 11s ease-in-out infinite alternate-reverse;
+}
+
+.rune3 {
+  top: 62%;
+  left: 12%;
+  color: #38BDF8;
+  animation: floatRune 13s ease-in-out infinite alternate;
+}
+
+.rune4 {
+  top: 75%;
+  right: 14%;
+  color: #10B981;
+  animation: floatRune 10s ease-in-out infinite alternate-reverse;
+}
+
+.rune5 {
+  top: 88%;
+  left: 28%;
+  color: #FDE68A;
+  animation: floatRune 12s ease-in-out infinite alternate;
+}
+
+.rune6 {
+  top: 24%;
+  left: 55%;
+  color: #E879F9;
+  font-size: 1rem;
+  animation: floatRune 14s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatRune {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(0.9);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-25px) rotate(18deg) scale(1.15);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-8px) rotate(-12deg) scale(1);
+    opacity: 0.3;
+  }
+}

@@ -317,7 +317,7 @@ export const LevelRoadmap = () => {
 
           {/* Badges Collection Grid with Redesigned Level Cards */}
           <div className={styles.collectionGrid}>
-            {filteredBadges.map((item) => {
+            {filteredBadges.map((item, idx) => {
               const meta = TIER_METADATA[item.level] || TIER_METADATA[5];
               const isUnlocked = item.level <= user.currentLevel;
               const isCurrent = item.level === user.currentLevel;
@@ -355,6 +355,7 @@ export const LevelRoadmap = () => {
                   style={{
                     '--card-glow': meta.glow,
                     '--card-primary': meta.primary,
+                    '--card-index': idx,
                   }}
                   onClick={() => setInspectModalItem(item)}
                 >
