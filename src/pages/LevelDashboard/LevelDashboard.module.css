@@ -4,26 +4,41 @@
 ═══════════════════════════════════════════════════════════ */
 
 .mainContainer {
-  max-width: 1040px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 20px 16px 90px 16px;
-  animation: fadeIn 0.3s ease-out;
+  padding: 24px 16px 96px 16px;
+  animation: fadeIn 0.35s ease-out;
+  position: relative;
+}
+
+.mainContainer::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: radial-gradient(ellipse at 50% -20%, rgba(245, 158, 11, 0.12) 0%, rgba(56, 189, 248, 0.04) 40%, transparent 75%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (min-width: 1024px) {
   .mainContainer {
-    padding: 28px 24px 60px 24px;
+    padding: 32px 28px 70px 28px;
   }
 }
 
 .sectionRow {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Row 6: Middle Grid (Play & Earn + Recent Activity Ledger) */

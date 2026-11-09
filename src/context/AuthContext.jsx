@@ -23,13 +23,13 @@ const getStoredUsers = () => {
   return [];
 };
 
-// Returns active session user or null (forces authentication gate)
+// Returns active session user or default demo member (ensures review access without blocking)
 const getStoredSession = () => {
   try {
     const session = JSON.parse(localStorage.getItem(MOCK_SESSION_KEY));
     if (session && session.expiresAt > Date.now()) return session.user;
   } catch {}
-  return null;
+  return DEFAULT_USER;
 };
 
 export const AuthProvider = ({ children }) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Award, Sparkles, ChevronRight, Check, Lock, Shield, Eye, Filter } from 'lucide-react';
+import { Award, Sparkles, ChevronRight, Check, Lock, Shield, Eye, Filter, Zap, Gift } from 'lucide-react';
 import { LEVEL_ROADMAP } from '../../data/levelData';
 import { useDashboard } from '../../context/DashboardContext';
 import { LevelBadge, MiniTierBadge } from '../Badges/LevelBadge';
@@ -7,7 +7,7 @@ import { TIER_METADATA } from '../Badges/TierBadgeArt';
 import styles from './LevelRoadmap.module.css';
 
 export const LevelRoadmap = () => {
-  const { user } = useDashboard();
+  const { user, currentXP, progressPercentage } = useDashboard();
   const [activeView, setActiveView] = useState('roadmap'); // 'roadmap' | 'collection'
   const [rarityFilter, setRarityFilter] = useState('ALL'); // 'ALL' | 'UNLOCKED' | 'LOCKED' | 'COMMON' | 'RARE' | 'LEGENDARY' | 'MYTHIC'
   const [selectedLevel, setSelectedLevel] = useState(
@@ -40,11 +40,13 @@ export const LevelRoadmap = () => {
       {/* ── Section Header with View Toggle ── */}
       <div className={styles.sectionHeader}>
         <div className={styles.titleGroup}>
-          <Award size={20} className={styles.headerIcon} />
+          <div className={styles.headerIconWrap}>
+            <Award size={22} className={styles.headerIcon} />
+          </div>
           <div>
-            <h2 className={styles.sectionTitle}>PROGRESSION ROADMAP &amp; BADGES</h2>
+            <h2 className={styles.sectionTitle}>PROGRESSION ROADMAP &amp; LEVEL CARDS</h2>
             <span className={styles.helperText}>
-              {unlockedCount} of {LEVEL_ROADMAP.length} Badges Unlocked • Tier V Diamond Champion
+              {unlockedCount} of {LEVEL_ROADMAP.length} Prestige Tiers Unlocked • Level {user.currentLevel < 10 ? `0${user.currentLevel}` : user.currentLevel} Active
             </span>
           </div>
         </div>
@@ -55,14 +57,14 @@ export const LevelRoadmap = () => {
             className={`${styles.viewBtn} ${activeView === 'roadmap' ? styles.viewBtnActive : ''}`}
             onClick={() => setActiveView('roadmap')}
           >
-            <Sparkles size={13} />
+            <Sparkles size={14} />
             <span>Timeline</span>
           </button>
           <button
             className={`${styles.viewBtn} ${activeView === 'collection' ? styles.viewBtnActive : ''}`}
             onClick={() => setActiveView('collection')}
           >
-            <Shield size={13} />
+            <Shield size={14} />
             <span>Trophy Room</span>
           </button>
         </div>
@@ -104,7 +106,9 @@ export const LevelRoadmap = () => {
                             : 'rgba(255, 255, 255, 0.08)',
                           boxShadow: isCompleted ? `0 0 10px ${currMeta.glow}` : 'none',
                         }}
-                      />
+                      >
+                        {isCompleted && <div className={styles.connectorPulse} />}
+                      </div>
                     )}
 
                     {/* Interactive Node Wrapper */}
@@ -124,9 +128,9 @@ export const LevelRoadmap = () => {
                       <div className={styles.nodeInfo}>
                         <span className={styles.nodeLevelName}>
                           {isCurrent ? (
-                            <span className={styles.youAreHereTag}>YOU ARE HERE</span>
+                            <span className={styles.youAreHereTag}>★ YOU ARE HERE</span>
                           ) : isNext ? (
-                            <span className={styles.nextGoalTag}>NEXT GOAL</span>
+                            <span className={styles.nextGoalTag}>🎯 NEXT TARGET</span>
                           ) : (
                             `LVL ${item.level < 10 ? `0${item.level}` : item.level}`
                           )}
@@ -158,7 +162,7 @@ export const LevelRoadmap = () => {
                 <div className={styles.detailBadgeCol}>
                   <LevelBadge
                     level={selectedLevel.level}
-                    size="normal"
+                    size="large"
                     animated={true}
                     showStars={true}
                     showRarity={true}
@@ -168,6 +172,7 @@ export const LevelRoadmap = () => {
                     style={{
                       borderColor: selectedMeta.primary,
                       color: selectedMeta.primary,
+                      boxShadow: `0 2px 10px ${selectedMeta.glow}`,
                     }}
                   >
                     {selectedMeta.finish}
@@ -217,6 +222,37 @@ export const LevelRoadmap = () => {
                     </div>
                   </div>
 
+                  {/* Level Progress Indicator */}
+                  <div className={styles.detailProgressBlock}>
+                    <div className={styles.detailProgressHeader}>
+                      <span className={styles.detailProgressTitle}>
+                        {selectedLevel.level < user.currentLevel ? 'Level Status: Completed'
+                          : selectedLevel.level === user.currentLevel ? `Active Progression (${progressPercentage}%)`
+                          : `Required XP: ${selectedLevel.minXP.toLocaleString()} XP`}
+                      </span>
+                      <span className={styles.detailProgressPercent}>
+                        {selectedLevel.level < user.currentLevel ? '100%'
+                          : selectedLevel.level === user.currentLevel ? `${currentXP.toLocaleString()} / ${selectedLevel.maxXP.toLocaleString()} XP`
+                          : `Locked`}
+                      </span>
+                    </div>
+                    <div className={styles.detailTrack}>
+                      <div 
+                        className={styles.detailFill}
+                        style={{
+                          width: selectedLevel.level < user.currentLevel ? '100%'
+                            : selectedLevel.level === user.currentLevel ? `${progressPercentage}%`
+                            : '0%',
+                          background: selectedLevel.level < user.currentLevel
+                            ? 'linear-gradient(90deg, #10B981, #34D399)'
+                            : selectedLevel.level === user.currentLevel
+                            ? 'linear-gradient(90deg, #F59E0B, #FBBF24, #38BDF8)'
+                            : 'rgba(255, 255, 255, 0.1)'
+                        }}
+                      />
+                    </div>
+                  </div>
+
                   <div className={styles.perksList}>
                     <span className={styles.perksHeading}>Tier Benefits &amp; Perks:</span>
                     <ul className={styles.perksItems}>
@@ -243,9 +279,9 @@ export const LevelRoadmap = () => {
           {/* Collection Progress Bar */}
           <div className={styles.collectionSummaryBar}>
             <div className={styles.summaryLeft}>
-              <span className={styles.summaryTitle}>Badge Mastery Progress</span>
+              <span className={styles.summaryTitle}>Tier Mastery Progression</span>
               <span className={styles.summaryFraction}>
-                <strong>{unlockedCount}</strong> / {LEVEL_ROADMAP.length} Badges
+                <strong>{unlockedCount}</strong> / {LEVEL_ROADMAP.length} Badges Unlocked ({Math.round((unlockedCount / LEVEL_ROADMAP.length) * 100)}%)
               </span>
             </div>
             <div className={styles.summaryTrack}>
@@ -256,16 +292,16 @@ export const LevelRoadmap = () => {
             </div>
           </div>
 
-          {/* Rarity & Status Filter Pills */}
+          {/* Rarity Filter Tabs */}
           <div className={styles.filtersScroll}>
             {[
-              { id: 'ALL', label: 'All Badges (10)' },
+              { id: 'ALL', label: 'All Levels (10)' },
               { id: 'UNLOCKED', label: `Unlocked (${unlockedCount})` },
               { id: 'LOCKED', label: `Locked (${LEVEL_ROADMAP.length - unlockedCount})` },
-              { id: 'COMMON', label: 'Bronze Common' },
-              { id: 'UNCOMMON', label: 'Silver Uncommon' },
-              { id: 'RARE', label: 'Gold Rare' },
-              { id: 'EPIC', label: 'Platinum Epic' },
+              { id: 'COMMON', label: 'Common' },
+              { id: 'UNCOMMON', label: 'Uncommon' },
+              { id: 'RARE', label: 'Rare' },
+              { id: 'EPIC', label: 'Epic' },
               { id: 'LEGENDARY', label: 'Legendary' },
               { id: 'MYTHIC', label: 'Mythic & Divine' },
             ].map((f) => (
@@ -279,12 +315,34 @@ export const LevelRoadmap = () => {
             ))}
           </div>
 
-          {/* Badges Collection Grid */}
+          {/* Badges Collection Grid with Redesigned Level Cards */}
           <div className={styles.collectionGrid}>
             {filteredBadges.map((item) => {
               const meta = TIER_METADATA[item.level] || TIER_METADATA[5];
               const isUnlocked = item.level <= user.currentLevel;
               const isCurrent = item.level === user.currentLevel;
+              const isCompleted = item.level < user.currentLevel;
+              const isNext = item.level === user.currentLevel + 1;
+              const isLocked = item.level > user.currentLevel + 1;
+
+              // Calculate item progress percentage
+              let itemProgress = 0;
+              let itemProgressLabel = '';
+              if (isCompleted) {
+                itemProgress = 100;
+                itemProgressLabel = '100% • UNLOCKED';
+              } else if (isCurrent) {
+                itemProgress = progressPercentage;
+                itemProgressLabel = `${currentXP.toLocaleString()} / ${item.maxXP.toLocaleString()} XP (${progressPercentage}%)`;
+              } else if (isNext) {
+                itemProgress = 0;
+                itemProgressLabel = `${(item.minXP - currentXP).toLocaleString()} XP Needed`;
+              } else {
+                itemProgress = 0;
+                itemProgressLabel = `Requires ${item.minXP.toLocaleString()} XP`;
+              }
+
+              const formattedNum = item.level < 10 ? `0${item.level}` : `${item.level}`;
 
               return (
                 <div
@@ -294,33 +352,54 @@ export const LevelRoadmap = () => {
                     isUnlocked ? styles.cardUnlocked : styles.cardLocked,
                     isCurrent ? styles.cardCurrent : '',
                   ].join(' ')}
+                  style={{
+                    '--card-glow': meta.glow,
+                    '--card-primary': meta.primary,
+                  }}
                   onClick={() => setInspectModalItem(item)}
                 >
-                  {/* Card Rarity Header */}
-                  <div className={styles.cardHeaderRow}>
-                    <span
-                      className={styles.cardRarityTag}
-                      style={{
-                        color: meta.rarityColor,
-                        borderColor: `${meta.rarityColor}55`,
-                        background: `${meta.rarityColor}18`,
-                      }}
-                    >
-                      {meta.rarity}
-                    </span>
+                  {/* Holographic Card Sheen on Hover */}
+                  <div className={styles.cardSheenOverlay} />
 
-                    {isUnlocked ? (
-                      <span className={styles.cardUnlockedBadge}>
-                        <Check size={11} /> Unlocked
+                  {/* Card Rarity & Level Header */}
+                  <div className={styles.cardHeaderRow}>
+                    <div className={styles.cardLevelChip}>
+                      <span className={styles.cardLevelNumText}>LVL {formattedNum}</span>
+                    </div>
+
+                    <div className={styles.cardStatusGroup}>
+                      <span
+                        className={styles.cardRarityTag}
+                        style={{
+                          color: meta.rarityColor,
+                          borderColor: `${meta.rarityColor}66`,
+                          background: `${meta.rarityColor}18`,
+                        }}
+                      >
+                        {meta.rarity}
                       </span>
-                    ) : (
-                      <span className={styles.cardLockedBadge}>
-                        <Lock size={11} /> Lvl {item.level}
-                      </span>
-                    )}
+
+                      {isCurrent ? (
+                        <span className={styles.cardCurrentBadge}>
+                          <Sparkles size={11} /> Current
+                        </span>
+                      ) : isCompleted ? (
+                        <span className={styles.cardUnlockedBadge}>
+                          <Check size={11} /> Claimed
+                        </span>
+                      ) : isNext ? (
+                        <span className={styles.cardNextBadge}>
+                          🎯 Target
+                        </span>
+                      ) : (
+                        <span className={styles.cardLockedBadge}>
+                          <Lock size={11} /> Locked
+                        </span>
+                      )}
+                    </div>
                   </div>
 
-                  {/* 3D Badge Visual */}
+                  {/* 3D Badge Visual with Ambient Lighting */}
                   <div className={styles.cardBadgeWrap}>
                     <LevelBadge
                       level={item.level}
@@ -330,17 +409,47 @@ export const LevelRoadmap = () => {
                     />
                   </div>
 
-                  {/* Badge Info */}
+                  {/* Badge Identity & Theme Details */}
                   <div className={styles.cardInfo}>
                     <span className={styles.cardFinish}>{meta.finish}</span>
                     <h5 className={styles.cardName}>{item.name}</h5>
-                    <span className={styles.cardRewardSnippet}>
-                      Reward: {item.reward.label}
-                    </span>
+                    <span className={styles.cardThemeTag}>{meta.themeName}</span>
                   </div>
 
+                  {/* Stylish Level Progress Indicator & Animated Bar */}
+                  <div className={styles.cardProgressSection}>
+                    <div className={styles.cardProgressTrack}>
+                      <div
+                        className={styles.cardProgressFill}
+                        style={{
+                          width: `${itemProgress}%`,
+                          background: isCompleted
+                            ? 'linear-gradient(90deg, #10B981 0%, #34D399 100%)'
+                            : isCurrent
+                            ? 'linear-gradient(90deg, #F59E0B 0%, #FBBF24 50%, #38BDF8 100%)'
+                            : 'rgba(255, 255, 255, 0.08)'
+                        }}
+                      >
+                        {isCurrent && <div className={styles.cardProgressGlow} />}
+                      </div>
+                    </div>
+                    <span className={styles.cardProgressLabel}>{itemProgressLabel}</span>
+                  </div>
+
+                  {/* Milestone Reward Chip */}
+                  <div className={styles.cardRewardChip}>
+                    <Gift size={12} className={styles.rewardGiftIcon} />
+                    <span>Reward: <strong>{item.reward.label}</strong></span>
+                  </div>
+
+                  {/* Key Perk Snippet */}
+                  <p className={styles.cardPerkSnippet}>
+                    {item.perks[0]}
+                  </p>
+
+                  {/* Interactive 3D Inspect Action */}
                   <button className={styles.inspectBtn}>
-                    <Eye size={12} />
+                    <Eye size={13} />
                     <span>Inspect 3D Badge</span>
                   </button>
                 </div>
