@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { X, Lock, Mail, User, Sparkles, ArrowRight, CheckCircle2, ShieldCheck, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { VeloopLogo } from '../common/VeloopLogo';
@@ -17,6 +18,8 @@ export const AuthModal = () => {
     setAuthError,
     isLoading
   } = useAuth();
+
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -67,9 +70,15 @@ export const AuthModal = () => {
         setAuthError('Please enter your full name to create an account.');
         return;
       }
-      await signUp(name, email, password);
+      const success = await signUp(name, email, password);
+      if (success) {
+        navigate('/Lvl-Dashboard');
+      }
     } else {
-      await signIn(email, password);
+      const success = await signIn(email, password);
+      if (success) {
+        navigate('/Lvl-Dashboard');
+      }
     }
   };
 
@@ -227,7 +236,12 @@ export const AuthModal = () => {
           <button
             type="button"
             className={styles.demoLoginBtn}
-            onClick={() => quickDemoLogin()}
+            onClick={async () => {
+              const success = await quickDemoLogin();
+              if (success) {
+                navigate('/Lvl-Dashboard');
+              }
+            }}
           >
             <Zap size={15} />
             <span>1-Click Instant Demo Login (Reviewer Access)</span>

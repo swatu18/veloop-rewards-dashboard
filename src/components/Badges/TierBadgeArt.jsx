@@ -179,6 +179,326 @@ export const TIER_METADATA = {
     stars: 5,
     description: 'The supreme rank of VELOOP. A blazing solar phoenix crest forged in molten starlight.',
   },
+  11: {
+    name: 'Ruby Warmaster',
+    themeName: 'Crimson Warmaster',
+    rarity: 'MYTHIC',
+    rarityColor: '#EF4444',
+    finish: 'Forged Titanium & Crimson Ruby Blades',
+    primary: '#EF4444',
+    secondary: '#991B1B',
+    highlight: '#FEE2E2',
+    dark: '#2A0404',
+    glow: 'rgba(239, 68, 68, 0.65)',
+    shape: 'Crimson Knight Aegis',
+    emblem: 'Twin Ruby Blades & Flame Core',
+    stars: 4,
+    description: 'Imbued with warrior flame, granting higher battle XP multipliers.',
+  },
+  12: {
+    name: 'Topaz Sentinel',
+    themeName: 'Sunstone Sentinel',
+    rarity: 'MYTHIC',
+    rarityColor: '#F59E0B',
+    finish: 'Amber Sunstone & Solar Brass',
+    primary: '#F59E0B',
+    secondary: '#B45309',
+    highlight: '#FEF3C7',
+    dark: '#241400',
+    glow: 'rgba(245, 158, 11, 0.65)',
+    shape: 'Sunstone Octagon',
+    emblem: 'Amber Crystal Core & Solar Aegis',
+    stars: 4,
+    description: 'Forged from radiant amber crystals with reinforced defensive shields.',
+  },
+  13: {
+    name: 'Emerald Warlord',
+    themeName: 'Jade Dragonlord',
+    rarity: 'MYTHIC',
+    rarityColor: '#10B981',
+    finish: 'Draconian Emerald & Scaled Wings',
+    primary: '#10B981',
+    secondary: '#047857',
+    highlight: '#D1FAE5',
+    dark: '#022417',
+    glow: 'rgba(16, 185, 129, 0.65)',
+    shape: 'Draconic Dragoncrest',
+    emblem: 'Twin Dragon Wings & Jade Flame',
+    stars: 5,
+    description: 'Infused with ancient dragon scales, commanding unlimited streak power.',
+  },
+  14: {
+    name: 'Obsidian Knight',
+    themeName: 'Darksteel Knight',
+    rarity: 'MYTHIC',
+    rarityColor: '#818CF8',
+    finish: 'Deep Obsidian & Darksteel Claymore',
+    primary: '#818CF8',
+    secondary: '#4338CA',
+    highlight: '#E0E7FF',
+    dark: '#0C0E1E',
+    glow: 'rgba(129, 140, 248, 0.65)',
+    shape: 'Darksteel Claymore Shield',
+    emblem: 'Crossed Claymores & Obsidian Shield',
+    stars: 5,
+    description: 'Master of darksteel blades and impenetrable knightly armor.',
+  },
+  15: {
+    name: 'Prismatic Sovereign',
+    themeName: 'Rainbow Prismatic',
+    rarity: 'DIVINE',
+    rarityColor: '#38BDF8',
+    finish: '8-Facet Prismatic Diamond & Gold Laurel',
+    primary: '#38BDF8',
+    secondary: '#8B5CF6',
+    highlight: '#FFFFFF',
+    dark: '#0D152A',
+    glow: 'rgba(56, 189, 248, 0.75)',
+    shape: 'Prismatic Diamond Star',
+    emblem: 'Rainbow Crystal Core & Golden Laurel',
+    stars: 5,
+    description: 'Channels prismatic spectrum refraction with boundless multiplier energy.',
+  },
+  16: {
+    name: 'Quantum Striker',
+    themeName: 'Neon Quantum Grid',
+    rarity: 'DIVINE',
+    rarityColor: '#06B6D4',
+    finish: 'Frosted Cyber Platinum & Cyan Arcs',
+    primary: '#06B6D4',
+    secondary: '#0E7490',
+    highlight: '#CFFAFE',
+    dark: '#021C24',
+    glow: 'rgba(6, 182, 212, 0.75)',
+    shape: 'Quantum Hexagon Matrix',
+    emblem: 'Pulsing Quantum Core & Circuit Nodes',
+    stars: 5,
+    description: 'Surges with subatomic quantum energy for lightning-fast progression.',
+  },
+  17: {
+    name: 'Hyperion Titan',
+    themeName: 'Molten Hyperion',
+    rarity: 'DIVINE',
+    rarityColor: '#F97316',
+    finish: 'Volcanic Molten Gold & Firebrand Horns',
+    primary: '#F97316',
+    secondary: '#C2410C',
+    highlight: '#FFEDD5',
+    dark: '#2A0B02',
+    glow: 'rgba(249, 115, 22, 0.75)',
+    shape: 'Volcanic Titan Shield',
+    emblem: 'Molten Core & Blazing Horns',
+    stars: 5,
+    description: 'Forged inside a stellar furnace with volcanic magma channels.',
+  },
+  18: {
+    name: 'Vortex Commander',
+    themeName: 'Dark Matter Vortex',
+    rarity: 'DIVINE',
+    rarityColor: '#A855F7',
+    finish: 'Singularity Vortex & Violet Gravity Core',
+    primary: '#A855F7',
+    secondary: '#7E22CE',
+    highlight: '#F3E8FF',
+    dark: '#200533',
+    glow: 'rgba(168, 85, 247, 0.75)',
+    shape: 'Gravitational Singularity Ring',
+    emblem: 'Cosmic Vortex & Orbiting Pulsars',
+    stars: 5,
+    description: 'Bends space-time to accelerate daily reward accumulation.',
+  },
+  19: {
+    name: 'Eclipse Archon',
+    themeName: 'Solar Eclipse Archon',
+    rarity: 'DIVINE',
+    rarityColor: '#EAB308',
+    finish: 'Black Sun Eclipse Corona & Gilded Wings',
+    primary: '#EAB308',
+    secondary: '#854D0E',
+    highlight: '#FEF9C3',
+    dark: '#1C1600',
+    glow: 'rgba(234, 179, 8, 0.75)',
+    shape: 'Eclipse Corona Starburst',
+    emblem: 'Black Sun & Blazing Solar Corona',
+    stars: 5,
+    description: 'Commands the total solar eclipse with twin celestial halos.',
+  },
+  20: {
+    name: 'Chrono Sovereign',
+    themeName: 'Chrono Time Lord',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#FBBF24',
+    finish: 'Ancient Golden Time Dial & Hourglass Star',
+    primary: '#FBBF24',
+    secondary: '#B45309',
+    highlight: '#FFFBEB',
+    dark: '#241400',
+    glow: 'rgba(251, 191, 36, 0.85)',
+    shape: 'Celestial Time Dial',
+    emblem: 'Golden Clockwork Gears & Star Hourglass',
+    stars: 5,
+    description: 'Master of temporal velocity, freezing streak timers permanently.',
+  },
+  21: {
+    name: 'Nova Luminary',
+    themeName: 'Supernova Luminary',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#EC4899',
+    finish: 'Blazing Supernova Starlight & Diamond Flares',
+    primary: '#EC4899',
+    secondary: '#BE185D',
+    highlight: '#FCE7F3',
+    dark: '#300418',
+    glow: 'rgba(236, 72, 153, 0.85)',
+    shape: 'Supernova 8-Ray Star',
+    emblem: 'Blazing Starburst & Prismatic Crown',
+    stars: 5,
+    description: 'Pours stellar nova light through a cascade of glowing diamond rays.',
+  },
+  22: {
+    name: 'Starlight Paragon',
+    themeName: 'Pleiades Starlight',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#60A5FA',
+    finish: 'Constellation Sapphire & Platinum Astrolabe',
+    primary: '#60A5FA',
+    secondary: '#1D4ED8',
+    highlight: '#EFF6FF',
+    dark: '#081738',
+    glow: 'rgba(96, 165, 250, 0.85)',
+    shape: 'Astral Constellation Compass',
+    emblem: 'Pleiades Star Cluster & Orbital Astrolabe',
+    stars: 5,
+    description: 'Guided by the celestial navigation of ancient star navigators.',
+  },
+  23: {
+    name: 'Nebula Monarch',
+    themeName: 'Cosmic Spiral Galaxy',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#C084FC',
+    finish: 'Spiral Galaxy Nebula & Prismatic Dust',
+    primary: '#C084FC',
+    secondary: '#6B21A8',
+    highlight: '#FAF5FF',
+    dark: '#1D062E',
+    glow: 'rgba(192, 132, 252, 0.85)',
+    shape: 'Spiral Galaxy Crest',
+    emblem: 'Galaxy Arms & Magenta Nebula Core',
+    stars: 5,
+    description: 'Reigns supreme over spiral galaxy clusters with boundless energy.',
+  },
+  24: {
+    name: 'Pulsar Dominator',
+    themeName: 'Magnetic Pulsar',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#38BDF8',
+    finish: 'Twin Magnetic Energy Beams & Cyan Pulsar',
+    primary: '#38BDF8',
+    secondary: '#0369A1',
+    highlight: '#F0F9FF',
+    dark: '#041624',
+    glow: 'rgba(56, 189, 248, 0.85)',
+    shape: 'Magnetic Pulsar Star',
+    emblem: 'Twin Energy Beams & Core Pulsar Gem',
+    stars: 5,
+    description: 'Emits periodic pulses of ultra-dense progression energy.',
+  },
+  25: {
+    name: 'Galactic Emperor',
+    themeName: 'Milky Way Emperor',
+    rarity: 'TRANSCENDENT',
+    rarityColor: '#F59E0B',
+    finish: 'Imperial Milky Way Orb & Platinum Laurels',
+    primary: '#F59E0B',
+    secondary: '#92400E',
+    highlight: '#FFFBEB',
+    dark: '#281300',
+    glow: 'rgba(245, 158, 11, 0.85)',
+    shape: 'Imperial Galactic Crest',
+    emblem: 'Milky Way Orb & Sovereign Golden Cape',
+    stars: 5,
+    description: 'Sovereign ruler of the galactic progression empire.',
+  },
+  26: {
+    name: 'Astral Demiurge',
+    themeName: 'Celestial Titan Crown',
+    rarity: 'ETERNAL',
+    rarityColor: '#F43F5E',
+    finish: 'Titan Crown with 7 Gem Spikes & Red Gold',
+    primary: '#F43F5E',
+    secondary: '#9F1239',
+    highlight: '#FFE4E6',
+    dark: '#30030E',
+    glow: 'rgba(244, 63, 94, 0.9)',
+    shape: '7-Spire Titan Crown',
+    emblem: 'Titan Crown & Ruby Starlight Scepter',
+    stars: 5,
+    description: 'Arch-architect of worlds, wreathed in ruby starlight.',
+  },
+  27: {
+    name: 'Void Sovereign',
+    themeName: 'Event Horizon Void',
+    rarity: 'ETERNAL',
+    rarityColor: '#A78BFA',
+    finish: 'Event Horizon Black Hole & Golden Accretion',
+    primary: '#A78BFA',
+    secondary: '#5B21B6',
+    highlight: '#EDE9FE',
+    dark: '#16082B',
+    glow: 'rgba(167, 139, 250, 0.9)',
+    shape: 'Event Horizon Crest',
+    emblem: 'Void Singularity & Golden Accretion Ring',
+    stars: 5,
+    description: 'Harnesses infinite gravitational density beyond the cosmic event horizon.',
+  },
+  28: {
+    name: 'Genesis Seraph',
+    themeName: 'Six-Wing Archangel',
+    rarity: 'ETERNAL',
+    rarityColor: '#FDE047',
+    finish: 'Six Golden Seraph Wings & Divine Halos',
+    primary: '#FDE047',
+    secondary: '#CA8A04',
+    highlight: '#FEF9C3',
+    dark: '#241E00',
+    glow: 'rgba(253, 224, 71, 0.9)',
+    shape: 'Six-Wing Seraph Crest',
+    emblem: 'Triple Halo & Outstretched Golden Feathers',
+    stars: 5,
+    description: 'Holy angelic guardian of infinite platform prestige and honor.',
+  },
+  29: {
+    name: 'Eternal Overlord',
+    themeName: 'Infinite Ouroboros',
+    rarity: 'ETERNAL',
+    rarityColor: '#34D399',
+    finish: 'Emerald Dragon Ouroboros & Starlight Ring',
+    primary: '#34D399',
+    secondary: '#065F46',
+    highlight: '#ECFDF5',
+    dark: '#022418',
+    glow: 'rgba(52, 211, 153, 0.9)',
+    shape: 'Infinite Ouroboros Ring',
+    emblem: 'Twin Emerald Dragons & Infinity Loop',
+    stars: 5,
+    description: 'The eternal cycle of infinite achievement and endless ascension.',
+  },
+  30: {
+    name: 'Omni Immortal',
+    themeName: 'Divine VELOOP Godtier',
+    rarity: 'SUPREME',
+    rarityColor: '#F59E0B',
+    finish: 'Supreme 24K Solar Divinity & 16 Sunflares',
+    primary: '#F59E0B',
+    secondary: '#DC2626',
+    highlight: '#FFFFFF',
+    dark: '#1E0C00',
+    glow: 'rgba(245, 158, 11, 0.95)',
+    shape: '16-Ray Supreme Solar Crest',
+    emblem: 'Triple Crown Halo, Phoenix Wings & Prismatic Core',
+    stars: 5,
+    description: 'The absolute zenith of VELOOP. An immortal celestial divinity wreathed in perpetual starlight.',
+  },
 };
 
 /* ─── Level 1: Bronze Scout (Crossed Broadswords & Studded Bronze Shield) ── */
@@ -1013,6 +1333,191 @@ function ArtLevel10({ id }) {
   );
 }
 
+/* ─── Procedural High-Tier Badge (Levels 11 to 30) ────────────────────────── */
+function ArtProceduralTier({ level, id }) {
+  const meta = TIER_METADATA[level] || TIER_METADATA[30];
+  const isCosmic = level >= 21;
+  const isDivine = level >= 26;
+  const isCyber  = level >= 16 && level < 21;
+  const isGem    = level >= 11 && level < 16;
+
+  return (
+    <>
+      <defs>
+        {/* Dynamic Multi-Stop Flare Halo */}
+        <radialGradient id={`pt-flare-${id}`} cx="50%" cy="50%" r="52%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+          <stop offset="25%" stopColor={meta.highlight} stopOpacity="0.6" />
+          <stop offset="55%" stopColor={meta.primary} stopOpacity="0.3" />
+          <stop offset="100%" stopColor={meta.secondary} stopOpacity="0" />
+        </radialGradient>
+
+        {/* Outer 24K Gold & Metallic Bevel Gradient */}
+        <linearGradient id={`pt-metal-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="20%" stopColor={meta.highlight} />
+          <stop offset="50%" stopColor={meta.primary} />
+          <stop offset="80%" stopColor={meta.secondary} />
+          <stop offset="100%" stopColor={meta.dark} />
+        </linearGradient>
+
+        {/* Gem Core Gradient */}
+        <linearGradient id={`pt-core-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="35%" stopColor={meta.highlight} />
+          <stop offset="70%" stopColor={meta.primary} />
+          <stop offset="100%" stopColor={meta.secondary} />
+        </linearGradient>
+
+        {/* Deep Obsidian Core Plate */}
+        <linearGradient id={`pt-obsidian-${id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#1E2235" />
+          <stop offset="50%" stopColor="#0F1322" />
+          <stop offset="100%" stopColor="#080A14" />
+        </linearGradient>
+      </defs>
+
+      {/* ── 1. Solar Radiant Flare Halo ── */}
+      <circle cx="60" cy="54" r="54" fill={`url(#pt-flare-${id})`} />
+
+      {/* ── 2. 3D Drop Shadow ── */}
+      <polygon
+        points="40,10 80,10 106,32 106,86 80,112 40,112 14,86 14,32"
+        fill="#000000"
+        opacity="0.55"
+        filter="blur(5px)"
+      />
+
+      {/* ── 3. Divine / Archangel Wing Flairs (For Levels 21–30) ── */}
+      {isCosmic && (
+        <g opacity="0.9">
+          <path d="M 24 28 C 4 18 0 46 12 72 C 18 62 20 44 26 36 Z" fill={`url(#pt-metal-${id})`} stroke="#FFFFFF" strokeWidth="0.8" />
+          <path d="M 96 28 C 116 18 120 46 108 72 C 102 62 100 44 94 36 Z" fill={`url(#pt-metal-${id})`} stroke="#FFFFFF" strokeWidth="0.8" />
+          {isDivine && (
+            <>
+              <path d="M 18 42 C 2 36 2 64 16 86 C 20 76 22 58 24 48 Z" fill={`url(#pt-metal-${id})`} stroke="#FFFBEB" strokeWidth="0.6" />
+              <path d="M 102 42 C 118 36 118 64 104 86 C 100 76 98 58 96 48 Z" fill={`url(#pt-metal-${id})`} stroke="#FFFBEB" strokeWidth="0.6" />
+            </>
+          )}
+        </g>
+      )}
+
+      {/* ── 4. Main Beveled Heraldic Shield Frame ── */}
+      <polygon
+        points="42,8 78,8 104,30 104,82 78,106 42,106 16,82 16,30"
+        fill={`url(#pt-metal-${id})`}
+        stroke="#FFFFFF"
+        strokeWidth="1.8"
+      />
+
+      {/* Top Mirror Chamfer Reflection */}
+      <polygon points="42,8 78,8 74,13 46,13" fill="#FFFFFF" opacity="0.9" />
+
+      {/* ── 5. Recessed Obsidian Face Plate ── */}
+      <polygon
+        points="44,13 76,13 98,33 98,78 76,101 44,101 22,78 22,33"
+        fill={`url(#pt-obsidian-${id})`}
+        stroke={meta.primary}
+        strokeWidth="1.2"
+      />
+
+      {/* Inner Filigree Dashed Trim */}
+      <polygon
+        points="46,17 74,17 93,36 93,74 74,96 46,96 27,74 27,36"
+        fill="none"
+        stroke={meta.highlight}
+        strokeWidth="0.9"
+        strokeDasharray="4 2"
+        opacity="0.85"
+      />
+
+      {/* ── 6. Central Heraldic Iconography ── */}
+      {isGem && (
+        /* Faceted Large Gemstone Core (Levels 11–15) */
+        <g filter={`drop-shadow(0 4px 10px ${meta.glow})`}>
+          <polygon points="60,28 84,46 60,76 36,46" fill={`url(#pt-core-${id})`} stroke="#FFFFFF" strokeWidth="1.5" />
+          <polygon points="46,36 74,36 84,46 60,46 36,46" fill="#FFFFFF" opacity="0.8" />
+          <polygon points="50,36 70,36 60,46" fill={meta.highlight} />
+          <polygon points="36,46 60,46 60,76" fill={meta.secondary} opacity="0.85" />
+          <polygon points="84,46 60,46 60,76" fill={meta.primary} opacity="0.95" />
+          <circle cx="50" cy="40" r="1.8" fill="#FFFFFF" />
+          {/* Starlight Glint */}
+          <line x1="60" y1="28" x2="60" y2="76" stroke="#FFFFFF" strokeWidth="1" opacity="0.8" />
+        </g>
+      )}
+
+      {isCyber && (
+        /* Cyber Quantum Core & Orbit Arcs (Levels 16–20) */
+        <g filter={`drop-shadow(0 0 12px ${meta.glow})`}>
+          <circle cx="60" cy="52" r="18" fill="none" stroke={meta.primary} strokeWidth="1.8" strokeDasharray="6 3" />
+          <polygon points="60,34 74,52 60,70 46,52" fill={`url(#pt-core-${id})`} stroke="#FFFFFF" strokeWidth="1.5" />
+          <circle cx="60" cy="52" r="6" fill="#FFFFFF" />
+          <circle cx="60" cy="52" r="3" fill={meta.dark} />
+          {/* Circuit matrix channels */}
+          <line x1="38" y1="52" x2="46" y2="52" stroke="#FFFFFF" strokeWidth="1.4" />
+          <line x1="74" y1="52" x2="82" y2="52" stroke="#FFFFFF" strokeWidth="1.4" />
+        </g>
+      )}
+
+      {isCosmic && !isDivine && (
+        /* Stargate Cosmic Galaxy (Levels 21–25) */
+        <g filter={`drop-shadow(0 0 12px ${meta.glow})`}>
+          <ellipse cx="60" cy="52" rx="34" ry="14" stroke={`url(#pt-metal-${id})`} strokeWidth="1.6" fill="none" transform="rotate(-20 60 52)" />
+          <circle cx="60" cy="52" r="14" fill={`url(#pt-core-${id})`} stroke="#FFFFFF" strokeWidth="1.5" />
+          <polygon points="60,38 64,48 74,52 64,56 60,66 56,56 46,52 56,48" fill="#FFFFFF" />
+          <circle cx="30" cy="46" r="2.5" fill="#FFFFFF" />
+          <circle cx="90" cy="58" r="2.5" fill="#FFFFFF" />
+        </g>
+      )}
+
+      {isDivine && (
+        /* Supreme Divine Celestial Crown & Halo (Levels 26–30) */
+        <g filter={`drop-shadow(0 0 14px ${meta.glow})`}>
+          {/* Radiant Halo Rays */}
+          <circle cx="60" cy="50" r="20" fill="none" stroke="#FDE68A" strokeWidth="1.5" strokeDasharray="5 2.5" />
+          {/* 7-Spire Crown */}
+          <path
+            d="M 38 64 L 40 44 L 48 52 L 60 38 L 72 52 L 80 44 L 82 64 Z"
+            fill={`url(#pt-metal-${id})`}
+            stroke="#FFFFFF"
+            strokeWidth="1.4"
+          />
+          {/* Crown Jewels */}
+          <circle cx="60" cy="40" r="2.5" fill="#FFFFFF" />
+          <circle cx="48" cy="52" r="1.8" fill={meta.secondary} />
+          <circle cx="72" cy="52" r="1.8" fill={meta.secondary} />
+          <circle cx="40" cy="44" r="1.8" fill="#FFFFFF" />
+          <circle cx="80" cy="44" r="1.8" fill="#FFFFFF" />
+          {/* Center Divinity Crystal */}
+          <polygon points="60,48 68,58 60,68 52,58" fill={`url(#pt-core-${id})`} stroke="#FFFFFF" strokeWidth="1" />
+          <circle cx="60" cy="58" r="2.2" fill="#FFFFFF" />
+        </g>
+      )}
+
+      {/* ── 7. Sculpted 24K Gold Dais Ribbon at Base ── */}
+      <g>
+        <path
+          d="M 36 94 L 46 104 L 60 100 L 74 104 L 84 94 L 60 90 Z"
+          fill={`url(#pt-metal-${id})`}
+          stroke="#FFFFFF"
+          strokeWidth="1"
+          filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))"
+        />
+        {/* Gold Stars Embedded in Dais */}
+        <polygon points="50,96 51.5,99 54.5,99.5 52,101.5 53,104.5 50,103 47,104.5 48,101.5 45.5,99.5 48.5,99" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.3" />
+        <polygon points="60,94 61.8,97.5 65.5,98 62.5,100.5 63.5,104 60,102.5 56.5,104 57.5,100.5 54.5,98 58.2,97.5" fill="#FFFFFF" stroke="#78350F" strokeWidth="0.3" />
+        <polygon points="70,96 71.5,99 74.5,99.5 72,101.5 73,104.5 70,103 67,104.5 68,101.5 65.5,99.5 68.5,99" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.3" />
+      </g>
+
+      {/* ── 8. Corner Metallic Rivets ── */}
+      <circle cx="43" cy="11" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.7" />
+      <circle cx="77" cy="11" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.7" />
+      <circle cx="100" cy="32" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.7" />
+      <circle cx="20" cy="32" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.7" />
+    </>
+  );
+}
+
 /* ─── Unified Dispatcher Function ────────────────────────────────────────── */
 export function renderTierSvg(level, id) {
   switch (level) {
@@ -1026,6 +1531,6 @@ export function renderTierSvg(level, id) {
     case 8:  return <ArtLevel8 id={id} />;
     case 9:  return <ArtLevel9 id={id} />;
     case 10: return <ArtLevel10 id={id} />;
-    default: return <ArtLevel5 id={id} />;
+    default: return <ArtProceduralTier level={level} id={id} />;
   }
 }

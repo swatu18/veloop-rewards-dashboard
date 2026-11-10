@@ -23,7 +23,7 @@ import styles from './LandingPage.module.css';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, openAuthModal } = useAuth();
+  const { isAuthenticated, currentUser, openAuthModal } = useAuth();
 
   const handleGetStarted = () => {
     openAuthModal('signup');
@@ -299,20 +299,35 @@ export const LandingPage = () => {
       <section className={styles.ctaBannerSection}>
         <div className={styles.ctaBannerCard}>
           <div className={styles.ctaBannerGlow}></div>
-          <h2 className={styles.ctaBannerTitle}>Ready to Experience VELOOP Rewards?</h2>
+          <h2 className={styles.ctaBannerTitle}>
+            {isAuthenticated
+              ? `Welcome back, ${currentUser?.name || 'Member'}!`
+              : 'Ready to Experience VELOOP Rewards?'}
+          </h2>
           <p className={styles.ctaBannerSub}>
-            Create your account today to begin your progression journey and start unlocking verified rewards.
+            {isAuthenticated
+              ? 'Your Level 05 Diamond progress is active. Climb all 30 tiers across 6 epic worlds on the Saga Map.'
+              : 'Create your account today to begin your progression journey and start unlocking verified rewards.'}
           </p>
 
           <div className={styles.ctaBannerButtons}>
-            <button className={styles.primaryCta} onClick={handleGetStarted}>
-              <span>Create Account Free</span>
-              <ArrowRight size={18} />
-            </button>
+            {isAuthenticated ? (
+              <button className={styles.primaryCta} onClick={handleGoToDashboard}>
+                <span>Enter Your Level Dashboard</span>
+                <ArrowRight size={18} />
+              </button>
+            ) : (
+              <>
+                <button className={styles.primaryCta} onClick={handleGetStarted}>
+                  <span>Create Account Free</span>
+                  <ArrowRight size={18} />
+                </button>
 
-            <button className={styles.secondaryCta} onClick={handleSignIn}>
-              <span>Sign In to Dashboard</span>
-            </button>
+                <button className={styles.secondaryCta} onClick={handleSignIn}>
+                  <span>Sign In to Dashboard</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </section>

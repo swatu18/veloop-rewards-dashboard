@@ -1315,3 +1315,547 @@
   color: #1E293B;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   CANDY CRUSH / SAGA WORLD MAP ADVENTURE TRAIL
+═══════════════════════════════════════════════════════════ */
+.sagaMapWrapper {
+  position: relative;
+  background: linear-gradient(180deg, #0B0E1A 0%, #101528 25%, #0B0E1C 50%, #150E28 75%, #0A0D18 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin-top: 14px;
+}
+
+/* Saga Top Control Bar */
+.sagaControlBar {
+  position: sticky;
+  top: 60px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 18px;
+  background: rgba(13, 17, 32, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.realmJumpGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.realmJumpLabel {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .realmJumpLabel { display: inline-block; }
+}
+
+.realmPillsScroll {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.realmPillsScroll::-webkit-scrollbar { display: none; }
+
+.sagaRealmPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sagaRealmPill:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--gold-300);
+}
+
+.sagaRealmPillCurrent {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: var(--gold-400);
+  color: #FFFBEB;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+}
+
+.sagaRealmPillDone {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #A7F3D0;
+}
+
+.jumpToPlayerBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  border: 1px solid #FDE68A;
+  border-radius: var(--radius-full);
+  color: #1E1200;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.jumpToPlayerBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.6);
+}
+
+.compassSpinIcon {
+  animation: compassPulse 3s infinite ease-in-out;
+}
+
+@keyframes compassPulse {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+}
+
+/* Saga Track Scrolling Arena */
+.sagaTrackArea {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  height: 3550px; /* ~30 levels × 115px + padding */
+  padding: 30px 16px;
+  overflow: visible;
+}
+
+/* SVG Winding Curved Trail */
+.sagaSvgPath {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sagaNodesContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+/* Floating Realm World Header Banner */
+.sagaRealmBanner {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 480px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.realmBannerInner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(90deg, rgba(20, 26, 48, 0.95) 0%, rgba(30, 20, 50, 0.95) 50%, rgba(20, 26, 48, 0.95) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: var(--radius-full);
+  padding: 6px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.realmBannerIcon {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+.realmBannerText {
+  display: flex;
+  flex-direction: column;
+}
+
+.realmBannerTitle {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FDE68A 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.realmBannerSub {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+/* Stepping Stone Slot */
+.sagaNodeSlot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 5;
+}
+
+/* Interactive Stepping Stone */
+.sagaStone {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
+}
+
+.sagaStone:hover {
+  transform: scale(1.15) translateY(-4px);
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 16px var(--stone-glow, rgba(245, 158, 11, 0.6)));
+  z-index: 10;
+}
+
+.stoneCap {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Completed Stone (Levels 1 to 4) */
+.stoneCompleted .stoneCap {
+  background: radial-gradient(circle at 35% 35%, #34D399 0%, #10B981 40%, #064E3B 100%);
+  border: 2px solid #A7F3D0;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.completedBadgeWrap {
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.completedCheckIcon {
+  stroke-width: 3.5;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.6));
+}
+
+.stoneStarsRow {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  color: #FBBF24;
+  font-size: 0.62rem;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
+}
+
+.starCenter {
+  font-size: 0.8rem;
+  transform: translateY(-2px);
+}
+
+/* Current Active Stone (Level 5) */
+.stoneCurrent {
+  transform: scale(1.1);
+}
+
+.stoneCurrent .stoneCap {
+  background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #FDE68A 25%, #F59E0B 60%, #92400E 100%);
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 
+    0 0 25px rgba(245, 158, 11, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.8),
+    0 4px 16px rgba(0, 0, 0, 0.7);
+}
+
+.currentBeaconCore {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beaconLevelNum {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #1A0F00;
+  letter-spacing: -0.02em;
+  z-index: 2;
+}
+
+.beaconRingOne {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 158, 11, 0.7);
+  animation: beaconPulse 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.beaconRingTwo {
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  animation: beaconPulse 2s infinite ease-out 0.6s;
+  pointer-events: none;
+}
+
+@keyframes beaconPulse {
+  0%   { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Next Target Stone (Level 6) */
+.stoneNext .stoneCap {
+  background: radial-gradient(circle at 35% 35%, #7DD3FC 0%, #38BDF8 40%, #0369A1 100%);
+  border: 2px dashed #BAE6FD;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.6), inset 0 2px 3px rgba(255, 255, 255, 0.5);
+  animation: nextPulse 2s infinite ease-in-out;
+}
+
+@keyframes nextPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.nextLevelNum {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Locked Stone (Levels 7 to 30) */
+.stoneLocked .stoneCap {
+  background: radial-gradient(circle at 35% 35%, #252B44 0%, #151A2C 60%, #0A0D18 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+.lockedCore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+
+.lockIconMini {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.lockedLevelNum {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+/* ── Animated Bouncing Player Avatar on Level 5 ── */
+.playerPawnWrapper {
+  position: absolute;
+  top: -64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 12;
+  animation: pawnHop 2s infinite ease-in-out;
+}
+
+@keyframes pawnHop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.pawnCrown {
+  font-size: 1rem;
+  margin-bottom: -4px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+  animation: crownWiggle 3s infinite ease-in-out;
+}
+
+@keyframes crownWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.pawnAvatarCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #B45309 100%);
+  border: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), 0 0 12px rgba(245, 158, 11, 0.8);
+}
+
+.pawnAvatarCircle span {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #1A0F00;
+}
+
+.pawnShadow {
+  width: 24px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  filter: blur(2px);
+  margin-top: 4px;
+}
+
+.youAreHerePill {
+  margin-top: 2px;
+  background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+  border: 1px solid #FFFBEB;
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.youAreHerePill span {
+  font-family: var(--font-heading);
+  font-size: 0.52rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* ── Milestone Treasure Chest Vault (Levels 5, 10, 15, 20, 25, 30) ── */
+.milestoneChestWrap {
+  position: absolute;
+  top: -8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  background: rgba(15, 20, 36, 0.92);
+  border: 1.5px solid var(--gold-400);
+  padding: 5px 12px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(245, 158, 11, 0.35);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 6;
+}
+
+.milestoneChestWrap:hover {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9), 0 0 20px rgba(245, 158, 11, 0.6);
+}
+
+.chestLeft {
+  right: 68px;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.chestRight {
+  left: 68px;
+  flex-direction: row;
+  text-align: left;
+}
+
+.chestGraphic {
+  position: relative;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.chestLabelTag {
+  display: flex;
+  flex-direction: column;
+}
+
+.chestTierLabel {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.chestRewardText {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Level Name Tag Floating Under Node */
+.stoneFooterTag {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.stoneRankTitle {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.stoneXpReq {
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
