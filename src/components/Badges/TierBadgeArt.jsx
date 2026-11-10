@@ -468,96 +468,205 @@ function ArtLevel5({ id }) {
   return (
     <>
       <defs>
-        {/* Dynamic Multi-Layered Radiant Flare */}
-        <radialGradient id={`l5-sun-flare-${id}`} cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#FFFBEB" stopOpacity="0.8" />
-          <stop offset="25%" stopColor="#FBBF24" stopOpacity="0.5" />
-          <stop offset="60%" stopColor="#F59E0B" stopOpacity="0.25" />
+        {/* Radiant Multi-Stop Solar Halo */}
+        <radialGradient id={`l5-sun-flare-${id}`} cx="50%" cy="45%" r="55%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
+          <stop offset="20%" stopColor="#FDE68A" stopOpacity="0.6" />
+          <stop offset="50%" stopColor="#F59E0B" stopOpacity="0.25" />
+          <stop offset="85%" stopColor="#38BDF8" stopOpacity="0.1" />
           <stop offset="100%" stopColor="#D97706" stopOpacity="0" />
         </radialGradient>
 
-        {/* 24K Mirror-Polished Gold Gradient */}
+        {/* 24K Mirror-Polished Gold Frame Gradient */}
         <linearGradient id={`l5-gold-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="15%" stopColor="#FFFBEB" />
-          <stop offset="35%" stopColor="#FDE68A" />
-          <stop offset="60%" stopColor="#F59E0B" />
-          <stop offset="85%" stopColor="#D97706" />
+          <stop offset="12%" stopColor="#FFFBEB" />
+          <stop offset="28%" stopColor="#FDE68A" />
+          <stop offset="55%" stopColor="#F59E0B" />
+          <stop offset="82%" stopColor="#D97706" />
           <stop offset="100%" stopColor="#78350F" />
         </linearGradient>
 
-        {/* Brilliant Diamond Prismatic Gradient */}
-        <linearGradient id={`l5-diamond-core-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+        {/* Multi-Facet Brilliant Diamond Facet Gradients */}
+        <linearGradient id={`l5-dia-table-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="25%" stopColor="#E0F2FE" />
-          <stop offset="50%" stopColor="#7DD3FC" />
-          <stop offset="75%" stopColor="#38BDF8" />
+          <stop offset="50%" stopColor="#F0F9FF" />
+          <stop offset="100%" stopColor="#BAE6FD" />
+        </linearGradient>
+
+        <linearGradient id={`l5-dia-facet-left-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#E0F2FE" />
+          <stop offset="60%" stopColor="#38BDF8" />
           <stop offset="100%" stopColor="#0284C7" />
         </linearGradient>
 
-        {/* Deep Luxury Obsidian Core Plate */}
+        <linearGradient id={`l5-dia-facet-right-${id}`} x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="40%" stopColor="#7DD3FC" />
+          <stop offset="100%" stopColor="#0369A1" />
+        </linearGradient>
+
+        <linearGradient id={`l5-dia-pavilion-${id}`} x1="50%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stopColor="#38BDF8" />
+          <stop offset="40%" stopColor="#0284C7" />
+          <stop offset="100%" stopColor="#075985" />
+        </linearGradient>
+
+        {/* Deep Luxury Obsidian Core Shield */}
         <linearGradient id={`l5-obsidian-${id}`} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor="#1E2235" />
-          <stop offset="50%" stopColor="#101322" />
-          <stop offset="100%" stopColor="#070912" />
+          <stop offset="50%" stopColor="#0F1322" />
+          <stop offset="100%" stopColor="#080A14" />
+        </linearGradient>
+
+        {/* Wing Feather Fevel Gradient */}
+        <linearGradient id={`l5-wing-bevel-${id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="25%" stopColor="#FEF08A" />
+          <stop offset="65%" stopColor="#EAB308" />
+          <stop offset="100%" stopColor="#854D0E" />
         </linearGradient>
       </defs>
 
-      {/* Radiant Solar Flare Halo */}
-      <circle cx="60" cy="60" r="56" fill={`url(#l5-sun-flare-${id})`} />
+      {/* ── 1. Radiant Solar Flare Background ── */}
+      <circle cx="60" cy="52" r="54" fill={`url(#l5-sun-flare-${id})`} />
 
-      {/* 3D Drop Shadow */}
-      <polygon points="42,12 78,12 104,32 104,88 78,110 42,110 16,88 16,32"
-        fill="#000000" opacity="0.55" filter="blur(4px)" />
+      {/* ── 2. 3D Drop Shadow for Shield & Wings ── */}
+      <path
+        d="M 60 12 L 86 16 L 108 36 L 108 72 C 108 92 86 108 60 114 C 34 108 12 92 12 72 L 12 36 L 34 16 Z"
+        fill="#000000"
+        opacity="0.55"
+        filter="blur(5px)"
+      />
 
-      {/* Majestic Outstretched Gilded Angel Wings (Flanking Shield) */}
+      {/* ── 3. Sweeping Multi-Layered Majestic Golden Angel Wings ── */}
       <g>
-        {/* Left Wing Feathers */}
-        <path d="M 22 40 C 4 36 2 56 12 72 C 16 66 18 52 24 46 Z" fill={`url(#l5-gold-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
-        <path d="M 20 48 C 6 48 4 64 16 78 C 18 72 20 62 24 54 Z" fill={`url(#l5-gold-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
-        {/* Right Wing Feathers */}
-        <path d="M 98 40 C 116 36 118 56 108 72 C 104 66 102 52 96 46 Z" fill={`url(#l5-gold-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
-        <path d="M 100 48 C 114 48 116 64 104 78 C 102 72 100 62 96 54 Z" fill={`url(#l5-gold-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
+        {/* Left Wing - 4 Sculpted Tiered Feathers */}
+        <path d="M 30 26 C 6 18 0 42 10 66 C 16 58 20 42 30 32 Z" fill={`url(#l5-wing-bevel-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
+        <path d="M 26 34 C 4 32 0 54 12 76 C 18 68 22 52 28 40 Z" fill={`url(#l5-gold-${id})`} stroke="#FDE68A" strokeWidth="0.8" />
+        <path d="M 24 44 C 6 48 4 68 18 84 C 22 76 24 62 26 50 Z" fill={`url(#l5-wing-bevel-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
+        <path d="M 22 56 C 10 66 8 80 24 90 C 26 82 26 72 24 62 Z" fill={`url(#l5-gold-${id})`} stroke="#D97706" strokeWidth="0.6" />
+
+        {/* Right Wing - Symmetrical 4 Feathers */}
+        <path d="M 90 26 C 114 18 120 42 110 66 C 104 58 100 42 90 32 Z" fill={`url(#l5-wing-bevel-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
+        <path d="M 94 34 C 116 32 120 54 108 76 C 102 68 98 52 92 40 Z" fill={`url(#l5-gold-${id})`} stroke="#FDE68A" strokeWidth="0.8" />
+        <path d="M 96 44 C 114 48 116 68 102 84 C 98 76 96 62 94 50 Z" fill={`url(#l5-wing-bevel-${id})`} stroke="#FFFBEB" strokeWidth="0.8" />
+        <path d="M 98 56 C 110 66 112 80 96 90 C 94 82 94 72 96 62 Z" fill={`url(#l5-gold-${id})`} stroke="#D97706" strokeWidth="0.6" />
       </g>
 
-      {/* Outer 24K Gold Beveled Chamfer Frame */}
-      <polygon points="42,10 78,10 102,30 102,86 78,108 42,108 18,86 18,30"
-        fill={`url(#l5-gold-${id})`} stroke="#FFFFFF" strokeWidth="1.8" />
+      {/* ── 4. Outer 24K Gold Beveled Champion Shield ── */}
+      <path
+        d="M 60 10 L 86 14 L 104 32 L 104 68 C 104 88 84 104 60 110 C 36 104 16 88 16 68 L 16 32 L 34 14 Z"
+        fill={`url(#l5-gold-${id})`}
+        stroke="#FFFFFF"
+        strokeWidth="1.8"
+      />
 
-      {/* Top Mirror Chamfer Reflection */}
-      <polygon points="42,10 78,10 75,14 45,14" fill="#FFFFFF" opacity="0.85" />
+      {/* Top Polished Chamfer Reflection */}
+      <path d="M 34 14 L 60 10 L 86 14 L 82 18 L 60 14 L 38 18 Z" fill="#FFFFFF" opacity="0.9" />
 
-      {/* Deep Obsidian Core Plate */}
-      <polygon points="44,14 76,14 97,32 97,84 76,104 44,104 23,84 23,32"
-        fill={`url(#l5-obsidian-${id})`} stroke="#78350F" strokeWidth="1.2" />
+      {/* Deep Obsidian Core Shield Face */}
+      <path
+        d="M 60 15 L 82 19 L 98 35 L 98 66 C 98 84 80 98 60 104 C 40 98 22 84 22 66 L 22 35 L 38 19 Z"
+        fill={`url(#l5-obsidian-${id})`}
+        stroke="#78350F"
+        strokeWidth="1.2"
+      />
 
-      {/* Gilded Inner Bevel Trim */}
-      <polygon points="47,18 73,18 92,35 92,81 73,100 47,100 28,81 28,35"
-        stroke="#FDE68A" strokeWidth="1.2" fill="none" opacity="0.8" strokeDasharray="5 2.5" />
+      {/* Gilded Inner Filigree Border */}
+      <path
+        d="M 60 19 L 79 23 L 93 37 L 93 64 C 93 79 78 92 60 97 C 42 92 27 79 27 64 L 27 37 L 41 23 Z"
+        fill="none"
+        stroke="#FDE68A"
+        strokeWidth="1"
+        strokeDasharray="4 2"
+        opacity="0.85"
+      />
 
-      {/* Grand Celestial Brilliant Diamond Gempiece */}
-      <g>
-        {/* Diamond Outer Silhouette */}
-        <polygon points="60,40 78,54 60,78 42,54"
-          fill={`url(#l5-diamond-core-${id})`} stroke="#FFFFFF" strokeWidth="1.6" />
-        {/* Diamond Crown Table Facet */}
-        <polygon points="50,46 70,46 78,54 60,54 42,54" fill="#FFFFFF" opacity="0.9" />
-        <polygon points="54,46 66,46 60,54" fill="#E0F2FE" />
-        {/* Pavilion Facets */}
-        <polygon points="42,54 60,54 60,78" fill="#38BDF8" opacity="0.85" />
-        <polygon points="78,54 60,54 60,78" fill="#0284C7" opacity="0.95" />
-        {/* Diamond Light Reflection Sparkle */}
-        <circle cx="58" cy="49" r="1.8" fill="#FFFFFF" />
-        <path d="M 60 36 L 60 82 M 38 54 L 82 54" stroke="#FFFFFF" strokeWidth="1" opacity="0.75" />
+      {/* ── 5. Magnificent Large Faceted Brilliant Diamond ── */}
+      <g filter={`drop-shadow(0 4px 10px rgba(14, 165, 233, 0.6))`}>
+        {/* Diamond Outer Table & Girdle Base */}
+        <polygon
+          points="60,26 84,44 60,78 36,44"
+          fill={`url(#l5-dia-pavilion-${id})`}
+          stroke="#FFFFFF"
+          strokeWidth="1.6"
+        />
+
+        {/* Upper Table Facet (Flat Brilliant Top) */}
+        <polygon
+          points="46,34 74,34 84,44 60,44 36,44"
+          fill={`url(#l5-dia-table-${id})`}
+        />
+        <polygon
+          points="50,34 70,34 60,44"
+          fill="#FFFFFF"
+          opacity="0.95"
+        />
+
+        {/* Left Kite / Crown Facet */}
+        <polygon
+          points="36,44 46,34 50,34 60,44"
+          fill={`url(#l5-dia-facet-left-${id})`}
+        />
+
+        {/* Right Kite / Crown Facet */}
+        <polygon
+          points="84,44 74,34 70,34 60,44"
+          fill={`url(#l5-dia-facet-right-${id})`}
+        />
+
+        {/* Lower Left Pavilion Facet */}
+        <polygon
+          points="36,44 60,44 60,78"
+          fill={`url(#l5-dia-facet-left-${id})`}
+          opacity="0.9"
+        />
+
+        {/* Lower Right Pavilion Facet */}
+        <polygon
+          points="84,44 60,44 60,78"
+          fill={`url(#l5-dia-facet-right-${id})`}
+          opacity="0.95"
+        />
+
+        {/* Central Vertical Crystal Spine */}
+        <line x1="60" y1="26" x2="60" y2="78" stroke="#FFFFFF" strokeWidth="1.2" opacity="0.9" />
+
+        {/* Brilliant Light Refraction Glints */}
+        <circle cx="52" cy="38" r="2" fill="#FFFFFF" />
+        <circle cx="68" cy="46" r="1.4" fill="#FFFFFF" />
+
+        {/* Sparkling 8-Point Diamond Flare */}
+        <g transform="translate(48, 36)">
+          <line x1="-8" y1="0" x2="8" y2="0" stroke="#FFFFFF" strokeWidth="1.4" />
+          <line x1="0" y1="-8" x2="0" y2="8" stroke="#FFFFFF" strokeWidth="1.4" />
+          <line x1="-4" y1="-4" x2="4" y2="4" stroke="#E0F2FE" strokeWidth="1" />
+          <line x1="-4" y1="4" x2="4" y2="-4" stroke="#E0F2FE" strokeWidth="1" />
+          <circle cx="0" cy="0" r="1.8" fill="#FFFFFF" />
+        </g>
       </g>
 
-      {/* 24K Corner Precision Rivets */}
-      <circle cx="43" cy="13" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
-      <circle cx="77" cy="13" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
-      <circle cx="98" cy="31" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
-      <circle cx="22" cy="31" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
-      <circle cx="98" cy="85" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
-      <circle cx="22" cy="85" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
+      {/* ── 6. Sculpted 24K Gold Dais Ribbon at Base with 3 Stars ── */}
+      <g>
+        <path
+          d="M 36 94 L 46 106 L 60 102 L 74 106 L 84 94 L 60 90 Z"
+          fill={`url(#l5-gold-${id})`}
+          stroke="#FFFFFF"
+          strokeWidth="1"
+          filter="drop-shadow(0 2px 4px rgba(0,0,0,0.5))"
+        />
+        {/* 3 Gold Stars Embedded in the Dais */}
+        <polygon points="50,97 51.5,100 54.5,100.5 52,102.5 53,105.5 50,104 47,105.5 48,102.5 45.5,100.5 48.5,100" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.4" />
+        <polygon points="60,95 61.8,98.5 65.5,99 62.5,101.5 63.5,105 60,103.5 56.5,105 57.5,101.5 54.5,99 58.2,98.5" fill="#FFFFFF" stroke="#78350F" strokeWidth="0.4" />
+        <polygon points="70,97 71.5,100 74.5,100.5 72,102.5 73,105.5 70,104 67,105.5 68,102.5 65.5,100.5 68.5,100" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.4" />
+      </g>
+
+      {/* ── 7. Corner 24K Gold Hexagonal Rivets ── */}
+      <circle cx="35" cy="17" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
+      <circle cx="85" cy="17" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
+      <circle cx="100" cy="33" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
+      <circle cx="20" cy="33" r="2" fill="#FFFBEB" stroke="#78350F" strokeWidth="0.8" />
     </>
   );
 }

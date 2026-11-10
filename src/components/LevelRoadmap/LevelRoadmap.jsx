@@ -406,7 +406,7 @@ export const LevelRoadmap = () => {
                     <LevelBadge
                       level={item.level}
                       size="normal"
-                      showStars={true}
+                      showStars={false}
                       animated={isCurrent}
                     />
                   </div>

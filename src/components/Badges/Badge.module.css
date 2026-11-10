@@ -103,41 +103,48 @@
   100% { transform: translate(30%, 30%); }
 }
 
-/* Overlay Content (Sculpted Level Ribbon) */
+/* Overlay Content (Sculpted Level Trophy Pedestal at Base) */
 .plaqueContent {
   position: absolute;
-  inset: 0;
-  z-index: 3;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding-bottom: 8%;
   text-align: center;
   pointer-events: none;
+  white-space: nowrap;
 }
 
-.small .plaqueContent { padding-bottom: 4%; }
-.huge  .plaqueContent { padding-bottom: 10%; }
+.small .plaqueContent  { bottom: -3px; }
+.normal .plaqueContent { bottom: -5px; }
+.large  .plaqueContent { bottom: -7px; }
+.huge   .plaqueContent { bottom: -10px; }
 
-/* Sculpted Dark Obsidian Plate Banner */
+/* Sculpted 3D Metallic Championship Plaque Banner */
 .plaquePlateBanner {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  background: linear-gradient(180deg, rgba(20, 24, 38, 0.92) 0%, rgba(10, 12, 20, 0.98) 100%);
-  border: 1px solid var(--tier-primary, rgba(245, 158, 11, 0.7));
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.35);
-  border-radius: var(--radius-sm);
-  padding: 1px 7px;
-  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, #1C2237 0%, #0A0D18 100%);
+  border: 1.5px solid var(--tier-primary, #F59E0B);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.85), 
+    0 0 12px var(--tier-glow, rgba(245, 158, 11, 0.4)), 
+    inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.small  .plaquePlateBanner { padding: 1px 4px; gap: 2px; }
-.normal .plaquePlateBanner { padding: 2px 8px; gap: 4px; }
-.large  .plaquePlateBanner { padding: 3px 12px; gap: 6px; }
-.huge   .plaquePlateBanner { padding: 5px 16px; gap: 8px; }
+.small  .plaquePlateBanner { padding: 1px 6px; gap: 2px; border-width: 1px; }
+.normal .plaquePlateBanner { padding: 2px 9px; gap: 4px; border-width: 1.5px; }
+.large  .plaquePlateBanner { padding: 3px 14px; gap: 6px; border-width: 2px; }
+.huge   .plaquePlateBanner { padding: 5px 20px; gap: 8px; border-width: 2px; }
 
 .plaqueLevelLabel {
   font-family: var(--font-heading);
@@ -173,6 +180,7 @@
 .plaqueStars {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 3px;
   margin-top: 2px;
   color: #FBBF24;
@@ -191,18 +199,28 @@
 .huge   .plaqueStars   { font-size: 1rem;    gap: 6px; margin-top: 5px; }
 .huge   .centerStar    { font-size: 1.3rem; }
 
+/* Floating Crown Rarity Tag (Anchored Gracefully at Top) */
 .rarityBadgeTag {
   position: absolute;
-  bottom: -9px;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 0.55rem;
   font-weight: 900;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 2px 9px;
+  padding: 2px 10px;
   border-radius: var(--radius-full);
   border: 1px solid;
   backdrop-filter: blur(8px);
-  z-index: 4;
+  z-index: 6;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+.large .rarityBadgeTag {
+  top: -10px;
+  font-size: 0.64rem;
+  padding: 3px 12px;
 }
 
 /* ─── Laurel Crest Badge (Screen 5 Level Up) ──────────────── */

@@ -28,10 +28,6 @@ export const LevelHero = () => {
     <section className={styles.heroSection}>
       {/* Top Greeting Message */}
       <div className={styles.greetingHeader}>
-        <div className={styles.greetingBadge}>
-          <Sparkles size={13} className={styles.sparkleIcon} />
-          <span>VELOOP PROGRESSION HUB • SEASON 01</span>
-        </div>
         <h1 className={styles.heroTitle}>
           Good Morning, <span className={styles.goldText}>VELOOP!</span>
         </h1>
@@ -60,29 +56,19 @@ export const LevelHero = () => {
                 level={user.currentLevel} 
                 size="large" 
                 animated={true} 
-                showStars={true} 
+                showStars={false} 
                 showRarity={true} 
               />
-            </div>
-            <div 
-              className={styles.tierNameTag}
-              style={{
-                borderColor: `${currentTierMeta.primary}66`,
-                color: currentTierMeta.primary,
-                boxShadow: `0 2px 10px ${currentTierMeta.glow}`
-              }}
-            >
-              <span>{currentTierMeta.name.toUpperCase()}</span>
             </div>
           </div>
 
           {/* Right: Progression Metrics & High-Tech Energy Bar */}
           <div className={styles.metricsCol}>
             <div className={styles.metricsHeaderRow}>
-              <div className={styles.levelTagGroup}>
-                <span className={styles.currentLevelTag}>
-                  ★ TIER {user.currentLevel} • {currentTierMeta.themeName.toUpperCase()}
-                </span>
+              <div className={styles.levelTitleGroup}>
+                <h2 className={styles.levelHeading}>
+                  Level {user.currentLevel < 10 ? `0${user.currentLevel}` : user.currentLevel}: {currentTierMeta.name}
+                </h2>
                 <button 
                   className={styles.infoBtn}
                   onClick={() => setActiveInfoModal('level')}
@@ -94,12 +80,9 @@ export const LevelHero = () => {
               </div>
 
               {/* XP Target Callout */}
-              <div className={styles.targetCallout}>
-                <div className={styles.targetCalloutBadge}>
-                  <Zap size={13} className={styles.targetZapIcon} />
-                  <span className={styles.targetBigXP}>{xpRemaining.toLocaleString()} XP NEEDED</span>
-                </div>
-                <span className={styles.targetLevelSub}>to reach Level {formattedNextLevel} ({nextTierMeta.name})</span>
+              <div className={styles.targetCalloutBadge}>
+                <Zap size={13} className={styles.targetZapIcon} />
+                <span><strong>{xpRemaining.toLocaleString()} XP</strong> to Level {formattedNextLevel}</span>
               </div>
             </div>
 
@@ -136,9 +119,7 @@ export const LevelHero = () => {
                 <span className={styles.xpFractionText}>
                   <strong>{currentXP.toLocaleString()}</strong> / {totalRequiredXP.toLocaleString()} XP
                 </span>
-                <span className={styles.percentageText}>
-                  <span className={styles.percentBadge}>{progressPercentage}% Complete</span>
-                </span>
+                <span className={styles.percentBadge}>{progressPercentage}% Complete</span>
               </div>
             </div>
 
@@ -146,12 +127,12 @@ export const LevelHero = () => {
             <div className={styles.quickEarnRow}>
               <div className={styles.perksBadgeGroup}>
                 <div className={styles.nextRewardPreview}>
-                  <Gift size={14} className={styles.giftIcon} />
+                  <Gift size={13} className={styles.giftIcon} />
                   <span>Next Vault: <strong>+500 VEs &amp; +25 Gems</strong></span>
                 </div>
                 <div className={styles.streakBadge}>
-                  <Flame size={14} className={styles.streakIcon} />
-                  <span>7-Day Streak Active (1.5x Multiplier)</span>
+                  <Flame size={13} className={styles.streakIcon} />
+                  <span>7-Day Streak Active</span>
                 </div>
               </div>
 
